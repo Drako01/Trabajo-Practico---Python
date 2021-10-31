@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 print("Hola mundo")
 print(2)
 
@@ -9,7 +9,7 @@ print("Hola a Todos")
 
 print(12112)
 
-=======
+
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
@@ -86,4 +86,4 @@ etiqueta.pack()
 """DEFINIENDO BOTONES"""
 ventana.mainloop()
 # esto mantiene la ventana corriendo y registra todo lo que le pasa
->>>>>>> 66538f46a5dfd64b2adccf8d2656d557bb70a687
+
