@@ -11,5 +11,5 @@ print("HOla juan carlo")
 from tkinter import *
 verduleria=["manzana","banana","naranja","tomate","papa","batata","lechuga"]
 print(verduleria[2])
-Label(text=(verduleria[2]))pack()
+Label(text=verduleria[2]).pack()
 mainloop()
