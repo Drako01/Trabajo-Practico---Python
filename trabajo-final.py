@@ -9,6 +9,10 @@ print("HOla juan carlo")
 
 
 from tkinter import *
+ventana = Tk()
+ventana.title("1.Ejercicio")
+ventana.geometry("50x50")
+
 verduleria=["manzana","banana","naranja","tomate","papa","batata","lechuga"]
 
 Label(text=verduleria[2]).pack()
