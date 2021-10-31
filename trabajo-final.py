@@ -17,3 +17,5 @@ lista = ["NARANJA","MANZANA","BANANA","MANDARINA","PERA","MELON","PAPAYA"]
 ventana = (Label(text = lista[2])).pack()
 
 mainloop()
+
+#holalaaaaaaa
