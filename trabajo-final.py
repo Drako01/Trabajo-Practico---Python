@@ -22,12 +22,11 @@ mainloop()
 #holalaaaaaaa
 
 from tkinter import *
-
-datos={"identificador":"val1","nombre":"juan","apellido":"labajian","telefono":"123456"}
-
 ventana = Tk()
 ventana.title("2.Ejercicio")
 ventana.geometry("400x50")
+
+datos={"identificador":"val1","nombre":"juan","apellido":"labajian","telefono":"123456"}
 
 ventana1=(Label(text="los elementos del diccionario son: "+(datos)+" y las claves son: "+(datos.keys))).pack()
 
