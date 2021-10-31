@@ -7,14 +7,15 @@ print("dejen de joder y entren por la pagina no hagamos tanto lio por favor se l
 print("HOla juan carlo")
 
 
-
+#lista
 from tkinter import*
 ventana = Tk()
-ventana.title("1.Ejercicio")
-ventana.geometry("500x100")
+ventana.title("2.Ejercicio")
+ventana.geometry("400x50")
 
-lista = ["NARANJA","MANZANA","BANANA","MANDARINA","PERA","MELON","PAPAYA"]
-ventana = (Label(text = lista[2])).pack()
+lista1 = ["pera" ,"manzana"]
+lista2 = [ "Al mediodia comi una " , " y en la facultad una " ]
+ventana1 = (Label(text= lista2[0] + lista1[0] + lista2[1] + lista1[1])).pack()
 
 mainloop()
 
