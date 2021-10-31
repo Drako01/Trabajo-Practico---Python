@@ -8,12 +8,12 @@ print("HOla juan carlo")
 
 
 
-from tkinter import *
+from tkinter import*
 ventana = Tk()
 ventana.title("1.Ejercicio")
 ventana.geometry("50x50")
 
-verduleria=["manzana","banana","naranja","tomate","papa","batata","lechuga"]
+lista = ["NARANJA","MANZANA","BANANA","MANDARINA","PERA","MELON","PAPAYA"]
+ventana = (Label(text = lista[2])).pack()
 
-Label(text=verduleria[2]).pack()
 mainloop()
