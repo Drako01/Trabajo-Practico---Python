@@ -132,3 +132,25 @@ def prueba():
 
 """PROGRAMA PROPIAMENTE DICHO"""
 
+#https://github.com/Drako01/Trabajo-Practico---Python
+Created on Sun Oct 31 15:47:56 2021
+todo tkinter explicado paso a paso lo que voy entendiendo
+@author: maromans
+"""
+
+
+#IMPORTO TKINTER QUE VIENE POR DEFECTO
+import tkinter
+
+
+
+#DEFINICION DE FUNCIONES
+"""las funciones se colocan siempre despues del llamado de los modulos por lo que estuve viendo"""
+def prueba():
+    print("esta es la funcion prueba")
+
+
+
+"""PROGRAMA PROPIAMENTE DICHO"""
+
+#https://github.com/Drako01/Trabajo-Practico---Python
