@@ -11,7 +11,7 @@ print("HOla juan carlo")
 from tkinter import*
 ventana = Tk()
 ventana.title("1.Ejercicio")
-ventana.geometry("50x50")
+ventana.geometry("500x100")
 
 lista = ["NARANJA","MANZANA","BANANA","MANDARINA","PERA","MELON","PAPAYA"]
 ventana = (Label(text = lista[2])).pack()
