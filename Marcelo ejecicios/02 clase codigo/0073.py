@@ -1,34 +1,3 @@
-#ejercicio 007
-#ejercicio 1
-
-"""TRABAJOS A PRESENTAR EN EL FORO"""
-"""Ejercicio 1 
-
-Cree  una  lista de frutas  de  7 elementos,  
-y  realice  un  programa que  muestre  el  tercer 
-elemento de la lista en pantalla
-"""
-lista=["cero","uno","dos","tres","cuatro","cinco","seis","siete"]
-print (lista[3])
-
-
-#ejercicio 2
-
-"""
-Ejercicio 2 
-Para concatenar texto se utiliza el signo + 
-Cree una lista de frutas de 2 elementos, y realice un programa con tkinter que muestre 
-una oración conteniendo los 
-formar una oración con sentido.  
-"""
-
-lista=["casa", "alpina"]
-concatenar=(lista[0]+" para clima cordillerano "+lista[1])
-print(lista)
-print(concatenar)
-
-
-
 #ejercicio 3
 """
 Ejercicio 3
