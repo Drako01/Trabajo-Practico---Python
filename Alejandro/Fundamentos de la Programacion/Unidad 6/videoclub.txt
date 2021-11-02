@@ -1,0 +1,176 @@
+programaVideoClub
+inicio
+	//10 peliculas maximo, con sus datos: nombre, director, disponible (si/no)
+	//10 filas y 3 columnas
+	var string peliculas[10][3]
+	var integer cantidadPeliculas=0
+
+	//************************************************************************************************
+
+	funcion principal()
+
+		var integer opcion=0
+		mostrar: "Menu"
+		mostrar: "----"
+		mostrar: "1. Alta"
+		mostrar: "2. Listar todas"
+		mostrar: "3. Buscar pelicula"
+		mostrar: "4. Alquilar"
+		mostrar: "5. Devolver"
+		mostrar: "Ingrese opcion"
+		ingresar: opcion
+
+	       //verifico que se haya ingresado un número entre 1 y 5
+	       si opcion>0 y opcion<6 entonces
+		       en caso de opcion
+			       caso = 1
+					      si altaPelicula()=verdadero entonces
+							      mostrar: "Pelicula creada OK"
+					      sino
+							      mostrar: "No se pueden ingresar mas peliculas"
+					      fin si
+			       fin caso
+			       caso = 2
+					      listarPeliculas()
+			       fin caso
+			       caso = 3
+					      //abajo llamo a una funcion y le mando como parámetro lo
+					      //que devuelve la funcion "ingresarPelicula()"
+					      buscarPelicula(ingresarPelicula())
+			       fin caso
+			       caso = 4
+					      alquilarPelicula(ingresarPelicula())
+			       fin caso
+			       caso = 5
+					      devolverPelicula(ingresarPelicula())
+			       fin caso
+		       fin en caso de
+	       fin si
+
+	fin funcion
+
+
+	funcion listarPeliculas()
+	       var integer i=1
+	       //recorro la matriz usando una variable auxiliar "i", mientras i sea menor o igual a la
+	       //cantidad de peliculas que hay en la matriz
+	       mientras i <= cantidadPeliculas
+			       mostrar: "Nombre: " + peliculas[i][1] + " - Director: " + peliculas[i][2] + " – Disponible?: " + peliculas[i][3]
+			       i = i + 1
+	       fin mientras
+
+	fin funcion
+
+
+	 //esta funcion recibe como parametro el nombre de la pelicula que quiero buscar
+	funcion integer buscarPelicula(String peliculaParaBuscar)
+	       var integer i=1
+	       var boolean salgo=falso
+	       var integer posicion=0
+ 
+	       //recorro la matriz usando una variable auxiliar "i", mientras i sea menor o igual a la
+	       //cantidad de peliculas que hay en la matriz y se cumpla la segunda condicion de 
+	      //salida. A la primera de las dos que sea falsa, se interrumpe el ciclo
+
+	       mientras i <= cantidadPeliculas Y salgo=falso
+
+			//comparo el nombre a buscar que recibe la funcion contra el nombre de la posicion actual de la 
+			//matriz si coincide, se guarda la posicion de la matriz (fila) en la que se encuentra el nombre y lo 
+			//devuelvela funcion. Tambien sefuerza la salida del ciclo "mientras" haciendo que no se cumpla
+			// la segunda condicion
+
+			si peliculaParaBuscar = peliculas[i][1] entonces
+				salgo=verdadero
+				posicion=i
+			fin si
+			i = i + 1
+	       fin mientras 
+	       retornar posicion
+	 fin funcion
+
+
+	funcion boolean altaPelicula()
+
+	       //compruebo que la matriz no esté llena
+	       si cantidadPeliculas = 10 entonces
+			       retornar: falso
+	       fin si
+
+	       //incremento la cantidad de peliculas que hay en la matriz
+	       cantidadPeliculas = cantidadPeliculas + 1
+
+	       mostrar: "Ingrese nombre "
+	       ingresar: peliculas[cantidadPeliculas][1]
+
+	       mostrar: "Ingrese director "
+	       ingresar: peliculas[cantidadPeliculas][2]
+
+	       peliculas[cantidadPeliculas][3] = "si"
+
+	       retornar: verdadero
+
+	fin funcion
+
+
+	 //esta funcion la uso para evitar repetir código en los casos 3, 4 y 5
+	funcion string ingresarPelicula()
+	       var string nombrePelicula=""
+
+	       mostrar: "Ingrese nombre pelicula "
+	       ingresa: nombrePelicula 
+
+	       retornar: nombrePelicula
+	fin funcion
+
+
+	funcion alquilarPelicula(String nombrePeliculaAAlquilar)
+
+	       var integer peliculaAAlquilar=0
+
+	       //busco la película a alquilar según el parámetro que recibe la función
+	       peliculaAAlquilar = buscarPelicula(nombrePeliculaAAlquilar)
+
+	       //a continuación se hacen las siguientes validaciones:
+	       //- si la función "buscarPelicula" devolvió "0" significa que la película no existe
+	       //- si la funcion "buscarPelicula" encontró una película, pero esta tiene la tercer 
+	       //columna un "no",significa que ya está alquilada ("no disponible")
+	       //- si no ocurre nada de lo anterior, cambiamos el valor de la tercer columna por "no" 
+		// y ya queda alquilada
+	       si peliculaAAlquilar = 0 entonces
+		       mostrar:"No se encontró la película buscada"
+	       sino
+		       si peliculas[peliculaAAlquilar][3] = "no" entonces
+			       mostrar:"La película ya se encuentra alquilada"
+		       sino
+			       peliculas[peliculaAAlquilar][3]="no"
+		       fin sin
+	       fin si
+
+	fin  funcion
+
+
+	funcion devolverPelicula(String nombrePeliculaADevolver)
+
+	       var integer peliculaADevolver=0
+
+	       //busco la película a alquilar según el parámetro que recibe la función
+	       peliculaADevolver = buscarPelicula(nombrePeliculaADevolver)
+
+	       //a continuación se hacen las siguientes validaciones:
+	       //- si la función "buscarPelicula" devolvió "0" significa que la película no existe
+	       //- si la funcion "buscarPelicula" encontró una película, pero esta tiene la tercer 
+	       //columna un "si",significa que ya fue devuelta ("si disponible")
+	       //- si no ocurre nada de lo anterior, cambiamos el valor de la tercer columna por "si" y 
+		// ya queda disponibles
+	       si peliculaADevolver = 0 entonces
+		       mostrar:"No se encontró la película buscada"
+	       sino
+		       si peliculas[peliculaADevolver][3] = "si" entonces
+			       mostrar:"La película ya se encuentra disponible"
+		       sino
+			       peliculas[peliculaADevolver][3]="si"
+		       fin sin
+	       fin si
+
+	fin funcion
+fin 
