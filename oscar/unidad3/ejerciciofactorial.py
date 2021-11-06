@@ -7,7 +7,7 @@ if num > 0:
     for i in range(x):
         fact *= x
         x -= 1
-    print("El factorial de ", num, "es ", fact, ".")
+    print(f"El factorial de {num} es {fact}.")
 else:
     num <= 0
     print("No es posible obtener factorial de un numero menor a 1")
