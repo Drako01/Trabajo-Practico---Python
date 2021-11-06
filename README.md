@@ -1,3 +1,16 @@
+<h1>Trabajo intermedio  y final (Obligatorios)</h1>
+Conforme transcurre la cursada se irá realizando un trabajo final para ir integrando los conceptos aprendidos en cada unidad. El trabajo pretende tener una continuidad desde la unidad 3 hasta la unidad 8.
+
+IMPORTANTE: Puede ser realizado a elección del alumno mediante el uso de Tkinter o usando sólo Python. 
+
+Nivel de exigencia: Alto
+
+Objetivos: Probar los conocimientos adquiridos y que el alumno comience a pasar de la teoría a la práctica.
+
+Participantes: El trabajo puede ser realizado de forma individual pero para afianzar el trabajo en equipo y la participación, se permite que los alumnos puedan conformar grupos de hasta 5 personas.! <br><br>
+
+
+
 
 <H1>Alcance de la aplicación. </H1>
 
