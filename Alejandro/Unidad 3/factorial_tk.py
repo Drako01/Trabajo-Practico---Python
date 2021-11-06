@@ -14,8 +14,7 @@ master.title("Factorial")
 master.resizable(False,False)
 
 
-encabezado = Label(master, text="Funcion Factorial", background="#E0FFDA", foreground="black", width=75)
-encabezado.grid(row=0, column=0, columnspan=2)
+
 
 def factorial(n):   
     return 1 if (n==1 or n==0) else n * factorial(n - 1);  
@@ -23,6 +22,9 @@ def factorial(n):
 def calculate():
     result=factorial(int(entryText.get()))
     info.config(text=result)
+    
+encabezado = Label(master, text="Funcion Factorial", background="#E0FFDA", foreground="black", width=75)
+encabezado.grid(row=0, column=0, columnspan=2)
 
 titulo = Label(master, text="Ingrese un Numero Entero Positivo").grid(row=2, column=0, sticky=W)
 ruta = Label(master, text="El Factorial del Numero Ingresado es").grid(row=4, column=0, sticky=W)
