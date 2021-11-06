@@ -26,4 +26,11 @@ Participantes: El trabajo puede ser realizado de forma individual pero para afia
       Realizar un alta de registro en la base de datos solicitando al usuario que ingrese los datos ya sea mediante consola si solo se utiliza Python o mediante campos del tipo Entry si se utiliza Tkinter.<br>
 
   Unidad 7 y 8: Implementación de regex para validación de uno de los datos tomados en la unidad 6, realización de abmc (crud en ingles) (alta, baja, modificación, consulta) 
+<br>
+<h1>Entrega parcial – Unidad 4!</h1>
+
+Esta entrega es a los fines que chequear el trabajo de cada alumno y poder brindar ayuda en el caso de que se note que el alumno o los alumnos no están participando. No es considerada con nota, será evaluada con:<br><br>
+10 si va todo bien<br>
+6 Si hay temas a modificar en cuyo caso se realizara una devolución.<br>
+0 Si no se ha presentado trabajo.!<br>
 
