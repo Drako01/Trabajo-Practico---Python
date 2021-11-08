@@ -5,7 +5,7 @@
 <body>
 <div align="center"><img src="https://crehana-blog.imgix.net/media/filer_public/e8/fb/e8fbdb68-fc40-4ae6-b939-19f9f9259d2c/que-es-python.jpg"></div>
 
-<h1>Trabajo intermedio  y final (Obligatorios)</h1>
+<h1 style="color:red;">Trabajo intermedio  y final (Obligatorios)</h1>
 <p>Conforme transcurre la cursada se irá realizando un trabajo final para ir integrando los conceptos aprendidos en cada unidad. El trabajo pretende tener una continuidad desde la unidad 3 hasta la unidad 8.
 
 IMPORTANTE: Puede ser realizado a elección del alumno mediante el uso de Tkinter o usando sólo Python. 
