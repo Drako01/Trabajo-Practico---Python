@@ -1,6 +1,6 @@
 <div align="center"><img src="https://crehana-blog.imgix.net/media/filer_public/e8/fb/e8fbdb68-fc40-4ae6-b939-19f9f9259d2c/que-es-python.jpg"></div>
 
-<h1 style="color:#0000ff">Trabajo intermedio  y final (Obligatorios)</h1>
+<h1 style="color:#0000ff";>Trabajo intermedio  y final (Obligatorios)</h1>
 Conforme transcurre la cursada se irá realizando un trabajo final para ir integrando los conceptos aprendidos en cada unidad. El trabajo pretende tener una continuidad desde la unidad 3 hasta la unidad 8.
 
 IMPORTANTE: Puede ser realizado a elección del alumno mediante el uso de Tkinter o usando sólo Python. 
@@ -14,7 +14,7 @@ Participantes: El trabajo puede ser realizado de forma individual pero para afia
 
 
 
-<H1>Alcance de la aplicación. </H1>
+<H1 style="color:#0000ff";>Alcance de la aplicación. </H1>
 
 <h3>Consta de la entrega de una app a la cual se le irán agregando:</h3>
 
@@ -29,7 +29,7 @@ Participantes: El trabajo puede ser realizado de forma individual pero para afia
 
   Unidad 7 y 8: Implementación de regex para validación de uno de los datos tomados en la unidad 6, realización de abmc (crud en ingles) (alta, baja, modificación, consulta) 
 <br>
-<h1>Entrega parcial – Unidad 4!</h1>
+<h1 style="color:#0000ff";>Entrega parcial – Unidad 4!</h1>
 
 Esta entrega es a los fines que chequear el trabajo de cada alumno y poder brindar ayuda en el caso de que se note que el alumno o los alumnos no están participando. No es considerada con nota, será evaluada con:<br><br>
 10 si va todo bien<br>
