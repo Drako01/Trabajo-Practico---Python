@@ -36,3 +36,4 @@ Esta entrega es a los fines que chequear el trabajo de cada alumno y poder brind
 6 Si hay temas a modificar en cuyo caso se realizara una devolución.<br>
 0 Si no se ha presentado trabajo.!<br>
 
+<img src="https://lidsol.org/courses/python/img/python.png">
