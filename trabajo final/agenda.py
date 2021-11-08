@@ -1,6 +1,7 @@
+#Importamos las Bibliotecas de tkinter
 from tkinter import *
 
-#Importamos las Bibliotecas de tkinter
+#Le asignamos valores para las dimensiones de la ventana
 master = Tk()
 master.geometry("400x200")
 master.title("Trabajo Final")
