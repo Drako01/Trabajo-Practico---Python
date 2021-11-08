@@ -34,7 +34,7 @@ Participantes: El trabajo puede ser realizado de forma individual pero para afia
 Esta entrega es a los fines que chequear el trabajo de cada alumno y poder brindar ayuda en el caso de que se note que el alumno o los alumnos no están participando. No es considerada con nota, será evaluada con:<br><br>
 10 si va todo bien<br>
 6 Si hay temas a modificar en cuyo caso se realizara una devolución.<br>
-0 Si no se ha presentado trabajo.!<br>
+0 Si no se ha presentado trabajo.!<br><br><br><br>
 <div align="center">
 <img src="https://lidsol.org/courses/python/img/python.png">
 </div>
