@@ -1,53 +1,43 @@
 from tkinter import *
 
+#Importamos las Bibliotecas de tkinter
 master = Tk()
-master.geometry("400x150")
+master.geometry("400x200")
 master.title("Trabajo Final")
 master.resizable(False, False)
 
-
+#Aca vamos a encontrarnos con el Encabezado de la Agenda
 encabezado = Label(master, text="Ingrese sus datos",
                    background="#E0FFDA", foreground="black", width=60)
 encabezado.grid(row=0, column=0, columnspan=2)
 
-nombre = Label(master, text="Nombre").grid(row=1, column=0, sticky=W)
+#En esta seccion estan los Label donde figura el Nombre de cada Campo
+nombre = Label(master, text="Nombre(s)").grid(row=1, column=0, sticky=W)
 apellido = Label(master, text="Apellido").grid(row=2, column=0, sticky=W)
 direccion = Label(master, text="Dirección").grid(row=3, column=0, sticky=W)
-telefono = Label(master, text="Telefono").grid(row=4, column=0, sticky=W)
+localidad = Label(master, text="Localidad").grid(row=4, column=0, sticky=W)
+telefono = Label(master, text="Telefono").grid(row=5, column=0, sticky=W)
 
-
+#En esta seccion encontramos los campos vacios correspondientes a cada Item a llenar
 entrada_nombre = Entry(master, width=30)
 entrada_nombre.grid(row=1, column=1)
 entrada_apellido = Entry(master, width=30)
 entrada_apellido.grid(row=2, column=1)
 entrada_direccion = Entry(master, width=30)
 entrada_direccion.grid(row=3, column=1)
+entrada_localidad = Entry(master, width=30)
+entrada_localidad.grid(row=4, column=1)
 entrada_telefono = Entry(master, width=30)
-entrada_telefono.grid(row=4, column=1)
+entrada_telefono.grid(row=5, column=1)
 
-
+#Definimos la Funcion callback para Agendar al Contacto
 def callback():
     print("Nuevo Contacto en la Agenda")
     print(" El Nombre es: ", entrada_nombre.get(), '\n', "El Apellido es: ",
-          entrada_apellido.get(), '\n', "La Direccion es: ", entrada_direccion.get(), '\n', "El Telefono es: ", entrada_telefono.get())
-
-
-def colorchange():
-    color = master.config(bg="#A3FF91")
-    entrada_nombre = Entry(master, width=30, bg="Green")
-    entrada_nombre.grid(row=1, column=1)
-    entrada_apellido = Entry(master, width=30, bg="Green")
-    entrada_apellido.grid(row=2, column=1)
-    entrada_direccion = Entry(master, width=30, bg="Green")
-    entrada_direccion.grid(row=3, column=1)
-    entrada_telefono = Entry(master, width=30, bg="Green")
-    entrada_telefono.grid(row=4, column=1)
-
-    return color
-
+          entrada_apellido.get(), '\n', "La Direccion es: ", entrada_direccion.get(),  '\n', "De la Localidad de: ", entrada_localidad.get(), '\n', "El Telefono es: ", entrada_telefono.get())
 
 alta = Button(master, text="Agendar", command=callback, padx=10)
 alta.grid(row=10, column=1)
 
-
 master.mainloop()
+#fin del Programa
