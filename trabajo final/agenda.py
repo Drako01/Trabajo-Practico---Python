@@ -24,9 +24,9 @@ email = Label(master, text="Correo Electronico").grid(row=6, column=0, sticky=W)
 dni = Label(master, text="D.N.I.").grid(row=7, column=0, sticky=W)
 
 # En esta seccion encontramos los campos vacios correspondientes a cada Item a llenar
-entrada_nombre = Entry(master, width=30)
+entrada_nombre = Entry(master, text="", width=30)
 entrada_nombre.grid(row=2, column=1)
-entrada_apellido = Entry(master, width=30)
+entrada_apellido = Entry(master, text="", width=30)
 entrada_apellido.grid(row=1, column=1)
 entrada_direccion = Entry(master, width=30)
 entrada_direccion.grid(row=3, column=1)
@@ -39,7 +39,8 @@ entrada_email.grid(row=6, column=1)
 entrada_dni = Entry(master, width=30)
 entrada_dni.grid(row=7, column=1)
 
-lista = []
+lista = {}
+lista = set()
 
 # Definimos la Funcion callback para Agendar al Contacto
 def callback():
@@ -51,21 +52,17 @@ def callback():
 
 
 def guardar():
+   
+    lista.add(entrada_apellido)
+    lista.add(nombre)
+    lista.add(direccion)
+    lista.add(localidad)
+    lista.add(telefono)
+    lista.add(email)
+    lista.add(dni)
     
-    lista.append(apellido)
-    lista.append(nombre)
-    lista.append(direccion)
-    lista.append(localidad)
-    lista.append(telefono)
-    lista.append(email)
-    lista.append(dni)
     print(lista)
- 
-    
-    
-
-    
-            
+           
 
 alta = Button(master, text="Agendar", command=callback, padx=10)
 alta.grid(row=10, column=1)
