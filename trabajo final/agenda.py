@@ -11,10 +11,12 @@ master.resizable(False, False)
 encabezado = Label(master, text="Ingrese sus datos",
                    background="#E0FFDA", foreground="black", width=60)
 encabezado.grid(row=0, column=0, columnspan=2)
+# En esta seccion definimos los nombre de variables globales
+agenda={}
 
 # En esta seccion estan los Label donde figura el Nombre de cada Campo
-nombre = Label(master, text="Nombre(s)").grid(row=1, column=0, sticky=W)
-apellido = Label(master, text="Apellido").grid(row=2, column=0, sticky=W)
+nombre = Label(master, text="Nombre(s)").grid(row=2, column=0, sticky=W)
+apellido = Label(master, text="Apellido").grid(row=1, column=0, sticky=W)
 direccion = Label(master, text="Dirección").grid(row=3, column=0, sticky=W)
 localidad = Label(master, text="Localidad").grid(row=4, column=0, sticky=W)
 telefono = Label(master, text="Telefono").grid(row=5, column=0, sticky=W)
@@ -23,9 +25,9 @@ dni = Label(master, text="D.N.I.").grid(row=7, column=0, sticky=W)
 
 # En esta seccion encontramos los campos vacios correspondientes a cada Item a llenar
 entrada_nombre = Entry(master, width=30)
-entrada_nombre.grid(row=1, column=1)
+entrada_nombre.grid(row=2, column=1)
 entrada_apellido = Entry(master, width=30)
-entrada_apellido.grid(row=2, column=1)
+entrada_apellido.grid(row=1, column=1)
 entrada_direccion = Entry(master, width=30)
 entrada_direccion.grid(row=3, column=1)
 entrada_localidad = Entry(master, width=30)
@@ -44,7 +46,14 @@ def callback():
           entrada_apellido.get(), '\n', "La Direccion es: ", entrada_direccion.get(),  '\n', "De la Localidad de: ", 
           entrada_localidad.get(), '\n', "El Telefono es: ", entrada_telefono.get(), '\n', "El Correo Electronico es: ", 
           entrada_email.get(), '\n', "El DNI es: ", entrada_dni.get())
-
+    agenda.Append(entrada_apellido.get,
+              entrada_nombre.get,
+              entrada_direccion.get,
+              entrada_localidad.get,
+              entrada_telefono.get,
+              entrada_email.get,
+              entrada_dni.get)
+            
 
 alta = Button(master, text="Agendar", command=callback, padx=10)
 alta.grid(row=10, column=1)
