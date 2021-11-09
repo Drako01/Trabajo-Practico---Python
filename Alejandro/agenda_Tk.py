@@ -2,13 +2,6 @@ from tkinter import *
 from tkinter import messagebox
 
 
-# #root = Tk()
-# root.title("Agenda")
-# root.geometry("700x500")
-# colorFondo = "#006"
-# colorLetra= "#FFF"
-# root.configure(background=colorFondo)
-
 lista = []
 
 def guardar():
@@ -83,19 +76,18 @@ def escribirContacto():
 root = Tk()
 nombre = StringVar() 
 app = StringVar() 
-#apm = StringVar() 
 correo = StringVar() 
 telefono = StringVar() 
 conteliminar = StringVar() 
-colorFondo = "#006" 
-colorLetra = "#FFF" 
+colorFondo = "#E7E7DE" 
+colorLetra = "#000000" 
 iniciarArchivo()
 cargar()
 consultar()
-root.title("Agenda con archivos") 
+root.title("Agenda de Contactos") 
 root.geometry("700x500") 
 root.configure(background = colorFondo) 
-etiquetaTitulo = Label(root, text="Agenda con Archivos", bg=colorFondo, fg=colorLetra)
+etiquetaTitulo = Label(root, text="Agenda de Contactos", bg=colorFondo, fg=colorLetra)
 etiquetaTitulo.place(x=270, y=10)
 
 
@@ -111,12 +103,6 @@ etiquetaApp.place(x=50, y=80)
 
 cajaApp = Entry(root, textvariable=app)
 cajaApp.place(x=150, y=80) 
-
-
-
-# etiquetaApm = Label(root, text="Apellido Materno", bg=colorFondo,fg=colorLetra)
-# etiquetaApm.place(x=50, y=110) 
-
 
 
 etiquetaT = Label(root, text="Teléfono", bg=colorFondo, fg=colorLetra)
