@@ -1,8 +1,6 @@
 # Importamos las Bibliotecas de tkinter
 from tkinter import *
 
-
-
 # Le asignamos valores para las dimensiones de la ventana
 master = Tk()
 master.geometry("400x250")
@@ -14,7 +12,6 @@ encabezado = Label(master, text="Ingrese sus datos",
                    background="#E0FFDA", foreground="black", width=60)
 encabezado.grid(row=0, column=0, columnspan=2)
 # En esta seccion definimos los nombre de variables globales
-
 
 # En esta seccion estan los Label donde figura el Nombre de cada Campo
 nombre = Label(master, text="Nombre(s)").grid(row=2, column=0, sticky=W)
