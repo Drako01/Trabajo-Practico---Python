@@ -3,7 +3,7 @@ from tkinter import *
 
 # Le asignamos valores para las dimensiones de la ventana
 master = Tk()
-master.geometry("400x200")
+master.geometry("600x600")
 master.title("Trabajo Final")
 master.resizable(False, False)
 
@@ -46,14 +46,10 @@ def callback():
           entrada_apellido.get(), '\n', "La Direccion es: ", entrada_direccion.get(),  '\n', "De la Localidad de: ", 
           entrada_localidad.get(), '\n', "El Telefono es: ", entrada_telefono.get(), '\n', "El Correo Electronico es: ", 
           entrada_email.get(), '\n', "El DNI es: ", entrada_dni.get())
-    agenda.Append(entrada_apellido.get,
-              entrada_nombre.get,
-              entrada_direccion.get,
-              entrada_localidad.get,
-              entrada_telefono.get,
-              entrada_email.get,
-              entrada_dni.get)
-            
+    
+    
+    
+          
 
 alta = Button(master, text="Agendar", command=callback, padx=10)
 alta.grid(row=10, column=1)
