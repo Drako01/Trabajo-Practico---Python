@@ -51,23 +51,23 @@ def callback():
           entrada_email.get(), '\n', "El DNI es: ", entrada_dni.get())
 
 
-def guardar():
+# def guardar():
    
-    lista.add(entrada_apellido)
-    lista.add(nombre)
-    lista.add(direccion)
-    lista.add(localidad)
-    lista.add(telefono)
-    lista.add(email)
-    lista.add(dni)
+#     lista.add(entrada_apellido)
+#     lista.add(nombre)
+#     lista.add(direccion)
+#     lista.add(localidad)
+#     lista.add(telefono)
+#     lista.add(email)
+#     lista.add(dni)
     
-    print(lista)
+#     print(lista)
            
 
 alta = Button(master, text="Agendar", command=callback, padx=10)
 alta.grid(row=10, column=1)
-alta = Button(master, text="Guardar", command=guardar, padx=10)
-alta.grid(row=12, column=1)
+# alta = Button(master, text="Guardar", command=guardar, padx=10)
+# alta.grid(row=12, column=1)
 
 master.mainloop()
 # fin del Programa
