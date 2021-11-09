@@ -1,8 +1,7 @@
 # Importamos las Bibliotecas de tkinter
 from tkinter import *
 
-lista = {}
-lista = set()
+
 
 # Le asignamos valores para las dimensiones de la ventana
 master = Tk()
@@ -15,7 +14,7 @@ encabezado = Label(master, text="Ingrese sus datos",
                    background="#E0FFDA", foreground="black", width=60)
 encabezado.grid(row=0, column=0, columnspan=2)
 # En esta seccion definimos los nombre de variables globales
-agenda={}
+
 
 # En esta seccion estan los Label donde figura el Nombre de cada Campo
 nombre = Label(master, text="Nombre(s)").grid(row=2, column=0, sticky=W)
@@ -49,12 +48,16 @@ def callback():
           entrada_localidad.get(), '\n', "El Telefono es: ", entrada_telefono.get(), '\n', "El Correo Electronico es: ", 
           entrada_email.get(), '\n', "El DNI es: ", entrada_dni.get())
 
-
+  
+    
 # Definimos los Botones de llamada
 alta = Button(master, text="Agendar", command=callback, padx=10)
 alta.grid(row=10, column=1)
-# alta = Button(master, text="Guardar", command=guardar, padx=10)
-# alta.grid(row=12, column=1)
 
+
+# alta = Button(master, text="Guardar", command=guardar, padx=10)
+# alta.grid(row=12, column=1)   
+    
+    
 master.mainloop()
 # fin del Programa
