@@ -1,13 +1,13 @@
 from tkinter import *
 from tkinter import ttk
 
-root = Tk()
-root.title("Tabla de datos")
-root.config(bd=20)
+master = Tk()
+master.title("Tabla de datos")
+master.config(bd=20)
 
 
 tabla = ttk.Treeview(
-    root, columns=("uno", "dos", "tres", "cuatro", "cinco", "seis", "siete")
+    master, columns=("uno", "dos", "tres", "cuatro", "cinco", "seis", "siete")
 )
 
 
@@ -31,4 +31,4 @@ tabla.heading("seis", text="Correo Electronico", anchor="w")
 tabla.heading("siete", text="D.N.I", anchor="w")
 
 tabla.pack()
-root.mainloop()
+master.mainloop()
