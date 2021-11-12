@@ -8,8 +8,8 @@ root.geometry("400x300")
 tabla = ttk.Treeview(root)
 
 
-tabla["columnas"] = ("cero", "uno", "dos", "tres", "cuatro", "cinco", "seis", "siete")
-tabla.column("cero", width=270, minwidth=270, stretch=None)
+tabla["columnas"] = ("uno", "dos", "tres", "cuatro", "cinco", "seis", "siete")
+tabla.column("#0", width=270, minwidth=270, stretch=None)
 tabla.column("uno", width=150, minwidth=150, stretch=None)
 tabla.column("dos", width=400, minwidth=200, stretch=None)
 tabla.column("tres", width=80, minwidth=50, stretch=None)
