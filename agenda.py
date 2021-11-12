@@ -25,12 +25,18 @@ encabezado.grid(row=0, column=0, columnspan=2, pady=10)
 agenda = {}
 
 # En esta seccion estan los Label donde figura el Nombre de cada Campo
-nombre = Label(master, text="Nombre(s)").grid(row=2, column=0, sticky=W, pady=3)
-apellido = Label(master, text="Apellido").grid(row=3, column=0, sticky=W, pady=3)
-direccion = Label(master, text="Dirección").grid(row=4, column=0, sticky=W, pady=3)
-localidad = Label(master, text="Localidad").grid(row=5, column=0, sticky=W, pady=3)
-telefono = Label(master, text="Telefono").grid(row=6, column=0, sticky=W, pady=3)
-email = Label(master, text="Correo Electronico").grid(row=7, column=0, sticky=W, pady=3)
+nombre = Label(master, text="Nombre(s)").grid(
+    row=2, column=0, sticky=W, pady=3)
+apellido = Label(master, text="Apellido").grid(
+    row=3, column=0, sticky=W, pady=3)
+direccion = Label(master, text="Dirección").grid(
+    row=4, column=0, sticky=W, pady=3)
+localidad = Label(master, text="Localidad").grid(
+    row=5, column=0, sticky=W, pady=3)
+telefono = Label(master, text="Telefono").grid(
+    row=6, column=0, sticky=W, pady=3)
+email = Label(master, text="Correo Electronico").grid(
+    row=7, column=0, sticky=W, pady=3)
 dni = Label(master, text="D.N.I.").grid(row=8, column=0, sticky=W, pady=3)
 
 # En esta seccion encontramos los campos vacios correspondientes a cada Item a llenar
@@ -50,6 +56,8 @@ entrada_dni = Entry(master, width=30, bd=3)
 entrada_dni.grid(row=8, column=1, pady=3)
 
 # Definimos la Funcion callback para Agendar al Contacto
+
+
 def callback():
     print("Nuevo Contacto en la Agenda")
     print(
