@@ -3,19 +3,23 @@
 agenda
 
 deficinicion de agenda:
-objetivo del proyecto:
-en que se diferencia a una agenda comun y silvestre 
+llave key logearse:
 
+objetivo del proyecto:
+
+en que se diferencia a una agenda comun y silvestre 
 porque usaria esta un publico objetivo
 segmentacion de los clientes
-
 generaria codigo qr para discado automatico
 generaria codigo qr para transferencia de datos a telefonia
+
 * contactos
 
 
-* cargar datos (tirarlos en un archivo de texto)
+
+* cargar datos (tirarlos en un archivo de base de datos SQL)
 apellido, nombre, email, telefono,dni, trabajo, direccion, localidad partido, sexo, fecha de naciminento
+
 
 * PROCESO DE VERIFICACION a prueba de boludos
 QUE PASA SI ES VACIO NO TOMO DATOS
@@ -35,10 +39,10 @@ QUE PASA SI ELMAIL NO TIENEN @
  
  funciones   
 * almacenarlos (ALMACENAMIENTO CON FECHA Y HORA ASI PODEMOS VER DESDE CUANDO ES CONTACTO)
-* actualizarlos
+* editarlos
 * buscarlos
-    ULTIMOS CONTACTOS INGRESADOS
-    POR FECHAS POR EJEMPLO EN EL ULTIMO MES. (NUEVOS CLIENTES)
+    ULTIMOS CONTACTOS INGRESADOS (10 ultimos)
+    POR FECHAS POR EJEMPLO EN EL ULTIMO MES. (NUEVOS CLIENTES) checkbox
     CONTACTOS CUYA CARACTERISTICA TELEFONICA SEA X
     CONTACTOS FEM MAS BIN TRIN ETC ETC
     CONTACTOS   POR APELLIDO 
@@ -52,7 +56,7 @@ QUE PASA SI ELMAIL NO TIENEN @
 
 FRUTILLAS DEL POSTRE:
 
- generaicon de codigo qr para discado automatico o transferencia a telefono celular
+ generacion de codigo qr para discado automatico o transferencia a telefono celular
  
  IMPORTACION Y EXPORTACION DE DATOS A OTRA AGENDA O TIPO DE AGENDAS
  y lo que se me ocurrio se acuerdan vsc (formato de transferencia de contactos entre telefonos
