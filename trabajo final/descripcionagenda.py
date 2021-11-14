@@ -4,8 +4,13 @@ agenda
 
 deficinicion de agenda:
 objetivo del proyecto:
-en que se diferencia a una agenda comun y silvestre porque usaria esta un publico objetivo
+en que se diferencia a una agenda comun y silvestre 
 
+porque usaria esta un publico objetivo
+segmentacion de los clientes
+
+generaria codigo qr para discado automatico
+generaria codigo qr para transferencia de datos a telefonia
 * contactos
 
 
@@ -45,7 +50,10 @@ QUE PASA SI ELMAIL NO TIENEN @
     y todos estos convinables tipo con checkbox
     y que por supuesto tire un listado tipo txt etc 
 
-FRUTILLAS DEL POSTRE
+FRUTILLAS DEL POSTRE:
+
+ generaicon de codigo qr para discado automatico o transferencia a telefono celular
+ 
  IMPORTACION Y EXPORTACION DE DATOS A OTRA AGENDA O TIPO DE AGENDAS
  y lo que se me ocurrio se acuerdan vsc (formato de transferencia de contactos entre telefonos
  por ahi podemos hacer algo para esa funcionalidad extra)
