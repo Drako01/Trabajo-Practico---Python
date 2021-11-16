@@ -1,32 +1,34 @@
 from tkinter import *
 from tkinter import ttk
 
-root = Tk()
-root.title("Tabla de datos")
-root.geometry("400x300")
-
-tabla = ttk.Treeview(root)
+master = Tk()
+master.title("Tabla de datos")
+master.config(bd=20)
 
 
-tabla["columnas"] = ("uno", "dos", "tres", "cuatro", "cinco", "seis", "siete")
-tabla.column("#0", width=270, minwidth=270, stretch=None)
-tabla.column("uno", width=150, minwidth=150, stretch=None)
-tabla.column("dos", width=400, minwidth=200, stretch=None)
-tabla.column("tres", width=80, minwidth=50, stretch=None)
-tabla.column("cuatro", width=80, minwidth=50, stretch=None)
-tabla.column("cinco", width=80, minwidth=50, stretch=None)
-tabla.column("seis", width=80, minwidth=50, stretch=None)
-tabla.column("siete", width=80, minwidth=50, stretch=None)
+tabla = ttk.Treeview(
+    master, columns=("uno", "dos", "tres", "cuatro", "cinco", "seis", "siete")
+)
 
 
-tabla.heading("cero", text="ID", anchor="W")
-tabla.heading("una", text="Nombre", anchor="W")
-tabla.heading("dos", text="Apellido", anchor="W")
-tabla.heading("tres", text="Dirección", anchor="W")
-tabla.heading("cuatro", text="Localidad", anchor="W")
-tabla.heading("cinco", text="Telefono", anchor="W")
-tabla.heading("seis", text="Correo Electronico", anchor="W")
-tabla.heading("siete", text="D.N.I", anchor="W")
+tabla.column("#0", width=20, minwidth=40)
+tabla.column("uno", width=100, minwidth=70)
+tabla.column("dos", width=100, minwidth=70)
+tabla.column("tres", width=100, minwidth=50)
+tabla.column("cuatro", width=100, minwidth=50)
+tabla.column("cinco", width=100, minwidth=50)
+tabla.column("seis", width=120, minwidth=50)
+tabla.column("siete", width=100, minwidth=50)
+
+
+tabla.heading("#0", text="ID", anchor="w")
+tabla.heading("uno", text="Nombre", anchor="w")
+tabla.heading("dos", text="Apellido", anchor="w")
+tabla.heading("tres", text="Dirección", anchor="w")
+tabla.heading("cuatro", text="Localidad", anchor="w")
+tabla.heading("cinco", text="Telefono", anchor="w")
+tabla.heading("seis", text="Correo Electronico", anchor="w")
+tabla.heading("siete", text="D.N.I", anchor="w")
 
 tabla.pack()
-root.mainloop()
+master.mainloop()
