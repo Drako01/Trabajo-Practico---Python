@@ -31,4 +31,9 @@ tabla.heading("seis", text="Correo Electronico", anchor="w")
 tabla.heading("siete", text="D.N.I", anchor="w")
 
 tabla.pack()
+
+
+tabla.insert("end", "", text="photo1.png", values=("23-Jun-17 11:28", "PNG file"))
+
+
 master.mainloop()
