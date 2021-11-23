@@ -3,7 +3,10 @@ from tkinter import *
 from tkinter import ttk
 import shelve
 
-#Definimos Variables
+# Le asignamos valores para las dimensiones de la ventana
+master = Tk()
+
+# Definimos Variables
 
 nombre = StringVar()
 apellido = StringVar()
@@ -14,7 +17,6 @@ email = StringVar()
 dni = StringVar()
 
 
-
 # creacion de la base de datos
 entidad = shelve.open("Agenda_Contacto")
 
@@ -22,8 +24,6 @@ entidad = shelve.open("Agenda_Contacto")
 lista = {}
 lista = set()
 
-# Le asignamos valores para las dimensiones de la ventana
-master = Tk()
 
 master.title("Trabajo Final")
 master.resizable(False, False)
@@ -52,21 +52,25 @@ frame.config(bg="LightSteelBlue")
 
 
 # En esta seccion estan los Label donde figura el Nombre de cada Campo
-nombre = Label(frame, text="Nombre(s)").grid(row=2, column=0, sticky=W, pady=3, padx=6)
+nombre_ = Label(frame, text="Nombre(s)").grid(row=2, column=0, sticky=W, pady=3, padx=6)
 
-apellido = Label(frame, text="Apellido").grid(row=3, column=0, sticky=W, pady=3, padx=6)
+apellido_ = Label(frame, text="Apellido").grid(
+    row=3, column=0, sticky=W, pady=3, padx=6
+)
 
-direccion = Label(frame, text="Dirección").grid(
+direccion_ = Label(frame, text="Dirección").grid(
     row=4, column=0, sticky=W, pady=3, padx=6
 )
-localidad = Label(frame, text="Localidad").grid(
+localidad_ = Label(frame, text="Localidad").grid(
     row=5, column=0, sticky=W, pady=3, padx=6
 )
-telefono = Label(frame, text="Telefono").grid(row=6, column=0, sticky=W, pady=3, padx=6)
-email = Label(frame, text="Correo Electronico").grid(
+telefono_ = Label(frame, text="Telefono").grid(
+    row=6, column=0, sticky=W, pady=3, padx=6
+)
+email_ = Label(frame, text="Correo Electronico").grid(
     row=7, column=0, sticky=W, pady=3, padx=6
 )
-dni = Label(frame, text="D.N.I.").grid(row=8, column=0, sticky=W, pady=3, padx=6)
+dni_ = Label(frame, text="D.N.I.").grid(row=8, column=0, sticky=W, pady=3, padx=6)
 
 # En esta seccion encontramos los campos vacios correspondientes a cada Item a llenar
 entrada_nombre = Entry(frame, textvariable=nombre, width=30, bd=3)
@@ -84,15 +88,13 @@ entrada_localidad.grid(row=5, column=1, pady=3, sticky=W, padx=6)
 entrada_telefono = Entry(frame, textvariable=telefono, width=30, bd=3)
 entrada_telefono.grid(row=6, column=1, pady=3, sticky=W, padx=6)
 
-entrada_email = Entry(frame,textvariable=email,  width=30, bd=3)
+entrada_email = Entry(frame, textvariable=email, width=30, bd=3)
 entrada_email.grid(row=7, column=1, pady=3, sticky=W, padx=6)
 
 entrada_dni = Entry(frame, textvariable=dni, width=30, bd=3)
 entrada_dni.grid(row=8, column=1, pady=3, sticky=W, padx=6)
 
 # Definimos la Funcion callback para Agendar al Contacto
-
-
 
 
 # def callback():
@@ -121,18 +123,28 @@ entrada_dni.grid(row=8, column=1, pady=3, sticky=W, padx=6)
 #     )
 
 
-def callback(a, n, d, l, t, e, du):
+def callback(ID, a, n, d, l, t, e, du):
     # ID.set(
     #     +a.get
     # )
-    entidad[a.get()] = {"Apellido" : a.get(), "Nombre" : n.get(), "Direccion" : d.get(), "Localidad" : l.get(), "Telefono" : t.get(), "Email" : e.get(), "DNI" : du.get()}
-    
+    entidad[a.get()] = {
+        "Apellido": a.get(),
+        "Nombre": n.get(),
+        "Direccion": d.get(),
+        "Localidad": l.get(),
+        "Telefono": t.get(),
+        "Email": e.get(),
+        "DNI": du.get(),
+    }
+
 
 # Definimos los Botones de llamada
 alta = Button(
     master,
     text="Agendar",
-    command=lambda: callback(tabla, apellido, nombre, direccion, localidad, telefono, email, dni),
+    command=lambda: callback(
+        tabla, apellido, nombre, direccion, localidad, telefono, email, dni
+    ),
     padx=10,
     cursor="hand2",
     bd=4,
