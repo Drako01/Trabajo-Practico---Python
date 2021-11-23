@@ -138,6 +138,22 @@ def callback(ID, a, n, d, l, t, e, du):
     }
 
 
+def busqueda(x, du):
+    if du.get() in entidad:
+        aux = entidad[du.get()]
+        x.set(
+            "Ud. busco la pelicula : "
+            + str(aux.get("titulo"))
+            + ", del año "
+            + str(aux.get("año"))
+            + ", dirigida por "
+            + str(aux.get("director"))
+            + "."
+        )
+    else:
+        x.set("No se encuentra ese titulo")
+
+
 # Definimos los Botones de llamada
 alta = Button(
     master,
@@ -152,6 +168,18 @@ alta = Button(
     activeforeground="snow2",
 )
 alta.grid(row=10, column=0, pady=12, columnspan=2, sticky=N)
+
+buscar = Button(
+    master,
+    text="Consultar",
+    command=lambda: busqueda(tabla, dni),
+    padx=10,
+    cursor="hand2",
+    bd=4,
+    activebackground="Royal blue",
+    activeforeground="snow2",
+)
+alta.grid(row=10, column=1, pady=12, columnspan=3, sticky=N)
 # alta = Button(master, text="Guardar", command=guardar, padx=10)
 # alta.grid(row=12, column=1)
 
@@ -163,7 +191,7 @@ tabla = ttk.Treeview(
 )
 
 
-# tabla.column("#0", width=20, minwidth=40)
+tabla.column("#0", width=20, minwidth=40)
 tabla.column("uno", width=100, minwidth=70)
 tabla.column("dos", width=100, minwidth=70)
 tabla.column("tres", width=100, minwidth=50)
@@ -173,7 +201,7 @@ tabla.column("seis", width=120, minwidth=50)
 tabla.column("siete", width=100, minwidth=50)
 
 
-# tabla.heading("#0", text="ID", anchor="w")
+tabla.heading("#0", text="ID", anchor="w")
 tabla.heading("uno", text="Nombre", anchor="w")
 tabla.heading("dos", text="Apellido", anchor="w")
 tabla.heading("tres", text="Dirección", anchor="w")
