@@ -1,6 +1,23 @@
 # Importamos las Bibliotecas de tkinter
 from tkinter import *
 from tkinter import ttk
+import shelve
+
+#Definimos Variables
+
+nombre = StringVar()
+apellido = StringVar()
+direccion = StringVar()
+localidad = StringVar()
+telefono = StringVar()
+email = StringVar()
+dni = StringVar()
+
+
+
+# creacion de la base de datos
+entidad = shelve.open("Agenda_Contacto")
+
 
 lista = {}
 lista = set()
@@ -36,7 +53,9 @@ frame.config(bg="LightSteelBlue")
 
 # En esta seccion estan los Label donde figura el Nombre de cada Campo
 nombre = Label(frame, text="Nombre(s)").grid(row=2, column=0, sticky=W, pady=3, padx=6)
+
 apellido = Label(frame, text="Apellido").grid(row=3, column=0, sticky=W, pady=3, padx=6)
+
 direccion = Label(frame, text="Dirección").grid(
     row=4, column=0, sticky=W, pady=3, padx=6
 )
@@ -50,55 +69,70 @@ email = Label(frame, text="Correo Electronico").grid(
 dni = Label(frame, text="D.N.I.").grid(row=8, column=0, sticky=W, pady=3, padx=6)
 
 # En esta seccion encontramos los campos vacios correspondientes a cada Item a llenar
-entrada_nombre = Entry(frame, text="", width=30, bd=3)
+entrada_nombre = Entry(frame, textvariable=nombre, width=30, bd=3)
 entrada_nombre.grid(row=2, column=1, pady=3, sticky=E, padx=6)
-entrada_apellido = Entry(frame, text="", width=30, bd=3)
+
+entrada_apellido = Entry(frame, textvariable=apellido, width=30, bd=3)
 entrada_apellido.grid(row=3, column=1, pady=3, sticky=W, padx=6)
-entrada_direccion = Entry(frame, width=30, bd=3)
+
+entrada_direccion = Entry(frame, textvariable=direccion, width=30, bd=3)
 entrada_direccion.grid(row=4, column=1, pady=3, sticky=W, padx=6)
-entrada_localidad = Entry(frame, width=30, bd=3)
+
+entrada_localidad = Entry(frame, textvariable=localidad, width=30, bd=3)
 entrada_localidad.grid(row=5, column=1, pady=3, sticky=W, padx=6)
-entrada_telefono = Entry(frame, width=30, bd=3)
+
+entrada_telefono = Entry(frame, textvariable=telefono, width=30, bd=3)
 entrada_telefono.grid(row=6, column=1, pady=3, sticky=W, padx=6)
-entrada_email = Entry(frame, width=30, bd=3)
+
+entrada_email = Entry(frame,textvariable=email,  width=30, bd=3)
 entrada_email.grid(row=7, column=1, pady=3, sticky=W, padx=6)
-entrada_dni = Entry(frame, width=30, bd=3)
+
+entrada_dni = Entry(frame, textvariable=dni, width=30, bd=3)
 entrada_dni.grid(row=8, column=1, pady=3, sticky=W, padx=6)
 
 # Definimos la Funcion callback para Agendar al Contacto
 
 
-def callback():
-    print("Nuevo Contacto en la Agenda")
-    print(
-        " El Apellido es: ",
-        entrada_apellido.get(),
-        "\n",
-        "El Nombre es: ",
-        entrada_nombre.get(),
-        "\n",
-        "La Direccion es: ",
-        entrada_direccion.get(),
-        "\n",
-        "De la Localidad de: ",
-        entrada_localidad.get(),
-        "\n",
-        "El Telefono es: ",
-        entrada_telefono.get(),
-        "\n",
-        "El Correo Electronico es: ",
-        entrada_email.get(),
-        "\n",
-        "El DNI es: ",
-        entrada_dni.get(),
-    )
 
+
+# def callback():
+#     print("Nuevo Contacto en la Agenda")
+#     print(
+#         " El Apellido es: ",
+#         entrada_apellido.get(),
+#         "\n",
+#         "El Nombre es: ",
+#         entrada_nombre.get(),
+#         "\n",
+#         "La Direccion es: ",
+#         entrada_direccion.get(),
+#         "\n",
+#         "De la Localidad de: ",
+#         entrada_localidad.get(),
+#         "\n",
+#         "El Telefono es: ",
+#         entrada_telefono.get(),
+#         "\n",
+#         "El Correo Electronico es: ",
+#         entrada_email.get(),
+#         "\n",
+#         "El DNI es: ",
+#         entrada_dni.get(),
+#     )
+
+
+def callback(a, n, d, l, t, e, du):
+    # ID.set(
+    #     +a.get
+    # )
+    entidad[a.get()] = {"Apellido" : a.get(), "Nombre" : n.get(), "Direccion" : d.get(), "Localidad" : l.get(), "Telefono" : t.get(), "Email" : e.get(), "DNI" : du.get()}
+    
 
 # Definimos los Botones de llamada
 alta = Button(
     master,
     text="Agendar",
-    command=callback,
+    command=lambda: callback(tabla, apellido, nombre, direccion, localidad, telefono, email, dni),
     padx=10,
     cursor="hand2",
     bd=4,
