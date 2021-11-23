@@ -127,7 +127,7 @@ def callback(ID, a, n, d, l, t, e, du):
     # ID.set(
     #     +a.get
     # )
-    entidad[a.get()] = {
+    entidad[du.get()] = {
         "Apellido": a.get(),
         "Nombre": n.get(),
         "Direccion": d.get(),
@@ -163,7 +163,7 @@ tabla = ttk.Treeview(
 )
 
 
-tabla.column("#0", width=20, minwidth=40)
+# tabla.column("#0", width=20, minwidth=40)
 tabla.column("uno", width=100, minwidth=70)
 tabla.column("dos", width=100, minwidth=70)
 tabla.column("tres", width=100, minwidth=50)
@@ -173,7 +173,7 @@ tabla.column("seis", width=120, minwidth=50)
 tabla.column("siete", width=100, minwidth=50)
 
 
-tabla.heading("#0", text="ID", anchor="w")
+# tabla.heading("#0", text="ID", anchor="w")
 tabla.heading("uno", text="Nombre", anchor="w")
 tabla.heading("dos", text="Apellido", anchor="w")
 tabla.heading("tres", text="Dirección", anchor="w")
