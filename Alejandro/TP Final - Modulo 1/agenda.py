@@ -211,7 +211,7 @@ buscar.grid(row=10, column=0, pady=12, columnspan=2, sticky=N)
 # Definimos el Boton de Borrar Contacto
 borrar_ = Button(
     master,
-    text="Borrar",
+    text="   Borrar   ",
     command=lambda: borrar(ingreso, dni),
     padx=10,
     cursor="hand2",
