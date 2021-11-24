@@ -20,10 +20,8 @@ ingreso = StringVar()
 # creacion de la base de datos
 entidad = shelve.open("Agenda_Contacto")
 
-
 lista = {}
 lista = set()
-
 
 master.title("Trabajo Final")
 master.resizable(False, False)
