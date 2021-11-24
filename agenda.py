@@ -36,7 +36,7 @@ encabezado = Label(
     text="Ingrese sus datos",
     background="LightSteelBlue",
     foreground="black",
-    width=60,
+    width=80,
 )
 encabezado.grid(row=0, column=0, columnspan=2, pady=10)
 # En esta seccion definimos los nombre de variables globales
@@ -101,7 +101,7 @@ encabezado = Label(
     text="Ingrese el DNI para Buscar al Contacto",
     background="LightSteelBlue",
     foreground="black",
-    width=60,
+    width=80,
 )
 encabezado.grid(row=9, column=0, columnspan=2, pady=10)
 
@@ -227,7 +227,7 @@ borrar_.grid(row=10, column=1, pady=12, columnspan=3, sticky=N)
 # defino la tabla donde se veran los datos
 
 entrada3 = Entry(master, bd=4, textvariable=ingreso, state="disabled")
-entrada3.grid(row=11, column=0, pady=2, columnspan=2, ipadx=200)
+entrada3.grid(row=11, column=0, pady=4, columnspan=2, ipadx=300)
 
 master.mainloop()
 # fin del Programa
