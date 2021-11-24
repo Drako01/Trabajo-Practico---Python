@@ -23,7 +23,7 @@ entidad = shelve.open("Agenda_Contacto")
 lista = {}
 lista = set()
 
-master.title("Trabajo Final")
+master.title("Trabajo Final - Nivel Inicial - Diplomatura en Python")
 master.resizable(False, False)
 master.config(bd=20)
 
@@ -96,7 +96,7 @@ entrada_dni.grid(row=2, column=1, pady=3, sticky=W, padx=6)
 
 encabezado = Label(
     master,
-    text="Ingrese el DNI para Buscar al Contacto",
+    text="Ingrese el DNI para Buscar o Eliminar al Contacto",
     background="LightSteelBlue",
     foreground="black",
     width=80,
@@ -221,6 +221,15 @@ borrar_ = Button(
 )
 borrar_.grid(row=10, column=1, pady=12, columnspan=3, sticky=N)
 
+
+encabezado = Label(
+    master,
+    text="INTEGRANTES: Alejandro Di Stefano - Oscar Quintana - Nora Nardi - Marcelo Mansilla - Federico Iaccono - Juan Alberto Labajian",
+    background="LightSteelBlue",
+    foreground="black",
+    width=100,
+)
+encabezado.grid(row=14, column=0, columnspan=2, pady=10)
 
 # defino la tabla donde se veran los datos
 
