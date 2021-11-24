@@ -15,7 +15,7 @@ localidad = StringVar()
 telefono = StringVar()
 email = StringVar()
 dni = StringVar()
-
+ingreso = StringVar()
 
 # creacion de la base de datos
 entidad = shelve.open("Agenda_Contacto")
@@ -52,81 +52,78 @@ frame.config(bg="LightSteelBlue")
 
 
 # En esta seccion estan los Label donde figura el Nombre de cada Campo
-nombre_ = Label(frame, text="Nombre(s)").grid(row=2, column=0, sticky=W, pady=3, padx=6)
+nombre_ = Label(frame, text="Nombre(s)").grid(row=3, column=0, sticky=W, pady=3, padx=6)
 
 apellido_ = Label(frame, text="Apellido").grid(
-    row=3, column=0, sticky=W, pady=3, padx=6
+    row=4, column=0, sticky=W, pady=3, padx=6
 )
 
 direccion_ = Label(frame, text="Dirección").grid(
-    row=4, column=0, sticky=W, pady=3, padx=6
-)
-localidad_ = Label(frame, text="Localidad").grid(
     row=5, column=0, sticky=W, pady=3, padx=6
 )
-telefono_ = Label(frame, text="Telefono").grid(
+localidad_ = Label(frame, text="Localidad").grid(
     row=6, column=0, sticky=W, pady=3, padx=6
 )
-email_ = Label(frame, text="Correo Electronico").grid(
+telefono_ = Label(frame, text="Telefono").grid(
     row=7, column=0, sticky=W, pady=3, padx=6
 )
-dni_ = Label(frame, text="D.N.I.").grid(row=8, column=0, sticky=W, pady=3, padx=6)
+email_ = Label(frame, text="Correo Electronico").grid(
+    row=8, column=0, sticky=W, pady=3, padx=6
+)
+dni_ = Label(frame, text="D.N.I.").grid(row=2, column=0, sticky=W, pady=3, padx=6)
 
 # En esta seccion encontramos los campos vacios correspondientes a cada Item a llenar
 entrada_nombre = Entry(frame, textvariable=nombre, width=30, bd=3)
-entrada_nombre.grid(row=2, column=1, pady=3, sticky=E, padx=6)
+entrada_nombre.grid(row=3, column=1, pady=3, sticky=E, padx=6)
 
 entrada_apellido = Entry(frame, textvariable=apellido, width=30, bd=3)
-entrada_apellido.grid(row=3, column=1, pady=3, sticky=W, padx=6)
+entrada_apellido.grid(row=4, column=1, pady=3, sticky=W, padx=6)
 
 entrada_direccion = Entry(frame, textvariable=direccion, width=30, bd=3)
-entrada_direccion.grid(row=4, column=1, pady=3, sticky=W, padx=6)
+entrada_direccion.grid(row=5, column=1, pady=3, sticky=W, padx=6)
 
 entrada_localidad = Entry(frame, textvariable=localidad, width=30, bd=3)
-entrada_localidad.grid(row=5, column=1, pady=3, sticky=W, padx=6)
+entrada_localidad.grid(row=6, column=1, pady=3, sticky=W, padx=6)
 
 entrada_telefono = Entry(frame, textvariable=telefono, width=30, bd=3)
-entrada_telefono.grid(row=6, column=1, pady=3, sticky=W, padx=6)
+entrada_telefono.grid(row=7, column=1, pady=3, sticky=W, padx=6)
 
 entrada_email = Entry(frame, textvariable=email, width=30, bd=3)
-entrada_email.grid(row=7, column=1, pady=3, sticky=W, padx=6)
+entrada_email.grid(row=8, column=1, pady=3, sticky=W, padx=6)
 
 entrada_dni = Entry(frame, textvariable=dni, width=30, bd=3)
-entrada_dni.grid(row=8, column=1, pady=3, sticky=W, padx=6)
+entrada_dni.grid(row=2, column=1, pady=3, sticky=W, padx=6)
 
 # Definimos la Funcion callback para Agendar al Contacto
 
+encabezado = Label(
+    master,
+    text="Ingrese el DNI para Buscar al Contacto",
+    background="LightSteelBlue",
+    foreground="black",
+    width=60,
+)
+encabezado.grid(row=9, column=0, columnspan=2, pady=10)
 
-# def callback():
-#     print("Nuevo Contacto en la Agenda")
-#     print(
-#         " El Apellido es: ",
-#         entrada_apellido.get(),
-#         "\n",
-#         "El Nombre es: ",
-#         entrada_nombre.get(),
-#         "\n",
-#         "La Direccion es: ",
-#         entrada_direccion.get(),
-#         "\n",
-#         "De la Localidad de: ",
-#         entrada_localidad.get(),
-#         "\n",
-#         "El Telefono es: ",
-#         entrada_telefono.get(),
-#         "\n",
-#         "El Correo Electronico es: ",
-#         entrada_email.get(),
-#         "\n",
-#         "El DNI es: ",
-#         entrada_dni.get(),
-#     )
-
-
-def callback(ID, a, n, d, l, t, e, du):
-    # ID.set(
-    #     +a.get
-    # )
+def callback(x, a, n, d, l, t, e, du): 
+    
+    x.set(
+        "Ud. ingreso al Contacto : "
+        + str(a.get())
+        + ", "
+        + str(n.get())
+        + ", "
+        + str(d.get())
+        + ", "
+        + str(l.get())
+        + ", "
+        + str(t.get())
+        + ", "
+        + str(e.get())
+        + ", "
+        + str(du.get())
+        + "."
+    )
     entidad[du.get()] = {
         "Apellido": a.get(),
         "Nombre": n.get(),
@@ -142,75 +139,95 @@ def busqueda(x, du):
     if du.get() in entidad:
         aux = entidad[du.get()]
         x.set(
-            "Ud. busco la pelicula : "
-            + str(aux.get("titulo"))
-            + ", del año "
-            + str(aux.get("año"))
-            + ", dirigida por "
-            + str(aux.get("director"))
+            "Ud. busco al Contacto : "
+            + str(aux.get("Apellido"))
+            + ", "
+            + str(aux.get("Nombre"))
+            + ", "
+            + str(aux.get("Direccion"))
+            + ", "
+            + str(aux.get("Localidad"))
+            + ", "
+            + str(aux.get("Telefono"))
+            + ", "
+            + str(aux.get("Email"))
+            + ", "
+            + str(aux.get("DNI"))
             + "."
         )
     else:
-        x.set("No se encuentra ese titulo")
+        x.set("No se encuentra ese Contacto")
 
-
-# Definimos los Botones de llamada
+def borrar(x, du):
+    if du.get() in entidad:
+        aux = entidad[du.get()]
+        x.set(
+            "Ud. Eliminó al Contacto : "
+            + str(aux.get("Apellido"))
+            + ", "
+            + str(aux.get("Nombre"))
+            + ", "
+            + str(aux.get("Direccion"))
+            + ", "
+            + str(aux.get("Localidad"))
+            + ", "
+            + str(aux.get("Telefono"))
+            + ", "
+            + str(aux.get("Email"))
+            + ", "
+            + str(aux.get("DNI"))
+            + "."
+        )
+        entidad.pop(du.get())
+    else:
+        x.set("No se encuentra ese Contacto")
+        
+        
+# Definimos el Boton de Agendado
 alta = Button(
     master,
     text="Agendar",
     command=lambda: callback(
-        tabla, apellido, nombre, direccion, localidad, telefono, email, dni
-    ),
+        ingreso, apellido, nombre, direccion, localidad, telefono, email, dni),
     padx=10,
     cursor="hand2",
     bd=4,
     activebackground="Royal blue",
     activeforeground="snow2",
 )
-alta.grid(row=10, column=0, pady=12, columnspan=2, sticky=N)
+alta.grid(row=10, column=0, pady=12, columnspan=1, sticky=N)
 
+# Definimos el Boton de Consulta
 buscar = Button(
     master,
     text="Consultar",
-    command=lambda: busqueda(tabla, dni),
+    command=lambda: busqueda(ingreso, dni),
     padx=10,
     cursor="hand2",
     bd=4,
     activebackground="Royal blue",
     activeforeground="snow2",
 )
-alta.grid(row=10, column=1, pady=12, columnspan=3, sticky=N)
-# alta = Button(master, text="Guardar", command=guardar, padx=10)
-# alta.grid(row=12, column=1)
+buscar.grid(row=10, column=0, pady=12, columnspan=2, sticky=N)
+
+# Definimos el Boton de Borrar Contacto
+borrar_ = Button(
+    master,
+    text="Borrar",
+    command=lambda: borrar(ingreso, dni),
+    padx=10,
+    cursor="hand2",
+    bd=4,
+    activebackground="Royal blue",
+    activeforeground="snow2",
+)
+borrar_.grid(row=10, column=1, pady=12, columnspan=3, sticky=N)
+
 
 # defino la tabla donde se veran los datos
 
-
-tabla = ttk.Treeview(
-    master, columns=("uno", "dos", "tres", "cuatro", "cinco", "seis", "siete")
-)
-
-
-tabla.column("#0", width=20, minwidth=40)
-tabla.column("uno", width=100, minwidth=70)
-tabla.column("dos", width=100, minwidth=70)
-tabla.column("tres", width=100, minwidth=50)
-tabla.column("cuatro", width=100, minwidth=50)
-tabla.column("cinco", width=100, minwidth=50)
-tabla.column("seis", width=120, minwidth=50)
-tabla.column("siete", width=100, minwidth=50)
-
-
-tabla.heading("#0", text="ID", anchor="w")
-tabla.heading("uno", text="Nombre", anchor="w")
-tabla.heading("dos", text="Apellido", anchor="w")
-tabla.heading("tres", text="Dirección", anchor="w")
-tabla.heading("cuatro", text="Localidad", anchor="w")
-tabla.heading("cinco", text="Telefono", anchor="w")
-tabla.heading("seis", text="Correo Electronico", anchor="w")
-tabla.heading("siete", text="D.N.I", anchor="w")
-
-tabla.grid(row=11, column=0, pady=3, columnspan=2)
+entrada3 = Entry(master, bd=4, textvariable=ingreso, state="disabled")
+entrada3.grid(row=11, column=0, pady=2, columnspan=2, ipadx=200)
 
 master.mainloop()
 # fin del Programa
