@@ -224,7 +224,7 @@ borrar_.grid(row=10, column=1, pady=12, columnspan=3, sticky=N)
 
 encabezado = Label(
     master,
-    text="Alejandro Di Stefano - Oscar Quintana - Nora Nardi - Marcelo Mansilla - Federico Iaccono - Labajian Juan Alberto",
+    text="INTEGRANTES: Alejandro Di Stefano - Oscar Quintana - Nora Nardi - Marcelo Mansilla - Federico Iaccono - Juan Alberto Labajian",
     background="LightSteelBlue",
     foreground="black",
     width=100,
