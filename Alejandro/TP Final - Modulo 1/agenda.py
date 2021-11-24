@@ -31,7 +31,7 @@ master.config(bd=20)
 # Aca vamos a encontrarnos con el Encabezado de la Agenda
 encabezado = Label(
     master,
-    text="Ingrese sus datos",
+    text="Ingrese los datos del Nuevo Contacto",
     background="LightSteelBlue",
     foreground="black",
     width=80,
