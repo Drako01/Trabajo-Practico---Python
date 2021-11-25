@@ -2,6 +2,7 @@
 from tkinter import *
 from tkinter import ttk
 import shelve
+import mysql.connector
 
 # Le asignamos valores para las dimensiones de la ventana
 master = Tk()
@@ -18,7 +19,43 @@ dni = StringVar()
 ingreso = StringVar()
 
 # creacion de la base de datos
-entidad = shelve.open("Agenda_Contacto")
+# entidad = shelve.open("Agenda_Contacto")
+
+def Crear_Agenda():
+    mibase = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    passwd=""
+    )
+    micursor = mibase.cursor()
+
+    micursor.execute("CREATE DATABASE Agenda_Contacto")
+
+try:
+    Crear_Agenda()
+    print("Estamos Creando la BD")
+except:
+    print("Ya esta Creada la BD")
+
+# Creacion de la Tabla en la Base de Datos
+
+mibase = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  passwd="",
+  database="Agenda_Contacto"
+)
+micursor = mibase.cursor()
+
+micursor.execute("CREATE TABLE IF NOT EXISTS entidad( id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, DNI INT COLLATE utf8_spanish2_ci NOT NULL, Apellido varchar(128) COLLATE utf8_spanish2_ci NOT NULL, Nombre text COLLATE utf8_spanish2_ci NOT NULL, Direccion text COLLATE utf8_spanish2_ci NOT NULL , Localidad text COLLATE utf8_spanish2_ci NOT NULL, Telefono text COLLATE utf8_spanish2_ci NOT NULL, Email text COLLATE utf8_spanish2_ci NOT NULL)")
+
+
+
+
+
+
+
+
 
 lista = {}
 lista = set()
@@ -103,34 +140,53 @@ encabezado = Label(
 )
 encabezado.grid(row=9, column=0, columnspan=2, pady=10)
 
-def callback(x, a, n, d, l, t, e, du): 
-    
-    x.set(
-        "Ud. ingreso al Contacto : "
-        + str(a.get())
-        + ", "
-        + str(n.get())
-        + ", "
-        + str(d.get())
-        + ", "
-        + str(l.get())
-        + ", "
-        + str(t.get())
-        + ", "
-        + str(e.get())
-        + ", "
-        + str(du.get())
-        + "."
+def callback():        
+    mibase = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    passwd="",
+    database="Agenda_Contacto"
     )
-    entidad[du.get()] = {
-        "Apellido": a.get(),
-        "Nombre": n.get(),
-        "Direccion": d.get(),
-        "Localidad": l.get(),
-        "Telefono": t.get(),
-        "Email": e.get(),
-        "DNI": du.get(),
-    }
+    micursor = mibase.cursor()
+
+    sql = "INSERT INTO producto (DNI, Apellido, Nombre, Direccion, Localidad, Telefono, EMail) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    datos = ("DNI", "Apellido", "Nombre", "Direccion", "Localidad", "Telefono", "EMail")
+
+    micursor.execute(sql, datos)
+
+    mibase.commit()
+
+    print(micursor.rowcount, "Cantidad de registros agregados.")
+
+
+# def callback(x, a, n, d, l, t, e, du): 
+    
+#     x.set(
+#         "Ud. ingreso al Contacto : "
+#         + str(a.get())
+#         + ", "
+#         + str(n.get())
+#         + ", "
+#         + str(d.get())
+#         + ", "
+#         + str(l.get())
+#         + ", "
+#         + str(t.get())
+#         + ", "
+#         + str(e.get())
+#         + ", "
+#         + str(du.get())
+#         + "."
+#     )
+#     entidad[du.get()] = {
+#         "Apellido": a.get(),
+#         "Nombre": n.get(),
+#         "Direccion": d.get(),
+#         "Localidad": l.get(),
+#         "Telefono": t.get(),
+#         "Email": e.get(),
+#         "DNI": du.get(),
+#     }
 
 
 def busqueda(x, du):
