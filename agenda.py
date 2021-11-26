@@ -7,16 +7,58 @@ import mysql.connector
 # Le asignamos valores para las dimensiones de la ventana
 master = Tk()
 
+# Aca vamos a encontrarnos con el Encabezado de la Agenda
+encabezado = Label(
+    master,
+    text="Ingrese los datos del Nuevo Contacto",
+    background="LightSteelBlue",
+    foreground="black",
+    width=80,
+)
+encabezado.grid(row=0, column=0, columnspan=2, pady=10)
+
+encabezado = Label(
+    master,
+    text="Ingrese el DNI para Buscar o Eliminar al Contacto",
+    background="LightSteelBlue",
+    foreground="black",
+    width=80,
+)
+encabezado.grid(row=9, column=0, columnspan=2, pady=10)
+
+encabezado = Label(
+    master,
+    text="INTEGRANTES: Alejandro Di Stefano - Oscar Quintana - Nora Nardi - Marcelo Mansilla - Federico Iaccono - Juan Alberto Labajian",
+    background="LightSteelBlue",
+    foreground="black",
+    width=100,
+)
+encabezado.grid(row=14, column=0, columnspan=2, pady=10)
+
+master.title("Trabajo Final - Nivel Inicial - Diplomatura en Python")
+master.resizable(False, False)
+master.config(bd=20)
+
+# imagen opcional para acomodar los entry
+imagen = PhotoImage(file="agenda2.gif")
+Label(master, image=imagen).grid(row=2, column=1, sticky=E)
+
+frame = Frame(master)
+frame.grid(row=2, column=0)
+frame.config(bg="LightSteelBlue")
+
 # Definimos Variables
 
 nombre = StringVar()
 apellido = StringVar()
 direccion = StringVar()
 localidad = StringVar()
-telefono = StringVar()
+telefono = IntVar()
 email = StringVar()
-dni = StringVar()
+dni = IntVar()
 ingreso = StringVar()
+entidad = StringVar()
+
 
 # creacion de la base de datos
 # entidad = shelve.open("Agenda_Contacto")
@@ -47,98 +89,15 @@ mibase = mysql.connector.connect(
 )
 micursor = mibase.cursor()
 
-micursor.execute("CREATE TABLE IF NOT EXISTS entidad( id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, DNI INT COLLATE utf8_spanish2_ci NOT NULL, Apellido varchar(128) COLLATE utf8_spanish2_ci NOT NULL, Nombre text COLLATE utf8_spanish2_ci NOT NULL, Direccion text COLLATE utf8_spanish2_ci NOT NULL , Localidad text COLLATE utf8_spanish2_ci NOT NULL, Telefono text COLLATE utf8_spanish2_ci NOT NULL, Email text COLLATE utf8_spanish2_ci NOT NULL)")
+micursor.execute("CREATE TABLE IF NOT EXISTS entidad( ID int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, DNI INT(8) COLLATE utf8_spanish2_ci NOT NULL, Apellido VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL, Nombre VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL, Direccion VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL , Localidad VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL, Telefono INT(15) COLLATE utf8_spanish2_ci NOT NULL, Email VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL)")
 
 
-
-
-
-
-
-
-
-lista = {}
-lista = set()
-
-master.title("Trabajo Final - Nivel Inicial - Diplomatura en Python")
-master.resizable(False, False)
-master.config(bd=20)
-
-
-# Aca vamos a encontrarnos con el Encabezado de la Agenda
-encabezado = Label(
-    master,
-    text="Ingrese los datos del Nuevo Contacto",
-    background="LightSteelBlue",
-    foreground="black",
-    width=80,
-)
-encabezado.grid(row=0, column=0, columnspan=2, pady=10)
 # En esta seccion definimos los nombre de variables globales
-agenda = {}
+# lista = {}
+# lista = set()
+# agenda = {}
 
-# imagen opcional para acomodar los entry
-imagen = PhotoImage(file="agenda2.gif")
-Label(master, image=imagen).grid(row=2, column=1, sticky=E)
-
-frame = Frame(master)
-frame.grid(row=2, column=0)
-frame.config(bg="LightSteelBlue")
-
-
-# En esta seccion estan los Label donde figura el Nombre de cada Campo
-nombre_ = Label(frame, text="Nombre(s)").grid(row=3, column=0, sticky=W, pady=3, padx=6)
-
-apellido_ = Label(frame, text="Apellido").grid(
-    row=4, column=0, sticky=W, pady=3, padx=6
-)
-
-direccion_ = Label(frame, text="Dirección").grid(
-    row=5, column=0, sticky=W, pady=3, padx=6
-)
-localidad_ = Label(frame, text="Localidad").grid(
-    row=6, column=0, sticky=W, pady=3, padx=6
-)
-telefono_ = Label(frame, text="Telefono").grid(
-    row=7, column=0, sticky=W, pady=3, padx=6
-)
-email_ = Label(frame, text="Correo Electronico").grid(
-    row=8, column=0, sticky=W, pady=3, padx=6
-)
-dni_ = Label(frame, text="D.N.I.").grid(row=2, column=0, sticky=W, pady=3, padx=6)
-
-# En esta seccion encontramos los campos vacios correspondientes a cada Item a llenar
-entrada_nombre = Entry(frame, textvariable=nombre, width=30, bd=3)
-entrada_nombre.grid(row=3, column=1, pady=3, sticky=E, padx=6)
-
-entrada_apellido = Entry(frame, textvariable=apellido, width=30, bd=3)
-entrada_apellido.grid(row=4, column=1, pady=3, sticky=W, padx=6)
-
-entrada_direccion = Entry(frame, textvariable=direccion, width=30, bd=3)
-entrada_direccion.grid(row=5, column=1, pady=3, sticky=W, padx=6)
-
-entrada_localidad = Entry(frame, textvariable=localidad, width=30, bd=3)
-entrada_localidad.grid(row=6, column=1, pady=3, sticky=W, padx=6)
-
-entrada_telefono = Entry(frame, textvariable=telefono, width=30, bd=3)
-entrada_telefono.grid(row=7, column=1, pady=3, sticky=W, padx=6)
-
-entrada_email = Entry(frame, textvariable=email, width=30, bd=3)
-entrada_email.grid(row=8, column=1, pady=3, sticky=W, padx=6)
-
-entrada_dni = Entry(frame, textvariable=dni, width=30, bd=3)
-entrada_dni.grid(row=2, column=1, pady=3, sticky=W, padx=6)
-
-# Definimos la Funcion callback para Agendar al Contacto
-
-encabezado = Label(
-    master,
-    text="Ingrese el DNI para Buscar o Eliminar al Contacto",
-    background="LightSteelBlue",
-    foreground="black",
-    width=80,
-)
-encabezado.grid(row=9, column=0, columnspan=2, pady=10)
+# Definimos las Funciones para la Agendar de Contactos
 
 def callback():        
     mibase = mysql.connector.connect(
@@ -150,44 +109,13 @@ def callback():
     micursor = mibase.cursor()
 
     sql = "INSERT INTO entidad (DNI, Apellido, Nombre, Direccion, Localidad, Telefono, EMail) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-    datos = ("DNI", "Apellido", "Nombre", "Direccion", "Localidad", "Telefono", "EMail")
+    datos = (apellido, nombre, direccion, localidad, telefono, email, dni)
 
     micursor.execute(sql, datos)
 
     mibase.commit()
 
     print(micursor.rowcount, "Cantidad de registros agregados.")
-
-
-# def callback(x, a, n, d, l, t, e, du): 
-    
-#     x.set(
-#         "Ud. ingreso al Contacto : "
-#         + str(a.get())
-#         + ", "
-#         + str(n.get())
-#         + ", "
-#         + str(d.get())
-#         + ", "
-#         + str(l.get())
-#         + ", "
-#         + str(t.get())
-#         + ", "
-#         + str(e.get())
-#         + ", "
-#         + str(du.get())
-#         + "."
-#     )
-#     entidad[du.get()] = {
-#         "Apellido": a.get(),
-#         "Nombre": n.get(),
-#         "Direccion": d.get(),
-#         "Localidad": l.get(),
-#         "Telefono": t.get(),
-#         "Email": e.get(),
-#         "DNI": du.get(),
-#     }
-
 
 def busqueda(x, du):
     if du.get() in entidad:
@@ -259,9 +187,9 @@ def modificar_():
 # Definimos el Boton de Agendado
 alta = Button(
     master,
-    text="Agendar",
-    command=lambda: callback(
-    ingreso, apellido, nombre, direccion, localidad, telefono, email, dni),
+    text="Agendar", command=lambda: callback(),
+    # command=lambda: callback(
+    # ingreso, apellido, nombre, direccion, localidad, telefono, email, dni),
     padx=10,
     cursor="hand2",
     bd=4,
@@ -294,7 +222,7 @@ borrar_ = Button(
     activebackground="Royal blue",
     activeforeground="snow2",
 )
-borrar_.grid(row=10, column=2, pady=12, columnspan=1, sticky=N)
+borrar_.grid(row=9, column=2, pady=12, columnspan=1, sticky=N)
 
 # Boton de Modificar Datos del Contacto
 modificar = Button(
@@ -308,18 +236,53 @@ modificar = Button(
     activebackground="Royal blue",
     activeforeground="snow2",
 )
-modificar.grid(row=10, column=3, pady=12, columnspan=1, sticky=N)
+modificar.grid(row=10, column=2, pady=12, columnspan=1, sticky=N)
 
 
 
-encabezado = Label(
-    master,
-    text="INTEGRANTES: Alejandro Di Stefano - Oscar Quintana - Nora Nardi - Marcelo Mansilla - Federico Iaccono - Juan Alberto Labajian",
-    background="LightSteelBlue",
-    foreground="black",
-    width=100,
+# En esta seccion estan los Label donde figura el Nombre de cada Campo
+nombre_ = Label(frame, text="Nombre(s)").grid(row=3, column=0, sticky=W, pady=3, padx=6)
+
+apellido_ = Label(frame, text="Apellido").grid(
+    row=4, column=0, sticky=W, pady=3, padx=6
 )
-encabezado.grid(row=14, column=0, columnspan=2, pady=10)
+
+direccion_ = Label(frame, text="Dirección").grid(
+    row=5, column=0, sticky=W, pady=3, padx=6
+)
+localidad_ = Label(frame, text="Localidad").grid(
+    row=6, column=0, sticky=W, pady=3, padx=6
+)
+telefono_ = Label(frame, text="Telefono").grid(
+    row=7, column=0, sticky=W, pady=3, padx=6
+)
+email_ = Label(frame, text="Correo Electronico").grid(
+    row=8, column=0, sticky=W, pady=3, padx=6
+)
+dni_ = Label(frame, text="D.N.I.").grid(row=2, column=0, sticky=W, pady=3, padx=6)
+
+# En esta seccion encontramos los campos vacios correspondientes a cada Item a llenar
+entrada_nombre = Entry(frame, textvariable=nombre, width=30, bd=3)
+entrada_nombre.grid(row=3, column=1, pady=3, sticky=E, padx=6)
+
+entrada_apellido = Entry(frame, textvariable=apellido, width=30, bd=3)
+entrada_apellido.grid(row=4, column=1, pady=3, sticky=W, padx=6)
+
+entrada_direccion = Entry(frame, textvariable=direccion, width=30, bd=3)
+entrada_direccion.grid(row=5, column=1, pady=3, sticky=W, padx=6)
+
+entrada_localidad = Entry(frame, textvariable=localidad, width=30, bd=3)
+entrada_localidad.grid(row=6, column=1, pady=3, sticky=W, padx=6)
+
+entrada_telefono = Entry(frame, textvariable=telefono, width=30, bd=3)
+entrada_telefono.grid(row=7, column=1, pady=3, sticky=W, padx=6)
+
+entrada_email = Entry(frame, textvariable=email, width=30, bd=3)
+entrada_email.grid(row=8, column=1, pady=3, sticky=W, padx=6)
+
+entrada_dni = Entry(frame, textvariable=dni, width=30, bd=3)
+entrada_dni.grid(row=2, column=1, pady=3, sticky=W, padx=6)
+
 
 # defino la tabla donde se veran los datos
 
