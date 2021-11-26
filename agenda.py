@@ -61,7 +61,6 @@ entidad = StringVar()
 
 
 # creacion de la base de datos
-# entidad = shelve.open("Agenda_Contacto")
 
 def Crear_Agenda():
     mibase = mysql.connector.connect(
@@ -92,11 +91,6 @@ micursor = mibase.cursor()
 micursor.execute("CREATE TABLE IF NOT EXISTS entidad( ID int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, DNI INT(8) COLLATE utf8_spanish2_ci NOT NULL, Apellido VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL, Nombre VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL, Direccion VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL , Localidad VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL, Telefono INT(15) COLLATE utf8_spanish2_ci NOT NULL, Email VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL)")
 
 
-# En esta seccion definimos los nombre de variables globales
-# lista = {}
-# lista = set()
-# agenda = {}
-
 # Definimos las Funciones para la Agendar de Contactos
 
 def callback():        
@@ -109,8 +103,8 @@ def callback():
     micursor = mibase.cursor()
 
     sql = "INSERT INTO entidad (DNI, Apellido, Nombre, Direccion, Localidad, Telefono, EMail) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-    datos = (apellido, nombre, direccion, localidad, telefono, email, dni)
-
+    datos = ("DNI", "Apellido", "Nombre", "Direccion", "Localidad", "Telefono", "EMail" )
+  
     micursor.execute(sql, datos)
 
     mibase.commit()
@@ -262,6 +256,7 @@ email_ = Label(frame, text="Correo Electronico").grid(
 dni_ = Label(frame, text="D.N.I.").grid(row=2, column=0, sticky=W, pady=3, padx=6)
 
 # En esta seccion encontramos los campos vacios correspondientes a cada Item a llenar
+
 entrada_nombre = Entry(frame, textvariable=nombre, width=30, bd=3)
 entrada_nombre.grid(row=3, column=1, pady=3, sticky=E, padx=6)
 
