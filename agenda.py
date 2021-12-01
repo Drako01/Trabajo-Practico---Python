@@ -168,7 +168,7 @@ def borrar(x):
 def item_elegido(seleccion):
    
     for selec in tabla.selection():
-        item = tree.item(selec)
+        item = ttk.Treeview.item(selec)
         record = item["text"]
 
 
