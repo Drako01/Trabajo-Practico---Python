@@ -226,14 +226,7 @@ def limpiar_entries():
     
 def limpiar_tabla():
     tabla.delete(*tabla.get_children())
-    dni.set("")
-    apellido.set("")
-    nombre.set("")
-    direccion.set("")
-    localidad.set("")
-    telefono.set("")
-    email.set("")
-    ingreso.set("")
+    limpiar_entries()
 
 
 # Definimos el Boton de Agendado
