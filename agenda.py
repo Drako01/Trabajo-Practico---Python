@@ -147,17 +147,33 @@ def busqueda(x, dni):  # , nombre, direccion, localidad, telefono, email):
     #showinfo(title="Information", message=",".join(valor))
     
 
+
 def borrar(x, dni):
     mibase = mysql.connector.connect(
         host="localhost", user="root", passwd="", database="Agenda_Contacto"
     ) 
+    valor = 10
+    
     fila = tabla.selection()
     if len(fila) !=0:        
         tabla.delete(fila)
-        dni = ("'"+ str(dni) + "'")       
+        dni = ("'"+ str(dni) + "'") 
+         
+        micursor = mibase.cursor()
+        sql = "DELETE FROM entidad WHERE dni = {}".format(valor)
+        #sql = "DELETE FROM entidad WHERE dni = %s"
+        #dato = ('2',)
+        
+
+        micursor.execute(sql, valor)
+        mibase.commit()     
         #Agenda_Contacto.contacto(dni)
     else:
         x.set("No se pudo Borrar el Contacto")
+ 
+
+
+ 
   
 def item_elegido(seleccion):
         x = tabla.focus()
