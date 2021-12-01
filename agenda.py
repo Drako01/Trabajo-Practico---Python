@@ -2,6 +2,7 @@
 from tkinter import *
 from tkinter import ttk
 import mysql.connector
+from tkinter.messagebox import *
 
 # Le asignamos valores para las dimensiones de la ventana
 master = Tk()
@@ -139,34 +140,33 @@ def busqueda(x, dni):  # , nombre, direccion, localidad, telefono, email):
     else:
         x.set("No se encontro el contacto.")
 
+# def item_elegido(seleccion):
+#     x = tabla.focus()
+#     item = tabla.item(x)
+#     valor = item["values"][0]    
+    #showinfo(title="Information", message=",".join(valor))
+    
 
-def borrar(x, du):
-    if du.get() in entidad:
-        aux = entidad[du.get()]
-        x.set(
-            "Ud. Eliminó al Contacto : "
-            + str(aux.get("Apellido"))
-            + ", "
-            + str(aux.get("Nombre"))
-            + ", "
-            + str(aux.get("Direccion"))
-            + ", "
-            + str(aux.get("Localidad"))
-            + ", "
-            + str(aux.get("Telefono"))
-            + ", "
-            + str(aux.get("Email"))
-            + ", "
-            + str(aux.get("DNI"))
-            + "."
-        )
-        entidad.pop(du.get())
+def borrar(x, dni):
+    mibase = mysql.connector.connect(
+        host="localhost", user="root", passwd="", database="Agenda_Contacto"
+    ) 
+    fila = tabla.selection()
+    if len(fila) !=0:        
+        tabla.delete(fila)
+        dni = ("'"+ str(dni) + "'")       
+        #Agenda_Contacto.contacto(dni)
     else:
-        x.set("No se encuentra ese Contacto")
-
-
+        x.set("No se pudo Borrar el Contacto")
+  
+def item_elegido(seleccion):
+        x = tabla.focus()
+        item = tabla.item(x)
+        valor = item["text"]
+                  
+    
+            
 def modificar_():
-
     mibase = mysql.connector.connect(
         host="localhost", user="root", passwd="", database="Agenda_Contacto"
     )
@@ -336,6 +336,9 @@ tabla.heading("seis", text="Correo Electronico", anchor="w")
 
 
 tabla.grid(row=14, column=0, pady=3, columnspan=2)
+
+tabla.bind("<<TreeviewSelect>>",item_elegido)
+
 
 master.mainloop()
 # fin del Programa
