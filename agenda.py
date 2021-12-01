@@ -140,32 +140,49 @@ def busqueda(x, dni):  # , nombre, direccion, localidad, telefono, email):
     else:
         x.set("No se encontro el contacto.")
 
+
 # def item_elegido(seleccion):
 #     x = tabla.focus()
 #     item = tabla.item(x)
-#     valor = item["values"][0]    
-    #showinfo(title="Information", message=",".join(valor))
-    
+#     valor = item["values"][0]
+# showinfo(title="Information", message=",".join(valor))
 
-def borrar(x, dni):
-    mibase = mysql.connector.connect(
-        host="localhost", user="root", passwd="", database="Agenda_Contacto"
-    ) 
+
+def borrar(x):
     fila = tabla.selection()
-    if len(fila) !=0:        
+
+    if len(fila) != 0:
+        item = tabla.item(fila)
+        valor = int(item["text"])
+        print(valor)
+
+        mibase = mysql.connector.connect(
+            host="localhost", user="root", passwd="", database="Agenda_Contacto"
+        )
+        micursor = mibase.cursor()
+        sql = "DELETE FROM entidad WHERE dni = %s"
+
+        micursor.execute(sql, valor)
+
+        mibase.commit()
+        x.set("Se ha borrado el Contacto")
         tabla.delete(fila)
-        dni = ("'"+ str(dni) + "'")       
-        #Agenda_Contacto.contacto(dni)
     else:
         x.set("No se pudo Borrar el Contacto")
-  
+
+
 def item_elegido(seleccion):
-        x = tabla.focus()
-        item = tabla.item(x)
-        valor = item["text"]
-                  
-    
-            
+    """x = tabla.focus()
+    item = tabla.item(x)
+    print(item)
+    data = tabla.item(x)
+    nombre_borar = data["text"]
+    return nombre_borar"""
+    for selec in tabla.selection():
+        item = tree.item(selec)
+        record = item["text"]
+
+
 def modificar_():
     mibase = mysql.connector.connect(
         host="localhost", user="root", passwd="", database="Agenda_Contacto"
@@ -224,7 +241,7 @@ buscar.grid(row=10, column=1, pady=12, columnspan=1, sticky=N)
 borrar_ = Button(
     master,
     text="   Borrar   ",
-    command=lambda: borrar(ingreso, dni),
+    command=lambda: borrar(ingreso),
     padx=10,
     cursor="hand2",
     bd=4,
@@ -337,7 +354,7 @@ tabla.heading("seis", text="Correo Electronico", anchor="w")
 
 tabla.grid(row=14, column=0, pady=3, columnspan=2)
 
-tabla.bind("<<TreeviewSelect>>",item_elegido)
+# tabla.bind("<<TreeviewSelect>>", item_elegido)
 
 
 master.mainloop()
