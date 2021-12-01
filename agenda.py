@@ -55,8 +55,7 @@ nombre = StringVar()
 apellido = StringVar()
 direccion = StringVar()
 localidad = StringVar()
-telefono = IntVar()
-telefono.set("")
+telefono = StringVar()
 email = StringVar()
 ingreso = StringVar()
 entidad = StringVar()
@@ -79,12 +78,10 @@ mibase = mysql.connector.connect(
 micursor = mibase.cursor()
 
 micursor.execute(
-    "CREATE TABLE IF NOT EXISTS entidad( ID int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, DNI INT(8) COLLATE utf8_spanish2_ci NOT NULL, Apellido VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL, Nombre VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL, Direccion VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL , Localidad VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL, Telefono INT(15) COLLATE utf8_spanish2_ci NOT NULL, Email VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL)"
+    "CREATE TABLE IF NOT EXISTS entidad( ID int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, DNI INT(8) COLLATE utf8_spanish2_ci NOT NULL, Apellido VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL, Nombre VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL, Direccion VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL , Localidad VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL, Telefono VARCHAR(15) COLLATE utf8_spanish2_ci NOT NULL, Email VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL)"
 )
 
-
 # Definimos las Funciones para la Agendar de Contactos
-
 
 def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
     mibase = mysql.connector.connect(
@@ -102,10 +99,12 @@ def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
         telefono.get(),
         email.get(),
     )
+    
     micursor.execute(sql, datos)
     mibase.commit()
 
     x.set("Ud. Agrego al siguiente Contacto:")
+    
     tabla.insert(
         "",
         "end",
@@ -119,14 +118,37 @@ def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
             email.get(),
         ],
     )
+    limpiar_entries()
 
-
-def busqueda(x, dni):  # , nombre, direccion, localidad, telefono, email):
+def busqueda(x, dni):
+    
     mibase = mysql.connector.connect(
         host="localhost", user="root", passwd="", database="Agenda_Contacto"
     )
     micursor = mibase.cursor()
     sql = "SELECT * FROM entidad WHERE DNI = {}".format(dni.get())
+    micursor.execute(sql)
+    registro = micursor.fetchall()
+    
+    if not registro == []:
+        limpiar_tabla()
+        x.set(f"{registro}")
+        i = -1
+        for dato in registro:
+            i = i + 1
+            tabla.insert("", i, text=registro[i][1:2], values=registro[i][2:8])
+        x.set("Se encontraron los siguientes contactos.")
+        
+    else:
+        x.set("No se encontro el contacto.")
+
+def listar(x,):  
+    limpiar_tabla()
+    mibase = mysql.connector.connect(
+        host="localhost", user="root", passwd="", database="Agenda_Contacto"
+    )
+    micursor = mibase.cursor()
+    sql = "SELECT * FROM entidad"
     micursor.execute(sql)
     registro = micursor.fetchall()
 
@@ -135,12 +157,11 @@ def busqueda(x, dni):  # , nombre, direccion, localidad, telefono, email):
         i = -1
         for dato in registro:
             i = i + 1
-            tabla.insert("", i, text=registro[i][1:2], values=registro[i][2:7])
+            tabla.insert("", i, text=registro[i][1:2], values=registro[i][2:8])
         x.set("Se encontraron los siguientes contactos.")
     else:
-        x.set("No se encontro el contacto.")
-
-
+        x.set("No se encontro el contacto.")       
+        
 def borrar(x):
     fila = tabla.selection()
 
@@ -161,31 +182,48 @@ def borrar(x):
         mibase.commit()
         x.set("Se ha borrado el Contacto")
         tabla.delete(fila)
+        limpiar_entries()
     else:
         x.set("No se pudo Borrar el Contacto")
-
 
 def item_elegido(seleccion):
    
     for selec in tabla.selection():
-        item = ttk.Treeview.item(selec)
-        record = item["text"]
-
-
-def modificar_():
+        item = tabla.item(selec)
+        record = item["values"]
+        dni.set(item["text"])
+        apellido.set(record[0])
+        nombre.set(record[1])
+        direccion.set(record[2])
+        localidad.set(record[3])
+        telefono.set(record[4])
+        email.set(record[5])
+        
+def modificar_(x):    
     mibase = mysql.connector.connect(
         host="localhost", user="root", passwd="", database="Agenda_Contacto"
-    )
+    )    
     micursor = mibase.cursor()
-
-    sql = "UPDATE entidad SET titulo = 'Titulo 8' WHERE titulo = 'Tema 3'"
-
-    micursor.execute(sql)
+    sql = f"UPDATE entidad SET Apellido= %s, Nombre=%s, Direccion=%s, Localidad=%s, Telefono=%s, Email=%s WHERE DNI = %s"
+    dato = (apellido.get(), nombre.get(), direccion.get(), localidad.get(), telefono.get(), email.get(), dni.get())
+   
+    micursor.execute(sql, dato)
     mibase.commit()
 
-    print(micursor.rowcount, "Cantidad de registros afectados.")
-
-
+    x.set("Se ha modificado el Contacto")
+    listar(x)
+    limpiar_entries()
+    
+def limpiar_entries():
+    dni.set("")
+    apellido.set("")
+    nombre.set("")
+    direccion.set("")
+    localidad.set("")
+    telefono.set("")
+    email.set("")
+    ingreso.set("")    
+    
 def limpiar_tabla():
     tabla.delete(*tabla.get_children())
     dni.set("")
@@ -226,6 +264,19 @@ buscar = Button(
 )
 buscar.grid(row=10, column=1, pady=12, columnspan=1, sticky=N)
 
+#Definimos el Boton Listar Contactos
+listar_ = Button(
+    master,
+    text="Listar",
+    command=lambda: listar(ingreso,),
+    padx=10,
+    cursor="hand2",
+    bd=4,
+    activebackground="Royal blue",
+    activeforeground="snow2",
+)
+listar_.grid(row=15, column=2, pady=12, columnspan=1, sticky=N)
+
 # Definimos el Boton de Borrar Contacto
 borrar_ = Button(
     master,
@@ -244,8 +295,7 @@ modificar = Button(
     master,
     text="Modificar",
     command=lambda: modificar_(
-        ingreso, apellido, nombre, direccion, localidad, telefono, email, dni
-    ),
+        ingreso),
     padx=10,
     cursor="hand2",
     bd=4,
@@ -271,12 +321,10 @@ reset.grid(row=14, column=2, pady=12, columnspan=1, sticky=N)
 # En esta seccion estan los Label donde figura el Nombre de cada Campo
 dni_ = Label(frame, text="D.N.I.").grid(row=2, column=0, sticky=W, pady=3, padx=6)
 
-nombre_ = Label(frame, text="Nombre(s)").grid(row=3, column=0, sticky=W, pady=3, padx=6)
-
 apellido_ = Label(frame, text="Apellido").grid(
-    row=4, column=0, sticky=W, pady=3, padx=6
+    row=3, column=0, sticky=W, pady=3, padx=6
 )
-
+nombre_ = Label(frame, text="Nombre(s)").grid(row=4, column=0, sticky=W, pady=3, padx=6)
 direccion_ = Label(frame, text="Dirección").grid(
     row=5, column=0, sticky=W, pady=3, padx=6
 )
@@ -290,17 +338,16 @@ email_ = Label(frame, text="Correo Electronico").grid(
     row=8, column=0, sticky=W, pady=3, padx=6
 )
 
-
 # En esta seccion encontramos los campos vacios correspondientes a cada Item a llenar
 
 entrada_dni = Entry(frame, textvariable=dni, width=30, bd=3)
 entrada_dni.grid(row=2, column=1, pady=3, sticky=W, padx=6)
 
-entrada_nombre = Entry(frame, textvariable=nombre, width=30, bd=3)
-entrada_nombre.grid(row=3, column=1, pady=3, sticky=E, padx=6)
-
 entrada_apellido = Entry(frame, textvariable=apellido, width=30, bd=3)
-entrada_apellido.grid(row=4, column=1, pady=3, sticky=W, padx=6)
+entrada_apellido.grid(row=3, column=1, pady=3, sticky=W, padx=6)
+
+entrada_nombre = Entry(frame, textvariable=nombre, width=30, bd=3)
+entrada_nombre.grid(row=4, column=1, pady=3, sticky=E, padx=6)
 
 entrada_direccion = Entry(frame, textvariable=direccion, width=30, bd=3)
 entrada_direccion.grid(row=5, column=1, pady=3, sticky=W, padx=6)
@@ -333,8 +380,8 @@ tabla.column("seis", width=120, minwidth=70)
 
 
 tabla.heading("#0", text="D.N.I", anchor="w")
-tabla.heading("uno", text="Nombre", anchor="w")
-tabla.heading("dos", text="Apellido", anchor="w")
+tabla.heading("uno", text="Apellido", anchor="w")
+tabla.heading("dos", text="Nombre", anchor="w")
 tabla.heading("tres", text="Dirección", anchor="w")
 tabla.heading("cuatro", text="Localidad", anchor="w")
 tabla.heading("cinco", text="Telefono", anchor="w")
@@ -343,7 +390,7 @@ tabla.heading("seis", text="Correo Electronico", anchor="w")
 
 tabla.grid(row=14, column=0, pady=3, columnspan=2)
 
-# tabla.bind("<<TreeviewSelect>>", item_elegido)
+tabla.bind("<<TreeviewSelect>>", item_elegido)
 
 
 master.mainloop()
