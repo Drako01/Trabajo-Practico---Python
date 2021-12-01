@@ -141,13 +141,6 @@ def busqueda(x, dni):  # , nombre, direccion, localidad, telefono, email):
         x.set("No se encontro el contacto.")
 
 
-# def item_elegido(seleccion):
-#     x = tabla.focus()
-#     item = tabla.item(x)
-#     valor = item["values"][0]
-# showinfo(title="Information", message=",".join(valor))
-
-
 def borrar(x):
     fila = tabla.selection()
 
@@ -173,12 +166,7 @@ def borrar(x):
 
 
 def item_elegido(seleccion):
-    """x = tabla.focus()
-    item = tabla.item(x)
-    print(item)
-    data = tabla.item(x)
-    nombre_borar = data["text"]
-    return nombre_borar"""
+   
     for selec in tabla.selection():
         item = tree.item(selec)
         record = item["text"]
@@ -267,7 +255,7 @@ modificar = Button(
 modificar.grid(row=10, column=2, pady=12, columnspan=1, sticky=N)
 
 # Boton de Reset Datos del Contacto
-modificar = Button(
+reset = Button(
     master,
     text="Reset",
     command=lambda: limpiar_tabla(),
@@ -277,7 +265,7 @@ modificar = Button(
     activebackground="Royal blue",
     activeforeground="snow2",
 )
-modificar.grid(row=14, column=2, pady=12, columnspan=1, sticky=N)
+reset.grid(row=14, column=2, pady=12, columnspan=1, sticky=N)
 
 
 # En esta seccion estan los Label donde figura el Nombre de cada Campo
