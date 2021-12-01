@@ -161,8 +161,9 @@ def borrar(x):
         )
         micursor = mibase.cursor()
         sql = "DELETE FROM entidad WHERE dni = %s"
+        dato = (valor,)
 
-        micursor.execute(sql, valor)
+        micursor.execute(sql, dato)
 
         mibase.commit()
         x.set("Se ha borrado el Contacto")
