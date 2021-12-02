@@ -1,13 +1,215 @@
 # Importamos las Bibliotecas de tkinter
+
 from tkinter import *
 from tkinter import ttk
 import mysql.connector
 from tkinter.messagebox import *
 
-# Le asignamos valores para las dimensiones de la ventana
-master = Tk()
+# Definimos las Funciones
 
-# Aca vamos a encontrarnos con el Encabezado de la Agenda
+# Funcion para conectar a la base de datos
+
+
+def conect_sql():
+    mibase = mysql.connector.connect(
+        host="localhost", user="root", passwd="", database="Agenda_Contacto"
+    )
+    micursor = mibase.cursor()
+
+
+# Funcion para cargar un contacto
+
+
+def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
+    conect_sql()
+    sql = "INSERT INTO entidad (DNI, Apellido, Nombre, Direccion, Localidad, Telefono, EMail) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    datos = (
+        dni.get(),
+        apellido.get(),
+        nombre.get(),
+        direccion.get(),
+        localidad.get(),
+        telefono.get(),
+        email.get(),
+    )
+    micursor.execute(sql, datos)
+    mibase.commit()
+    x.set("Ud. Agrego al siguiente Contacto:")
+    tabla.insert(
+        "",
+        "end",
+        text=dni.get(),
+        values=[
+            apellido.get(),
+            nombre.get(),
+            direccion.get(),
+            localidad.get(),
+            telefono.get(),
+            email.get(),
+        ],
+    )
+    limpiar_entries()
+
+
+# Funcion para buscar un contacto
+
+
+def busqueda(x, dni):
+    conect_sql()
+    micursor = mibase.cursor()
+    sql = "SELECT * FROM entidad WHERE DNI = {}".format(dni.get())
+    micursor.execute(sql)
+    registro = micursor.fetchall()
+
+    if not registro == []:
+        limpiar_tabla()
+        x.set(f"{registro}")
+        i = -1
+        for dato in registro:
+            i = i + 1
+            tabla.insert("", i, text=registro[i][1:2], values=registro[i][2:8])
+        x.set("Se encontraron los siguientes contactos.")
+
+    else:
+        x.set("No se encontro el contacto.")
+
+
+# Funcion para modificar un contacto
+
+
+def modificar_(x):
+    conect_sql()
+    micursor = mibase.cursor()
+    sql = f"UPDATE entidad SET Apellido= %s, Nombre=%s, Direccion=%s, Localidad=%s, Telefono=%s, Email=%s WHERE DNI = %s"
+    dato = (
+        apellido.get(),
+        nombre.get(),
+        direccion.get(),
+        localidad.get(),
+        telefono.get(),
+        email.get(),
+        dni.get(),
+    )
+
+    micursor.execute(sql, dato)
+    mibase.commit()
+
+    x.set("Se ha modificado el Contacto")
+    listar(x)
+    limpiar_entries()
+
+
+# Funcion para borrar un contacto
+
+
+def borrar(x):
+    fila = tabla.selection()
+
+    if len(fila) != 0:
+        item = tabla.item(fila)
+        valor = int(item["text"])
+
+        conect_sql()
+        micursor = mibase.cursor()
+        sql = "DELETE FROM entidad WHERE dni = %s"
+        dato = (valor,)
+
+        micursor.execute(sql, dato)
+
+        mibase.commit()
+        x.set("Se ha borrado el Contacto")
+        tabla.delete(fila)
+        limpiar_entries()
+    else:
+        x.set("No se pudo Borrar el Contacto")
+
+
+# Funcion para cargar todos los contacto
+
+
+def listar(
+    x,
+):
+    limpiar_tabla()
+    conect_sql()
+    micursor = mibase.cursor()
+    sql = "SELECT * FROM entidad"
+    micursor.execute(sql)
+    registro = micursor.fetchall()
+
+    if not registro == []:
+        x.set(f"{registro}")
+        i = -1
+        for dato in registro:
+            i = i + 1
+            tabla.insert("", i, text=registro[i][1:2], values=registro[i][2:8])
+        x.set("Se encontraron los siguientes contactos.")
+    else:
+        x.set("No se encontro el contacto.")
+
+
+# Funcion para cargar en los entry el contacto seleccionado del treview "tabla"
+
+
+def item_elegido(seleccion):
+    for selec in tabla.selection():
+        item = tabla.item(selec)
+        record = item["values"]
+        dni.set(item["text"])
+        apellido.set(record[0])
+        nombre.set(record[1])
+        direccion.set(record[2])
+        localidad.set(record[3])
+        telefono.set(record[4])
+        email.set(record[5])
+
+
+# Funcion para limpiar los entry
+
+
+def limpiar_entries():
+    dni.set("")
+    apellido.set("")
+    nombre.set("")
+    direccion.set("")
+    localidad.set("")
+    telefono.set("")
+    email.set("")
+
+
+# Funcion para limpiar la pantalla
+
+
+def limpiar_tabla():
+    ingreso.set("")
+    tabla.delete(*tabla.get_children())
+    limpiar_entries()
+
+
+# creacion de la base de datos
+
+mibase = mysql.connector.connect(host="localhost", user="root", passwd="")
+try:
+    micursor = mibase.cursor()
+    micursor.execute("CREATE DATABASE Agenda_Contacto")
+except:
+    print("Ya esta Creada la Base de Datos Agenda_Contactos")
+
+# Creacion de la Tabla en la Base de Datos
+
+micursor.execute(
+    "CREATE TABLE IF NOT EXISTS entidad( ID int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, DNI INT(8) COLLATE utf8_spanish2_ci NOT NULL, Apellido VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL, Nombre VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL, Direccion VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL , Localidad VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL, Telefono VARCHAR(15) COLLATE utf8_spanish2_ci NOT NULL, Email VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL)"
+)
+
+# Asignacion de la ventana
+
+master = Tk()
+master.title("Trabajo Final - Nivel Inicial - Diplomatura en Python")
+master.resizable(False, False)
+master.config(bd=20)
+
+# Encabezado de la Agenda
+
 encabezado = Label(
     master,
     text="Ingrese los datos del Nuevo Contacto",
@@ -16,6 +218,14 @@ encabezado = Label(
     width=80,
 )
 encabezado.grid(row=0, column=0, columnspan=2, pady=10)
+
+# Imagen no opcional
+
+imagen = PhotoImage(file="agenda2.gif")
+Label(master, image=imagen).grid(row=2, column=1, sticky=E)
+
+
+# Etiqueta con referencia a la busqueda
 
 encabezado = Label(
     master,
@@ -26,22 +236,8 @@ encabezado = Label(
 )
 encabezado.grid(row=3, column=0, columnspan=2, pady=10)
 
-encabezado = Label(
-    master,
-    text="INTEGRANTES: Alejandro Di Stefano - Oscar Quintana - Nora Nardi - Marcelo Mansilla - Federico Iaccono - Juan Alberto Labajian",
-    background="LightSteelBlue",
-    foreground="black",
-    width=100,
-)
-encabezado.grid(row=15, column=0, columnspan=2, pady=10)
 
-master.title("Trabajo Final - Nivel Inicial - Diplomatura en Python")
-master.resizable(False, False)
-master.config(bd=20)
-
-# imagen opcional para acomodar los entry
-imagen = PhotoImage(file="agenda2.gif")
-Label(master, image=imagen).grid(row=2, column=1, sticky=E)
+# Frame donde se ubican los entry y label
 
 frame = Frame(master)
 frame.grid(row=2, column=0)
@@ -61,171 +257,8 @@ ingreso = StringVar()
 entidad = StringVar()
 
 
-# creacion de la base de datos
-
-mibase = mysql.connector.connect(host="localhost", user="root", passwd="")
-try:
-    micursor = mibase.cursor()
-    micursor.execute("CREATE DATABASE Agenda_Contacto")
-except:
-    print("Ya esta Creada la BD")
-
-# Creacion de la Tabla en la Base de Datos
-
-mibase = mysql.connector.connect(
-    host="localhost", user="root", passwd="", database="Agenda_Contacto"
-)
-micursor = mibase.cursor()
-
-micursor.execute(
-    "CREATE TABLE IF NOT EXISTS entidad( ID int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, DNI INT(8) COLLATE utf8_spanish2_ci NOT NULL, Apellido VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL, Nombre VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL, Direccion VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL , Localidad VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL, Telefono VARCHAR(15) COLLATE utf8_spanish2_ci NOT NULL, Email VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL)"
-)
-
-# Definimos las Funciones para la Agendar de Contactos
-
-mibase = mysql.connector.connect(
-        host="localhost", user="root", passwd="", database="Agenda_Contacto"
-    )
-
-def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
-    conect_sql()
-    micursor = mibase.cursor()
-    sql = "INSERT INTO entidad (DNI, Apellido, Nombre, Direccion, Localidad, Telefono, EMail) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-    datos = (
-        dni.get(),
-        apellido.get(),
-        nombre.get(),
-        direccion.get(),
-        localidad.get(),
-        telefono.get(),
-        email.get(),
-    )    
-    micursor.execute(sql, datos)
-    mibase.commit()
-    x.set("Ud. Agrego al siguiente Contacto:")    
-    tabla.insert(
-        "",
-        "end",
-        text=dni.get(),
-        values=[
-            apellido.get(),
-            nombre.get(),
-            direccion.get(),
-            localidad.get(),
-            telefono.get(),
-            email.get(),
-        ],
-    )
-    
-    limpiar_entries()
-
-def busqueda(x, dni):
-    
-    conect_sql()
-    micursor = mibase.cursor()
-    sql = "SELECT * FROM entidad WHERE DNI = {}".format(dni.get())
-    micursor.execute(sql)
-    registro = micursor.fetchall()
-    
-    if not registro == []:
-        limpiar_tabla()
-        x.set(f"{registro}")
-        i = -1
-        for dato in registro:
-            i = i + 1
-            tabla.insert("", i, text=registro[i][1:2], values=registro[i][2:8])
-        x.set("Se encontraron los siguientes contactos.")
-        
-    else:
-        x.set("No se encontro el contacto.")
-
-def listar(x,):  
-    limpiar_tabla()
-    conect_sql()
-    micursor = mibase.cursor()
-    sql = "SELECT * FROM entidad"
-    micursor.execute(sql)
-    registro = micursor.fetchall()
-
-    if not registro == []:
-        x.set(f"{registro}")
-        i = -1
-        for dato in registro:
-            i = i + 1
-            tabla.insert("", i, text=registro[i][1:2], values=registro[i][2:8])
-        x.set("Se encontraron los siguientes contactos.")
-    else:
-        x.set("No se encontro el contacto.")       
-        
-def borrar(x):
-    fila = tabla.selection()
-
-    if len(fila) != 0:
-        item = tabla.item(fila)
-        valor = int(item["text"])        
-
-        conect_sql()
-        micursor = mibase.cursor()
-        sql = "DELETE FROM entidad WHERE dni = %s"
-        dato = (valor,)
-
-        micursor.execute(sql, dato)
-
-        mibase.commit()
-        x.set("Se ha borrado el Contacto")
-        tabla.delete(fila)
-        limpiar_entries()
-    else:
-        x.set("No se pudo Borrar el Contacto")
-
-def item_elegido(seleccion):
-   
-    for selec in tabla.selection():
-        item = tabla.item(selec)
-        record = item["values"]
-        dni.set(item["text"])
-        apellido.set(record[0])
-        nombre.set(record[1])
-        direccion.set(record[2])
-        localidad.set(record[3])
-        telefono.set(record[4])
-        email.set(record[5])
-        
-def modificar_(x):    
-    conect_sql()   
-    micursor = mibase.cursor()
-    sql = f"UPDATE entidad SET Apellido= %s, Nombre=%s, Direccion=%s, Localidad=%s, Telefono=%s, Email=%s WHERE DNI = %s"
-    dato = (apellido.get(), nombre.get(), direccion.get(), localidad.get(), telefono.get(), email.get(), dni.get())
-   
-    micursor.execute(sql, dato)
-    mibase.commit()
-
-    x.set("Se ha modificado el Contacto")
-    listar(x)
-    limpiar_entries()
-    
-def limpiar_entries():
-    dni.set("")
-    apellido.set("")
-    nombre.set("")
-    direccion.set("")
-    localidad.set("")
-    telefono.set("")
-    email.set("")
-    ingreso.set("")    
-    
-def limpiar_tabla():
-    tabla.delete(*tabla.get_children())
-    limpiar_entries()
-   
-def conect_sql():
-    mibase = mysql.connector.connect(
-        host="localhost", user="root", passwd="", database="Agenda_Contacto"
-    )
-   
-       
-
 # Definimos el Boton de Agendado
+
 alta = Button(
     master,
     text="Agendar",
@@ -241,6 +274,7 @@ alta = Button(
 alta.grid(row=9, column=0, pady=12, columnspan=1, sticky=N)
 
 # Definimos el Boton de Consulta
+
 buscar = Button(
     master,
     text="Consultar",
@@ -253,11 +287,13 @@ buscar = Button(
 )
 buscar.grid(row=9, column=1, pady=12, columnspan=1, sticky=N)
 
-#Definimos el Boton Listar Contactos
+# Definimos el Boton Listar Contactos
 listar_ = Button(
     master,
     text="   Listar   ",
-    command=lambda: listar(ingreso,),
+    command=lambda: listar(
+        ingreso,
+    ),
     padx=10,
     cursor="hand2",
     bd=4,
@@ -283,8 +319,7 @@ borrar_.grid(row=10, column=1, pady=12, columnspan=1, sticky=N)
 modificar = Button(
     master,
     text="Modificar",
-    command=lambda: modificar_(
-        ingreso),
+    command=lambda: modificar_(ingreso),
     padx=10,
     cursor="hand2",
     bd=4,
@@ -308,6 +343,7 @@ reset.grid(row=11, column=1, pady=12, columnspan=1, sticky=N)
 
 
 # En esta seccion estan los Label donde figura el Nombre de cada Campo
+
 dni_ = Label(frame, text="D.N.I.").grid(row=2, column=0, sticky=W, pady=3, padx=6)
 
 apellido_ = Label(frame, text="Apellido").grid(
@@ -367,7 +403,6 @@ tabla.column("cuatro", width=100, minwidth=70)
 tabla.column("cinco", width=100, minwidth=70)
 tabla.column("seis", width=120, minwidth=70)
 
-
 tabla.heading("#0", text="D.N.I", anchor="w")
 tabla.heading("uno", text="Apellido", anchor="w")
 tabla.heading("dos", text="Nombre", anchor="w")
@@ -376,11 +411,20 @@ tabla.heading("cuatro", text="Localidad", anchor="w")
 tabla.heading("cinco", text="Telefono", anchor="w")
 tabla.heading("seis", text="Correo Electronico", anchor="w")
 
-
 tabla.grid(row=14, column=0, pady=3, columnspan=2)
-
 tabla.bind("<<TreeviewSelect>>", item_elegido)
 
+# etiqueta al pie con los integrantes
+
+encabezado = Label(
+    master,
+    text="INTEGRANTES: Alejandro Di Stefano - Oscar Quintana - Nora Nardi - Marcelo Mansilla - Federico Iaccono - Juan Alberto Labajian",
+    background="LightSteelBlue",
+    foreground="black",
+    width=100,
+)
+encabezado.grid(row=15, column=0, columnspan=2, pady=10)
 
 master.mainloop()
+
 # fin del Programa
