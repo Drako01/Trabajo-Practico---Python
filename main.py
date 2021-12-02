@@ -24,7 +24,7 @@ encabezado = Label(
     foreground="black",
     width=80,
 )
-encabezado.grid(row=9, column=0, columnspan=2, pady=10)
+encabezado.grid(row=3, column=0, columnspan=2, pady=10)
 
 encabezado = Label(
     master,
@@ -238,7 +238,7 @@ alta = Button(
     activebackground="Royal blue",
     activeforeground="snow2",
 )
-alta.grid(row=10, column=0, pady=12, columnspan=1, sticky=N)
+alta.grid(row=9, column=0, pady=12, columnspan=1, sticky=N)
 
 # Definimos el Boton de Consulta
 buscar = Button(
@@ -251,12 +251,12 @@ buscar = Button(
     activebackground="Royal blue",
     activeforeground="snow2",
 )
-buscar.grid(row=10, column=1, pady=12, columnspan=1, sticky=N)
+buscar.grid(row=9, column=1, pady=12, columnspan=1, sticky=N)
 
 #Definimos el Boton Listar Contactos
 listar_ = Button(
     master,
-    text="Listar",
+    text="   Listar   ",
     command=lambda: listar(ingreso,),
     padx=10,
     cursor="hand2",
@@ -264,7 +264,7 @@ listar_ = Button(
     activebackground="Royal blue",
     activeforeground="snow2",
 )
-listar_.grid(row=8, column=2, pady=12, columnspan=1, sticky=N)
+listar_.grid(row=10, column=0, pady=12, columnspan=1, sticky=N)
 
 # Definimos el Boton de Borrar Contacto
 borrar_ = Button(
@@ -277,7 +277,7 @@ borrar_ = Button(
     activebackground="Royal blue",
     activeforeground="snow2",
 )
-borrar_.grid(row=9, column=2, pady=12, columnspan=1, sticky=N)
+borrar_.grid(row=10, column=1, pady=12, columnspan=1, sticky=N)
 
 # Boton de Modificar Datos del Contacto
 modificar = Button(
@@ -291,12 +291,12 @@ modificar = Button(
     activebackground="Royal blue",
     activeforeground="snow2",
 )
-modificar.grid(row=10, column=2, pady=12, columnspan=1, sticky=N)
+modificar.grid(row=11, column=0, pady=12, columnspan=1, sticky=N)
 
 # Boton de Reset Datos del Contacto
 reset = Button(
     master,
-    text="Reset",
+    text="    Reset    ",
     command=lambda: limpiar_tabla(),
     padx=10,
     cursor="hand2",
@@ -304,7 +304,7 @@ reset = Button(
     activebackground="Royal blue",
     activeforeground="snow2",
 )
-reset.grid(row=11, column=2, pady=12, columnspan=1, sticky=N)
+reset.grid(row=11, column=1, pady=12, columnspan=1, sticky=N)
 
 
 # En esta seccion estan los Label donde figura el Nombre de cada Campo
@@ -354,7 +354,7 @@ entrada_email.grid(row=8, column=1, pady=3, sticky=W, padx=6)
 # defino la tabla donde se veran los datos
 
 entrada3 = Entry(master, bd=4, textvariable=ingreso, state="disabled")
-entrada3.grid(row=11, column=0, pady=4, columnspan=2, ipadx=300)
+entrada3.grid(row=12, column=0, pady=4, columnspan=2, ipadx=300)
 
 
 tabla = ttk.Treeview(master, columns=("uno", "dos", "tres", "cuatro", "cinco", "seis"))
