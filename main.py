@@ -116,7 +116,7 @@ def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
             email.get(),
         ],
     )
-    # dni_repeat()
+    
     limpiar_entries()
 
 def busqueda(x, dni):
@@ -217,18 +217,6 @@ def limpiar_entries():
 def limpiar_tabla():
     tabla.delete(*tabla.get_children())
     limpiar_entries()
-
-# def dni_repeat(x, dni):    
-#     conect_sql()
-#     micursor = mibase.cursor()
-#     sql = "SELECT * FROM entidad WHERE DNI = {}".format(dni.get())
-#     micursor.execute(sql)
-#     registro = micursor.fetchall()
-    
-#     if not registro == []:        
-#         x.set("El contacto ya existe en la Base de Datos.")        
-#     else:
-#         x.set("El contacto no esta en la Base de Datos.")
    
 def conect_sql():
     mibase = mysql.connector.connect(
