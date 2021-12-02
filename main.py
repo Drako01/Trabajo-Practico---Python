@@ -264,7 +264,7 @@ listar_ = Button(
     activebackground="Royal blue",
     activeforeground="snow2",
 )
-listar_.grid(row=15, column=2, pady=12, columnspan=1, sticky=N)
+listar_.grid(row=8, column=2, pady=12, columnspan=1, sticky=N)
 
 # Definimos el Boton de Borrar Contacto
 borrar_ = Button(
@@ -304,7 +304,7 @@ reset = Button(
     activebackground="Royal blue",
     activeforeground="snow2",
 )
-reset.grid(row=14, column=2, pady=12, columnspan=1, sticky=N)
+reset.grid(row=11, column=2, pady=12, columnspan=1, sticky=N)
 
 
 # En esta seccion estan los Label donde figura el Nombre de cada Campo
