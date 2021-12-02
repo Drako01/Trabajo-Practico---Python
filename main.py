@@ -1,202 +1,398 @@
+# Importamos las Bibliotecas de tkinter
 from tkinter import *
-from tkinter import Entry, Label, Frame, Tk, Button,ttk, Scrollbar, VERTICAL, HORIZONTAL,StringVar,END
+from tkinter import ttk
+import mysql.connector
+from tkinter.messagebox import *
 
-import mysql.connector  #pip install mysql-connector-python
- 
-class Registro_datos():
+# Le asignamos valores para las dimensiones de la ventana
+master = Tk()
 
-    def __init__(self):
-        self.conexion = mysql.connector.connect( host='localhost',
-                                            database ='base_datos', 
-                                            user = 'root',
-                                            password ='')
+# Aca vamos a encontrarnos con el Encabezado de la Agenda
+encabezado = Label(
+    master,
+    text="Ingrese los datos del Nuevo Contacto",
+    background="LightSteelBlue",
+    foreground="black",
+    width=80,
+)
+encabezado.grid(row=0, column=0, columnspan=2, pady=10)
 
+encabezado = Label(
+    master,
+    text="Ingrese el DNI para Buscar o Eliminar al Contacto",
+    background="LightSteelBlue",
+    foreground="black",
+    width=80,
+)
+encabezado.grid(row=9, column=0, columnspan=2, pady=10)
 
+encabezado = Label(
+    master,
+    text="INTEGRANTES: Alejandro Di Stefano - Oscar Quintana - Nora Nardi - Marcelo Mansilla - Federico Iaccono - Juan Alberto Labajian",
+    background="LightSteelBlue",
+    foreground="black",
+    width=100,
+)
+encabezado.grid(row=15, column=0, columnspan=2, pady=10)
 
-    def inserta_producto(self,codigo, nombre, modelo, precio, cantidad):
-        cur = self.conexion.cursor()
-        sql='''INSERT INTO productos (CODIGO, NOMBRE, MODELO, PRECIO, CANTIDAD) 
-        VALUES('{}', '{}','{}', '{}','{}')'''.format(codigo, nombre, modelo, precio, cantidad)
-        cur.execute(sql)
-        self.conexion.commit()    
-        cur.close()
+master.title("Trabajo Final - Nivel Inicial - Diplomatura en Python")
+master.resizable(False, False)
+master.config(bd=20)
 
+# imagen opcional para acomodar los entry
+imagen = PhotoImage(file="agenda2.gif")
+Label(master, image=imagen).grid(row=2, column=1, sticky=E)
 
-    def mostrar_productos(self):
-        cursor = self.conexion.cursor()
-        sql = "SELECT * FROM productos " 
-        cursor.execute(sql)
-        registro = cursor.fetchall()
-        return registro
+frame = Frame(master)
+frame.grid(row=2, column=0)
+frame.config(bg="LightSteelBlue")
 
-    def busca_producto(self, nombre_producto):
-        cur = self.conexion.cursor()
-        sql = "SELECT * FROM productos WHERE NOMBRE = {}".format(nombre_producto)
-        cur.execute(sql)
-        nombreX = cur.fetchall()
-        cur.close()     
-        return nombreX 
+# Definimos Variables
 
-    def elimina_productos(self,nombre):
-        cur = self.conexion.cursor()
-        sql='''DELETE FROM productos WHERE NOMBRE = {}'''.format(nombre)
-        cur.execute(sql)
-        self.conexion.commit()    
-        cur.close()
-  
-
-
-
-class Registro(Frame):
-    def __init__(self, master, *args, **kwargs):
-        super().__init__(master, *args, **kwargs)
-                                    
-        self.frame1 = Frame(master)
-        self.frame1.grid(columnspan=2, column=0,row=0)
-        self.frame2 = Frame(master, bg='navy')
-        self.frame2.grid(column=0, row=1)
-        self.frame3 = Frame(master)
-        self.frame3.grid(rowspan=2, column=1, row=1)
-
-        self.frame4 = Frame(master, bg='black')
-        self.frame4.grid(column=0, row=2)
-
-        self.codigo = StringVar()
-        self.nombre = StringVar()
-        self.modelo = StringVar()
-        self.precio = StringVar()
-        self.cantidad = StringVar()
-        self.buscar = StringVar()
-
-        self.base_datos = Registro_datos()
-        self.create_wietgs()
-
-    def create_wietgs(self):
-        Label(self.frame1, text = 'R E G I S T R O \t D E \t D A T O S',bg='gray22',fg='white', font=('Orbitron',15,'bold')).grid(column=0, row=0)
-        
-        Label(self.frame2, text = 'Agregar Nuevos Datos',fg='white', bg ='navy', font=('Rockwell',12,'bold')).grid(columnspan=2, column=0,row=0, pady=5)
-        Label(self.frame2, text = 'Codigo',fg='white', bg ='navy', font=('Rockwell',13,'bold')).grid(column=0,row=1, pady=15)
-        Label(self.frame2, text = 'Nombre',fg='white', bg ='navy', font=('Rockwell',13,'bold')).grid(column=0,row=2, pady=15)
-        Label(self.frame2, text = 'Modelo',fg='white', bg ='navy', font=('Rockwell',13,'bold')).grid(column=0,row=3, pady=15)
-        Label(self.frame2, text = 'Precio', fg='white',bg ='navy', font=('Rockwell',13,'bold')).grid(column=0,row=4, pady=15)
-        Label(self.frame2, text = 'Cantidad',fg='white', bg ='navy', font=('Rockwell',13,'bold')).grid(column=0,row=5, pady=15)
-
-        Entry(self.frame2,textvariable=self.codigo , font=('Arial',12)).grid(column=1,row=1, padx =5)
-        Entry(self.frame2,textvariable=self.nombre , font=('Arial',12)).grid(column=1,row=2)
-        Entry(self.frame2,textvariable=self.modelo , font=('Arial',12)).grid(column=1,row=3)
-        Entry(self.frame2,textvariable=self.precio , font=('Arial',12)).grid(column=1,row=4)
-        Entry(self.frame2,textvariable=self.cantidad , font=('Arial',12)).grid(column=1,row=5)
-       
-        Label(self.frame4, text = 'Control',fg='white', bg ='black', font=('Rockwell',12,'bold')).grid(columnspan=3, column=0,row=0, pady=1, padx=4)         
-        Button(self.frame4,command= self.agregar_datos, text='REGISTRAR', font=('Arial',10,'bold'), bg='magenta2').grid(column=0,row=1, pady=10, padx=4)
-        Button(self.frame4,command = self.limpiar_datos, text='LIMPIAR', font=('Arial',10,'bold'), bg='orange red').grid(column=1,row=1, padx=10)        
-        Button(self.frame4,command = self.eliminar_fila, text='ELIMINAR', font=('Arial',10,'bold'), bg='yellow').grid(column=2,row=1, padx=4)
-        Button(self.frame4,command = self.buscar_nombre, text='BUSCAR POR NOMBRE', font=('Arial',8,'bold'), bg='orange').grid(columnspan=2,column = 1, row=2)
-        Entry(self.frame4,textvariable=self.buscar , font=('Arial',12), width=10).grid(column=0,row=2, pady=1, padx=8)
-        Button(self.frame4,command = self.mostrar_todo, text='MOSTRAR DATOS DE MYSQL', font=('Arial',10,'bold'), bg='green2').grid(columnspan=3,column=0,row=3, pady=8)
+dni = IntVar()
+dni.set("")
+nombre = StringVar()
+apellido = StringVar()
+direccion = StringVar()
+localidad = StringVar()
+telefono = StringVar()
+email = StringVar()
+ingreso = StringVar()
+entidad = StringVar()
 
 
-        self.tabla = ttk.Treeview(self.frame3, height=21)
-        self.tabla.grid(column=0, row=0)
+# creacion de la base de datos
 
-        ladox = Scrollbar(self.frame3, orient = HORIZONTAL, command= self.tabla.xview)
-        ladox.grid(column=0, row = 1, sticky='ew') 
-        ladoy = Scrollbar(self.frame3, orient =VERTICAL, command = self.tabla.yview)
-        ladoy.grid(column = 1, row = 0, sticky='ns')
+mibase = mysql.connector.connect(host="localhost", user="root", passwd="")
+try:
+    micursor = mibase.cursor()
+    micursor.execute("CREATE DATABASE Agenda_Contacto")
+except:
+    print("Ya esta Creada la BD")
 
-        self.tabla.configure(xscrollcommand = ladox.set, yscrollcommand = ladoy.set)
-       
-        self.tabla['columns'] = ('Nombre', 'Modelo', 'Precio', 'Cantidad')
+# Creacion de la Tabla en la Base de Datos
 
-        self.tabla.column('#0', minwidth=100, width=120, anchor='center')
-        self.tabla.column('Nombre', minwidth=100, width=130 , anchor='center')
-        self.tabla.column('Modelo', minwidth=100, width=120, anchor='center' )
-        self.tabla.column('Precio', minwidth=100, width=120 , anchor='center')
-        self.tabla.column('Cantidad', minwidth=100, width=105, anchor='center')
+mibase = mysql.connector.connect(
+    host="localhost", user="root", passwd="", database="Agenda_Contacto"
+)
+micursor = mibase.cursor()
 
-        self.tabla.heading('#0', text='Codigo', anchor ='center')
-        self.tabla.heading('Nombre', text='Nombre', anchor ='center')
-        self.tabla.heading('Modelo', text='Modelo', anchor ='center')
-        self.tabla.heading('Precio', text='Precio', anchor ='center')
-        self.tabla.heading('Cantidad', text='Cantidad', anchor ='center')
+micursor.execute(
+    "CREATE TABLE IF NOT EXISTS entidad( ID int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, DNI INT(8) COLLATE utf8_spanish2_ci NOT NULL, Apellido VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL, Nombre VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL, Direccion VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL , Localidad VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL, Telefono VARCHAR(15) COLLATE utf8_spanish2_ci NOT NULL, Email VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL)"
+)
 
+# Definimos las Funciones para la Agendar de Contactos
 
-        estilo = ttk.Style(self.frame3)
-        estilo.theme_use('alt') #  ('clam', 'alt', 'default', 'classic')
-        estilo.configure(".",font= ('Helvetica', 12, 'bold'), foreground='red2')        
-        estilo.configure("Treeview", font= ('Helvetica', 10, 'bold'), foreground='black',  background='white')
-        estilo.map('Treeview',background=[('selected', 'green2')], foreground=[('selected','black')] )
+mibase = mysql.connector.connect(
+        host="localhost", user="root", passwd="", database="Agenda_Contacto"
+    )
 
-        self.tabla.bind("<<TreeviewSelect>>", self.obtener_fila)  # seleccionar  fila
-        
+def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
+    conect_sql()
+    micursor = mibase.cursor()
+    sql = "INSERT INTO entidad (DNI, Apellido, Nombre, Direccion, Localidad, Telefono, EMail) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    datos = (
+        dni.get(),
+        apellido.get(),
+        nombre.get(),
+        direccion.get(),
+        localidad.get(),
+        telefono.get(),
+        email.get(),
+    )    
+    micursor.execute(sql, datos)
+    mibase.commit()
+    x.set("Ud. Agrego al siguiente Contacto:")    
+    tabla.insert(
+        "",
+        "end",
+        text=dni.get(),
+        values=[
+            apellido.get(),
+            nombre.get(),
+            direccion.get(),
+            localidad.get(),
+            telefono.get(),
+            email.get(),
+        ],
+    )
+    # dni_repeat()
+    limpiar_entries()
 
-    def agregar_datos(self):
-        self.tabla.get_children()
-        codigo = self.codigo.get()
-        nombre = self.nombre.get()
-        modelo = self.modelo.get()
-        precio = self.precio.get()
-        cantidad = self.cantidad.get()
-        datos = (nombre, modelo, precio, cantidad)
-        if codigo and nombre and modelo and precio and cantidad !='':        
-            self.tabla.insert('',0, text = codigo, values=datos)
-            self.base_datos.inserta_producto(codigo, nombre, modelo, precio, cantidad)
-
-
-    def limpiar_datos(self):
-        self.tabla.delete(*self.tabla.get_children())
-        self.codigo.set('')
-        self.nombre.set('')
-        self.modelo.set('')
-        self.precio.set('')
-        self.cantidad.set('')
-
-    def buscar_nombre(self):
-        nombre_producto = self.buscar.get()
-        nombre_producto = str("'" + nombre_producto + "'")
-        nombre_buscado = self.base_datos.busca_producto(nombre_producto)
-        self.tabla.delete(*self.tabla.get_children())
-        i = -1
-        for dato in nombre_buscado:
-            i= i+1                       
-            self.tabla.insert('',i, text = nombre_buscado[i][1:2], values=nombre_buscado[i][2:6])
-
-
-    def mostrar_todo(self):
-        self.tabla.delete(*self.tabla.get_children())
-        registro = self.base_datos.mostrar_productos()
+def busqueda(x, dni):
+    
+    conect_sql()
+    micursor = mibase.cursor()
+    sql = "SELECT * FROM entidad WHERE DNI = {}".format(dni.get())
+    micursor.execute(sql)
+    registro = micursor.fetchall()
+    
+    if not registro == []:
+        limpiar_tabla()
+        x.set(f"{registro}")
         i = -1
         for dato in registro:
-            i= i+1                       
-            self.tabla.insert('',i, text = registro[i][1:2], values=registro[i][2:6])
+            i = i + 1
+            tabla.insert("", i, text=registro[i][1:2], values=registro[i][2:8])
+        x.set("Se encontraron los siguientes contactos.")
+        
+    else:
+        x.set("No se encontro el contacto.")
 
+def listar(x,):  
+    limpiar_tabla()
+    conect_sql()
+    micursor = mibase.cursor()
+    sql = "SELECT * FROM entidad"
+    micursor.execute(sql)
+    registro = micursor.fetchall()
 
-    def eliminar_fila(self):
-        fila = self.tabla.selection()
-        if len(fila) !=0:        
-            self.tabla.delete(fila)
-            nombre = ("'"+ str(self.nombre_borar) + "'")       
-            self.base_datos.elimina_productos(nombre)
+    if not registro == []:
+        x.set(f"{registro}")
+        i = -1
+        for dato in registro:
+            i = i + 1
+            tabla.insert("", i, text=registro[i][1:2], values=registro[i][2:8])
+        x.set("Se encontraron los siguientes contactos.")
+    else:
+        x.set("No se encontro el contacto.")       
+        
+def borrar(x):
+    fila = tabla.selection()
 
+    if len(fila) != 0:
+        item = tabla.item(fila)
+        valor = int(item["text"])        
 
-    def obtener_fila(self, event):
-        current_item = self.tabla.focus()
-        if not current_item:
-            return
-        data = self.tabla.item(current_item)
-        self.nombre_borar = data['values'][0]
+        conect_sql()
+        micursor = mibase.cursor()
+        sql = "DELETE FROM entidad WHERE dni = %s"
+        dato = (valor,)
+
+        micursor.execute(sql, dato)
+
+        mibase.commit()
+        x.set("Se ha borrado el Contacto")
+        tabla.delete(fila)
+        limpiar_entries()
+    else:
+        x.set("No se pudo Borrar el Contacto")
+
+def item_elegido(seleccion):
    
+    for selec in tabla.selection():
+        item = tabla.item(selec)
+        record = item["values"]
+        dni.set(item["text"])
+        apellido.set(record[0])
+        nombre.set(record[1])
+        direccion.set(record[2])
+        localidad.set(record[3])
+        telefono.set(record[4])
+        email.set(record[5])
+        
+def modificar_(x):    
+    conect_sql()   
+    micursor = mibase.cursor()
+    sql = f"UPDATE entidad SET Apellido= %s, Nombre=%s, Direccion=%s, Localidad=%s, Telefono=%s, Email=%s WHERE DNI = %s"
+    dato = (apellido.get(), nombre.get(), direccion.get(), localidad.get(), telefono.get(), email.get(), dni.get())
+   
+    micursor.execute(sql, dato)
+    mibase.commit()
 
-def main():
-    ventana = Tk()
-    ventana.wm_title("Registro de Datos en MySQL")
-    ventana.config(bg='gray22')
-    ventana.geometry('900x500')
-    ventana.resizable(0,0)
-    app = Registro(ventana)
-    app.mainloop()
+    x.set("Se ha modificado el Contacto")
+    listar(x)
+    limpiar_entries()
+    
+def limpiar_entries():
+    dni.set("")
+    apellido.set("")
+    nombre.set("")
+    direccion.set("")
+    localidad.set("")
+    telefono.set("")
+    email.set("")
+    ingreso.set("")    
+    
+def limpiar_tabla():
+    tabla.delete(*tabla.get_children())
+    limpiar_entries()
 
-if __name__=="__main__":
-    main()        
+# def dni_repeat(x, dni):    
+#     conect_sql()
+#     micursor = mibase.cursor()
+#     sql = "SELECT * FROM entidad WHERE DNI = {}".format(dni.get())
+#     micursor.execute(sql)
+#     registro = micursor.fetchall()
+    
+#     if not registro == []:        
+#         x.set("El contacto ya existe en la Base de Datos.")        
+#     else:
+#         x.set("El contacto no esta en la Base de Datos.")
+   
+def conect_sql():
+    mibase = mysql.connector.connect(
+        host="localhost", user="root", passwd="", database="Agenda_Contacto"
+    )
+   
+       
+
+# Definimos el Boton de Agendado
+alta = Button(
+    master,
+    text="Agendar",
+    command=lambda: callback(
+        ingreso, dni, apellido, nombre, direccion, localidad, telefono, email
+    ),
+    padx=10,
+    cursor="hand2",
+    bd=4,
+    activebackground="Royal blue",
+    activeforeground="snow2",
+)
+alta.grid(row=10, column=0, pady=12, columnspan=1, sticky=N)
+
+# Definimos el Boton de Consulta
+buscar = Button(
+    master,
+    text="Consultar",
+    command=lambda: busqueda(ingreso, dni),
+    padx=10,
+    cursor="hand2",
+    bd=4,
+    activebackground="Royal blue",
+    activeforeground="snow2",
+)
+buscar.grid(row=10, column=1, pady=12, columnspan=1, sticky=N)
+
+#Definimos el Boton Listar Contactos
+listar_ = Button(
+    master,
+    text="Listar",
+    command=lambda: listar(ingreso,),
+    padx=10,
+    cursor="hand2",
+    bd=4,
+    activebackground="Royal blue",
+    activeforeground="snow2",
+)
+listar_.grid(row=15, column=2, pady=12, columnspan=1, sticky=N)
+
+# Definimos el Boton de Borrar Contacto
+borrar_ = Button(
+    master,
+    text="   Borrar   ",
+    command=lambda: borrar(ingreso),
+    padx=10,
+    cursor="hand2",
+    bd=4,
+    activebackground="Royal blue",
+    activeforeground="snow2",
+)
+borrar_.grid(row=9, column=2, pady=12, columnspan=1, sticky=N)
+
+# Boton de Modificar Datos del Contacto
+modificar = Button(
+    master,
+    text="Modificar",
+    command=lambda: modificar_(
+        ingreso),
+    padx=10,
+    cursor="hand2",
+    bd=4,
+    activebackground="Royal blue",
+    activeforeground="snow2",
+)
+modificar.grid(row=10, column=2, pady=12, columnspan=1, sticky=N)
+
+# Boton de Reset Datos del Contacto
+reset = Button(
+    master,
+    text="Reset",
+    command=lambda: limpiar_tabla(),
+    padx=10,
+    cursor="hand2",
+    bd=4,
+    activebackground="Royal blue",
+    activeforeground="snow2",
+)
+reset.grid(row=14, column=2, pady=12, columnspan=1, sticky=N)
 
 
+# En esta seccion estan los Label donde figura el Nombre de cada Campo
+dni_ = Label(frame, text="D.N.I.").grid(row=2, column=0, sticky=W, pady=3, padx=6)
+
+apellido_ = Label(frame, text="Apellido").grid(
+    row=3, column=0, sticky=W, pady=3, padx=6
+)
+nombre_ = Label(frame, text="Nombre(s)").grid(row=4, column=0, sticky=W, pady=3, padx=6)
+direccion_ = Label(frame, text="Dirección").grid(
+    row=5, column=0, sticky=W, pady=3, padx=6
+)
+localidad_ = Label(frame, text="Localidad").grid(
+    row=6, column=0, sticky=W, pady=3, padx=6
+)
+telefono_ = Label(frame, text="Telefono").grid(
+    row=7, column=0, sticky=W, pady=3, padx=6
+)
+email_ = Label(frame, text="Correo Electronico").grid(
+    row=8, column=0, sticky=W, pady=3, padx=6
+)
+
+# En esta seccion encontramos los campos vacios correspondientes a cada Item a llenar
+
+entrada_dni = Entry(frame, textvariable=dni, width=30, bd=3)
+entrada_dni.grid(row=2, column=1, pady=3, sticky=W, padx=6)
+
+entrada_apellido = Entry(frame, textvariable=apellido, width=30, bd=3)
+entrada_apellido.grid(row=3, column=1, pady=3, sticky=W, padx=6)
+
+entrada_nombre = Entry(frame, textvariable=nombre, width=30, bd=3)
+entrada_nombre.grid(row=4, column=1, pady=3, sticky=E, padx=6)
+
+entrada_direccion = Entry(frame, textvariable=direccion, width=30, bd=3)
+entrada_direccion.grid(row=5, column=1, pady=3, sticky=W, padx=6)
+
+entrada_localidad = Entry(frame, textvariable=localidad, width=30, bd=3)
+entrada_localidad.grid(row=6, column=1, pady=3, sticky=W, padx=6)
+
+entrada_telefono = Entry(frame, textvariable=telefono, width=30, bd=3)
+entrada_telefono.grid(row=7, column=1, pady=3, sticky=W, padx=6)
+
+entrada_email = Entry(frame, textvariable=email, width=30, bd=3)
+entrada_email.grid(row=8, column=1, pady=3, sticky=W, padx=6)
+
+
+# defino la tabla donde se veran los datos
+
+entrada3 = Entry(master, bd=4, textvariable=ingreso, state="disabled")
+entrada3.grid(row=11, column=0, pady=4, columnspan=2, ipadx=300)
+
+
+tabla = ttk.Treeview(master, columns=("uno", "dos", "tres", "cuatro", "cinco", "seis"))
+
+tabla.column("#0", width=100, minwidth=70)
+tabla.column("uno", width=100, minwidth=70)
+tabla.column("dos", width=100, minwidth=70)
+tabla.column("tres", width=100, minwidth=70)
+tabla.column("cuatro", width=100, minwidth=70)
+tabla.column("cinco", width=100, minwidth=70)
+tabla.column("seis", width=120, minwidth=70)
+
+
+tabla.heading("#0", text="D.N.I", anchor="w")
+tabla.heading("uno", text="Apellido", anchor="w")
+tabla.heading("dos", text="Nombre", anchor="w")
+tabla.heading("tres", text="Dirección", anchor="w")
+tabla.heading("cuatro", text="Localidad", anchor="w")
+tabla.heading("cinco", text="Telefono", anchor="w")
+tabla.heading("seis", text="Correo Electronico", anchor="w")
+
+
+tabla.grid(row=14, column=0, pady=3, columnspan=2)
+
+tabla.bind("<<TreeviewSelect>>", item_elegido)
+
+
+master.mainloop()
+# fin del Programa
