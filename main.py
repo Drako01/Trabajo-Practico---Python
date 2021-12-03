@@ -94,9 +94,11 @@ def modificar_(x):
     micursor.execute(sql, dato)
     mibase.commit()
 
-    x.set("Se ha modificado el Contacto")
     listar(x)
     limpiar_entries()
+    x.set(
+        f"Se ha modificado el Contacto DNI: {dato[6]}, de Nombre: {dato[1]} {dato[0]}"
+    )
 
 
 # Funcion para borrar un contacto
@@ -396,7 +398,6 @@ entrada_email.grid(row=8, column=1, pady=3, sticky=W, padx=6)
 
 entrada3 = Entry(master, bd=4, textvariable=ingreso, state="disabled")
 entrada3.grid(row=12, column=0, pady=4, columnspan=2, ipadx=300)
-
 
 tabla = ttk.Treeview(master, columns=("uno", "dos", "tres", "cuatro", "cinco", "seis"))
 
