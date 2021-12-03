@@ -80,7 +80,7 @@ def busqueda(x, dni):
 def modificar_(x):
     conect_sql()
     micursor = mibase.cursor()
-    sql = f"UPDATE entidad SET Apellido= %s, Nombre=%s, Direccion=%s, Localidad=%s, Telefono=%s, Email=%s WHERE DNI = %s"
+    sql = "UPDATE entidad SET Apellido= %s, Nombre=%s, Direccion=%s, Localidad=%s, Telefono=%s, Email=%s WHERE DNI = %s"
     dato = (
         apellido.get(),
         nombre.get(),
@@ -197,6 +197,11 @@ except:
 
 # Creacion de la Tabla en la Base de Datos
 
+conect_sql()
+mibase = mysql.connector.connect(
+    host="localhost", user="root", passwd="", database="Agenda_Contacto"
+)
+micursor = mibase.cursor()
 micursor.execute(
     "CREATE TABLE IF NOT EXISTS entidad( ID int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, DNI INT(8) COLLATE utf8_spanish2_ci NOT NULL, Apellido VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL, Nombre VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL, Direccion VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL , Localidad VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL, Telefono VARCHAR(15) COLLATE utf8_spanish2_ci NOT NULL, Email VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL)"
 )
