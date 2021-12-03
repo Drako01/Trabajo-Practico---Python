@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import ttk
-
+#hola
 master = Tk()
 master.title("Tabla de datos")
 master.config(bd=20)
