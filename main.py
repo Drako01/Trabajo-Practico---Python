@@ -21,34 +21,38 @@ def conect_sql():
 
 
 def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
-    conect_sql()
-    sql = "INSERT INTO entidad (DNI, Apellido, Nombre, Direccion, Localidad, Telefono, EMail) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-    datos = (
-        dni.get(),
-        apellido.get(),
-        nombre.get(),
-        direccion.get(),
-        localidad.get(),
-        telefono.get(),
-        email.get(),
-    )
-    micursor.execute(sql, datos)
-    mibase.commit()
-    x.set("Ud. Agrego al siguiente Contacto:")
-    tabla.insert(
-        "",
-        "end",
-        text=dni.get(),
-        values=[
+
+    if comparar_dni(dni) == False:
+        conect_sql()
+        sql = "INSERT INTO entidad (DNI, Apellido, Nombre, Direccion, Localidad, Telefono, EMail) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        datos = (
+            dni.get(),
             apellido.get(),
             nombre.get(),
             direccion.get(),
             localidad.get(),
             telefono.get(),
             email.get(),
-        ],
-    )
-    limpiar_entries()
+        )
+        micursor.execute(sql, datos)
+        mibase.commit()
+        x.set("Ud. Agrego al siguiente Contacto:")
+        tabla.insert(
+            "",
+            "end",
+            text=dni.get(),
+            values=[
+                apellido.get(),
+                nombre.get(),
+                direccion.get(),
+                localidad.get(),
+                telefono.get(),
+                email.get(),
+            ],
+        )
+        limpiar_entries()
+    else:
+        x.set("Ya existe ese Registro")
 
 
 # Funcion para buscar un contacto
@@ -78,27 +82,30 @@ def busqueda(x, dni):
 
 
 def modificar_(x):
-    conect_sql()
-    micursor = mibase.cursor()
-    sql = "UPDATE entidad SET Apellido= %s, Nombre=%s, Direccion=%s, Localidad=%s, Telefono=%s, Email=%s WHERE DNI = %s"
-    dato = (
-        apellido.get(),
-        nombre.get(),
-        direccion.get(),
-        localidad.get(),
-        telefono.get(),
-        email.get(),
-        dni.get(),
-    )
+    if comparar_dni(dni) == False:
+        conect_sql()
+        micursor = mibase.cursor()
+        sql = "UPDATE entidad SET Apellido= %s, Nombre=%s, Direccion=%s, Localidad=%s, Telefono=%s, Email=%s WHERE DNI = %s"
+        dato = (
+            apellido.get(),
+            nombre.get(),
+            direccion.get(),
+            localidad.get(),
+            telefono.get(),
+            email.get(),
+            dni.get(),
+        )
 
-    micursor.execute(sql, dato)
-    mibase.commit()
+        micursor.execute(sql, dato)
+        mibase.commit()
 
-    listar(x)
-    limpiar_entries()
-    x.set(
-        f"Se ha modificado el Contacto DNI: {dato[6]}, de Nombre: {dato[1]} {dato[0]}"
-    )
+        listar(x)
+        limpiar_entries()
+        x.set(
+            f"Se ha modificado el Contacto DNI: {dato[6]}, de Nombre: {dato[1]} {dato[0]}"
+        )
+    else:
+        x.set("Ya existe un Registro con ese dni")
 
 
 # Funcion para borrar un contacto
@@ -186,6 +193,22 @@ def limpiar_tabla():
     ingreso.set("")
     tabla.delete(*tabla.get_children())
     limpiar_entries()
+
+
+# Funcion compara DNI
+
+
+def comparar_dni(dni):
+    conect_sql()
+    micursor = mibase.cursor()
+    sql = "SELECT * FROM entidad WHERE DNI = {}".format(dni.get())
+    micursor.execute(sql)
+    registro = micursor.fetchall()
+
+    if not registro == []:
+        return True
+    else:
+        return False
 
 
 # creacion de la base de datos
@@ -394,10 +417,12 @@ entrada_email = Entry(frame, textvariable=email, width=30, bd=3)
 entrada_email.grid(row=8, column=1, pady=3, sticky=W, padx=6)
 
 
-# defino la tabla donde se veran los datos
+# entry registro de acciones del usuario
 
 entrada3 = Entry(master, bd=4, textvariable=ingreso, state="disabled")
 entrada3.grid(row=12, column=0, pady=4, columnspan=2, ipadx=300)
+
+# defino la tabla donde se veran los datos
 
 tabla = ttk.Treeview(master, columns=("uno", "dos", "tres", "cuatro", "cinco", "seis"))
 
