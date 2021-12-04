@@ -20,7 +20,7 @@ def conect_sql():
 # Funcion para cargar un contacto
 
 
-def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
+def callback(x, y, dni, apellido, nombre, direccion, localidad, telefono, email):
 
     if comparar_dni(dni) == False:
         conect_sql()
@@ -53,6 +53,7 @@ def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
         limpiar_entries()
     else:
         x.set("Ya existe ese Registro")
+        y.set("Ya existe ese Registro")
 
 
 # Funcion para buscar un contacto
@@ -82,30 +83,32 @@ def busqueda(x, dni):
 
 
 def modificar_(x):
-    if comparar_dni(dni) == False:
-        conect_sql()
-        micursor = mibase.cursor()
-        sql = "UPDATE entidad SET Apellido= %s, Nombre=%s, Direccion=%s, Localidad=%s, Telefono=%s, Email=%s WHERE DNI = %s"
-        dato = (
-            apellido.get(),
-            nombre.get(),
-            direccion.get(),
-            localidad.get(),
-            telefono.get(),
-            email.get(),
-            dni.get(),
-        )
+    # if comparar_dni(dni) == False:
+    conect_sql()
+    micursor = mibase.cursor()
+    sql = "UPDATE entidad SET Apellido= %s, Nombre=%s, Direccion=%s, Localidad=%s, Telefono=%s, Email=%s WHERE DNI = %s"
+    dato = (
+        apellido.get(),
+        nombre.get(),
+        direccion.get(),
+        localidad.get(),
+        telefono.get(),
+        email.get(),
+        dni.get(),
+    )
 
-        micursor.execute(sql, dato)
-        mibase.commit()
+    micursor.execute(sql, dato)
+    mibase.commit()
 
-        listar(x)
-        limpiar_entries()
-        x.set(
-            f"Se ha modificado el Contacto DNI: {dato[6]}, de Nombre: {dato[1]} {dato[0]}"
-        )
-    else:
-        x.set("Ya existe un Registro con ese dni")
+    listar(x)
+    limpiar_entries()
+    x.set(
+        f"Se ha modificado el Contacto DNI: {dato[6]}, de Nombre: {dato[1]} {dato[0]}"
+    )
+
+
+# else:
+#   x.set("Ya existe un Registro con ese dni")
 
 
 # Funcion para borrar un contacto
@@ -285,7 +288,13 @@ telefono = StringVar()
 email = StringVar()
 ingreso = StringVar()
 entidad = StringVar()
-
+error_dni = StringVar()
+error_apellido = StringVar()
+error_nombre = StringVar()
+error_direccion = StringVar()
+error_localidad = StringVar()
+error_telefono = StringVar()
+error_email = StringVar()
 
 # Definimos el Boton de Agendado
 
@@ -293,7 +302,7 @@ alta = Button(
     master,
     text="Agendar",
     command=lambda: callback(
-        ingreso, dni, apellido, nombre, direccion, localidad, telefono, email
+        ingreso, error_dni, dni, apellido, nombre, direccion, localidad, telefono, email
     ),
     padx=10,
     cursor="hand2",
@@ -374,24 +383,53 @@ reset.grid(row=11, column=1, pady=12, columnspan=1, sticky=N)
 
 # En esta seccion estan los Label donde figura el Nombre de cada Campo
 
-dni_ = Label(frame, text="D.N.I.").grid(row=2, column=0, sticky=W, pady=3, padx=6)
+dni_ = Label(frame, text="D.N.I.", bg="LightSteelBlue").grid(
+    row=2, column=0, sticky=W, pady=3, padx=6
+)
 
-apellido_ = Label(frame, text="Apellido").grid(
+apellido_ = Label(frame, text="Apellido", bg="LightSteelBlue").grid(
     row=3, column=0, sticky=W, pady=3, padx=6
 )
-nombre_ = Label(frame, text="Nombre(s)").grid(row=4, column=0, sticky=W, pady=3, padx=6)
-direccion_ = Label(frame, text="Dirección").grid(
+nombre_ = Label(frame, text="Nombre(s)", bg="LightSteelBlue").grid(
+    row=4, column=0, sticky=W, pady=3, padx=6
+)
+direccion_ = Label(frame, text="Dirección", bg="LightSteelBlue").grid(
     row=5, column=0, sticky=W, pady=3, padx=6
 )
-localidad_ = Label(frame, text="Localidad").grid(
+localidad_ = Label(frame, text="Localidad", bg="LightSteelBlue").grid(
     row=6, column=0, sticky=W, pady=3, padx=6
 )
-telefono_ = Label(frame, text="Telefono").grid(
+telefono_ = Label(frame, text="Telefono", bg="LightSteelBlue").grid(
     row=7, column=0, sticky=W, pady=3, padx=6
 )
-email_ = Label(frame, text="Correo Electronico").grid(
+email_ = Label(frame, text="Correo Electronico", bg="LightSteelBlue").grid(
     row=8, column=0, sticky=W, pady=3, padx=6
 )
+
+# En esta seccion estan los Label en caso de validacion erronea
+
+validacion_dni = Label(
+    frame, textvariable=error_dni, state="disabled", bg="LightSteelBlue", fg="Red"
+).grid(row=2, column=3, sticky=W, pady=3, padx=6)
+
+validacion_apellido = Label(
+    frame, textvariable=error_apellido, state="disabled", bg="LightSteelBlue"
+).grid(row=3, column=3, sticky=W, pady=3, padx=6)
+validacion_nombre = Label(
+    frame, textvariable=error_nombre, state="disabled", bg="LightSteelBlue"
+).grid(row=4, column=3, sticky=W, pady=3, padx=6)
+validacion_direccion = Label(
+    frame, textvariable=error_direccion, state="disabled", bg="LightSteelBlue"
+).grid(row=5, column=3, sticky=W, pady=3, padx=6)
+validacion_localidad = Label(
+    frame, textvariable=error_localidad, state="disabled", bg="LightSteelBlue"
+).grid(row=6, column=3, sticky=W, pady=3, padx=6)
+validacion_telefono = Label(
+    frame, textvariable=error_telefono, state="disabled", bg="LightSteelBlue"
+).grid(row=7, column=3, sticky=W, pady=3, padx=6)
+validacion_email = Label(
+    frame, textvariable=error_email, state="disabled", bg="LightSteelBlue"
+).grid(row=8, column=3, sticky=W, pady=3, padx=6)
 
 # En esta seccion encontramos los campos vacios correspondientes a cada Item a llenar
 
