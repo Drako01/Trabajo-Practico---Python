@@ -11,6 +11,7 @@ import re
 
 # Funcion para conectar a la base de datos
 
+
 def conect_sql():
     mibase = mysql.connector.connect(
         host="localhost", user="root", passwd="", database="Agenda_Contacto"
@@ -18,16 +19,15 @@ def conect_sql():
     micursor = mibase.cursor()
 
 
-
 # Funcion para cargar un contacto
 
 
 def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
-    
+
     if comparar_dni(dni) == False:
-        if validacionCorreo() == True:
+        patron = r"([\w\.-]+)@([\w\.-]+)(\.[\w\.]+)"
+        if re.match(patron, email.get()):
             conect_sql()
-            
             sql = "INSERT INTO entidad (DNI, Apellido, Nombre, Direccion, Localidad, Telefono, EMail) VALUES (%s, %s, %s, %s, %s, %s, %s)"
             datos = (
                 dni.get(),
@@ -57,9 +57,9 @@ def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
             limpiar_entries()
         else:
             x.set("La Direccion de Mail NO es Valida")
-        
+
     else:
-        x.set("Ya existe ese Registro")        
+        x.set("Ya existe ese Registro")
 
 
 # Funcion para buscar un contacto
@@ -217,13 +217,16 @@ def comparar_dni(dni):
     else:
         return False
 
+
 # Definimos la Funcion para la Validacion del EMail.!
 
+
 def validacionCorreo():
-    email_=email.get()
-    patron=re.compile["r'(<)?(\w+@\w+(?:\.[a-z]+)+)(?(1)>|$)', re.I)"]
-    return re.match(patron,email_)       
-        
+    email_ = email.get()
+    patron = re.compile["r'(<)?(\w+@\w+(?:\.[a-z]+)+)(?(1)>|$)', re.I)"]
+    return re.match(patron, email_)
+
+
 # creacion de la base de datos
 
 mibase = mysql.connector.connect(host="localhost", user="root", passwd="")
@@ -297,7 +300,6 @@ telefono = StringVar()
 email = StringVar()
 ingreso = StringVar()
 entidad = StringVar()
-
 
 
 # Definimos el Boton de Agendado
