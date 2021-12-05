@@ -4,11 +4,12 @@ from tkinter import *
 from tkinter import ttk
 import mysql.connector
 from tkinter.messagebox import *
+import re
+
 
 # Definimos las Funciones
 
 # Funcion para conectar a la base de datos
-
 
 def conect_sql():
     mibase = mysql.connector.connect(
@@ -17,43 +18,49 @@ def conect_sql():
     micursor = mibase.cursor()
 
 
+
 # Funcion para cargar un contacto
 
 
 def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
     
     if comparar_dni(dni) == False:
-        conect_sql()
-        sql = "INSERT INTO entidad (DNI, Apellido, Nombre, Direccion, Localidad, Telefono, EMail) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-        datos = (
-            dni.get(),
-            apellido.get(),
-            nombre.get(),
-            direccion.get(),
-            localidad.get(),
-            telefono.get(),
-            email.get(),
-        )
-        micursor.execute(sql, datos)
-        mibase.commit()
-        x.set("Ud. Agrego al siguiente Contacto:")
-        tabla.insert(
-            "",
-            "end",
-            text=dni.get(),
-            values=[
+        if validacionCorreo(email.get()) == True:
+            conect_sql()
+            
+            sql = "INSERT INTO entidad (DNI, Apellido, Nombre, Direccion, Localidad, Telefono, EMail) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+            datos = (
+                dni.get(),
                 apellido.get(),
                 nombre.get(),
                 direccion.get(),
                 localidad.get(),
                 telefono.get(),
                 email.get(),
-            ],
-        )
+            )
+            micursor.execute(sql, datos)
+            mibase.commit()
+            x.set("Ud. Agrego al siguiente Contacto:")
+            tabla.insert(
+                "",
+                "end",
+                text=dni.get(),
+                values=[
+                    apellido.get(),
+                    nombre.get(),
+                    direccion.get(),
+                    localidad.get(),
+                    telefono.get(),
+                    email.get(),
+                ],
+            )
+         
+        
+        
         limpiar_entries()
+        
     else:
-        x.set("Ya existe ese Registro")
-        #y.set("Ya existe ese Registro")
+        x.set("Ya existe ese Registro")        
 
 
 # Funcion para buscar un contacto
@@ -139,9 +146,7 @@ def borrar(x):
 # Funcion para cargar todos los contacto
 
 
-def listar(
-    x,
-):
+def listar(x):
     limpiar_tabla()
     conect_sql()
     micursor = mibase.cursor()
@@ -213,7 +218,15 @@ def comparar_dni(dni):
     else:
         return False
 
+# Definimos la Funcion para la Validacion del EMail.!
 
+def validacionCorreo():
+    email_=email.get()
+    patron="[A-Za-z]+((.+|_+)([a-z]+|(d+)))?@[A-Za-z]+.[A-Za-z]+$"
+    if not(re.match(patron,email_)):
+        ingreso.set("La Direccion de Mail NO es Valida")
+        
+        
 # creacion de la base de datos
 
 mibase = mysql.connector.connect(host="localhost", user="root", passwd="")
@@ -225,7 +238,6 @@ except:
 
 # Creacion de la Tabla en la Base de Datos
 
-conect_sql()
 mibase = mysql.connector.connect(
     host="localhost", user="root", passwd="", database="Agenda_Contacto"
 )
@@ -465,5 +477,7 @@ encabezado = Label(
 encabezado.grid(row=15, column=0, columnspan=2, pady=10)
 
 master.mainloop()
+
+micursor.close()
 
 # fin del Programa
