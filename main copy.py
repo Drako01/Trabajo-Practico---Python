@@ -25,6 +25,7 @@ def conect_sql():
 def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
 
     if comparar_dni(dni) == False:
+        # Definimos la Validacion del EMail.!
         patron = r"([\w\.-]+)@([\w\.-]+)(\.[\w\.]+)"
         if re.match(patron, email.get()):
             conect_sql()
@@ -216,15 +217,6 @@ def comparar_dni(dni):
         return True
     else:
         return False
-
-
-# Definimos la Funcion para la Validacion del EMail.!
-
-
-def validacionCorreo():
-    email_ = email.get()
-    patron = re.compile["r'(<)?(\w+@\w+(?:\.[a-z]+)+)(?(1)>|$)', re.I)"]
-    return re.match(patron, email_)
 
 
 # creacion de la base de datos
