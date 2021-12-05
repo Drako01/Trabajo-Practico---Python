@@ -25,7 +25,7 @@ def conect_sql():
 def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
     
     if comparar_dni(dni) == False:
-        if validacionCorreo(email.get()) == True:
+        if validacionCorreo() == True:
             conect_sql()
             
             sql = "INSERT INTO entidad (DNI, Apellido, Nombre, Direccion, Localidad, Telefono, EMail) VALUES (%s, %s, %s, %s, %s, %s, %s)"
@@ -54,10 +54,9 @@ def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
                     email.get(),
                 ],
             )
-         
-        
-        
-        limpiar_entries()
+            limpiar_entries()
+        else:
+            x.set("La Direccion de Mail NO es Valida")
         
     else:
         x.set("Ya existe ese Registro")        
@@ -222,10 +221,8 @@ def comparar_dni(dni):
 
 def validacionCorreo():
     email_=email.get()
-    patron="[A-Za-z]+((.+|_+)([a-z]+|(d+)))?@[A-Za-z]+.[A-Za-z]+$"
-    if not(re.match(patron,email_)):
-        ingreso.set("La Direccion de Mail NO es Valida")
-        
+    patron=re.compile["r'(<)?(\w+@\w+(?:\.[a-z]+)+)(?(1)>|$)', re.I)"]
+    return re.match(patron,email_)       
         
 # creacion de la base de datos
 
