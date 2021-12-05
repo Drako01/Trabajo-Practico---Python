@@ -20,8 +20,8 @@ def conect_sql():
 # Funcion para cargar un contacto
 
 
-def callback(x, y, dni, apellido, nombre, direccion, localidad, telefono, email):
-
+def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
+    
     if comparar_dni(dni) == False:
         conect_sql()
         sql = "INSERT INTO entidad (DNI, Apellido, Nombre, Direccion, Localidad, Telefono, EMail) VALUES (%s, %s, %s, %s, %s, %s, %s)"
@@ -53,7 +53,7 @@ def callback(x, y, dni, apellido, nombre, direccion, localidad, telefono, email)
         limpiar_entries()
     else:
         x.set("Ya existe ese Registro")
-        y.set("Ya existe ese Registro")
+        #y.set("Ya existe ese Registro")
 
 
 # Funcion para buscar un contacto
@@ -288,13 +288,8 @@ telefono = StringVar()
 email = StringVar()
 ingreso = StringVar()
 entidad = StringVar()
-error_dni = StringVar()
-error_apellido = StringVar()
-error_nombre = StringVar()
-error_direccion = StringVar()
-error_localidad = StringVar()
-error_telefono = StringVar()
-error_email = StringVar()
+
+
 
 # Definimos el Boton de Agendado
 
@@ -302,7 +297,7 @@ alta = Button(
     master,
     text="Agendar",
     command=lambda: callback(
-        ingreso, error_dni, dni, apellido, nombre, direccion, localidad, telefono, email
+        ingreso, dni, apellido, nombre, direccion, localidad, telefono, email
     ),
     padx=10,
     cursor="hand2",
@@ -405,31 +400,6 @@ telefono_ = Label(frame, text="Telefono", bg="LightSteelBlue").grid(
 email_ = Label(frame, text="Correo Electronico", bg="LightSteelBlue").grid(
     row=8, column=0, sticky=W, pady=3, padx=6
 )
-
-# En esta seccion estan los Label en caso de validacion erronea
-
-validacion_dni = Label(
-    frame, textvariable=error_dni, state="disabled", bg="LightSteelBlue", fg="Red"
-).grid(row=2, column=3, sticky=W, pady=3, padx=6)
-
-validacion_apellido = Label(
-    frame, textvariable=error_apellido, state="disabled", bg="LightSteelBlue"
-).grid(row=3, column=3, sticky=W, pady=3, padx=6)
-validacion_nombre = Label(
-    frame, textvariable=error_nombre, state="disabled", bg="LightSteelBlue"
-).grid(row=4, column=3, sticky=W, pady=3, padx=6)
-validacion_direccion = Label(
-    frame, textvariable=error_direccion, state="disabled", bg="LightSteelBlue"
-).grid(row=5, column=3, sticky=W, pady=3, padx=6)
-validacion_localidad = Label(
-    frame, textvariable=error_localidad, state="disabled", bg="LightSteelBlue"
-).grid(row=6, column=3, sticky=W, pady=3, padx=6)
-validacion_telefono = Label(
-    frame, textvariable=error_telefono, state="disabled", bg="LightSteelBlue"
-).grid(row=7, column=3, sticky=W, pady=3, padx=6)
-validacion_email = Label(
-    frame, textvariable=error_email, state="disabled", bg="LightSteelBlue"
-).grid(row=8, column=3, sticky=W, pady=3, padx=6)
 
 # En esta seccion encontramos los campos vacios correspondientes a cada Item a llenar
 
