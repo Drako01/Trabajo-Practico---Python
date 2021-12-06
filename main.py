@@ -20,7 +20,8 @@ def conect_sql():
 
 
 # Funcion para cargar un contacto
-
+def colorNegro():
+    entrada3.config(fg="black", bg="LightSteelBlue", font=("Verdana", 10), width=6)
 
 def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
 
@@ -41,6 +42,7 @@ def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
             )
             micursor.execute(sql, datos)
             mibase.commit()
+            colorNegro()
             x.set("Ud. Agrego al siguiente Contacto:")
             tabla.insert(
                 "",
@@ -57,19 +59,18 @@ def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
             )
             limpiar_entries()
         else:
-            entrada3.config(fg="red", bg="LightSteelBlue", font=("Verdana", 12))
+            entrada3.config(fg="red", bg="LightSteelBlue", font=("Verdana", 10), width=6)
             x.set("La Direccion de Mail NO es Valida")
-
-    else:
+    else:        
         x.set("Ya existe ese Registro")
-    entrada3.config(fg="black", bg="LightSteelBlue", font=("Verdana", 10))
-
+        
 
 # Funcion para buscar un contacto
 
 
 def busqueda(x, dni):
     conect_sql()
+    colorNegro()
     micursor = mibase.cursor()
     sql = "SELECT * FROM entidad WHERE DNI = {}".format(dni.get())
     micursor.execute(sql)
@@ -91,9 +92,9 @@ def busqueda(x, dni):
 # Funcion para modificar un contacto
 
 
-def modificar_(x):
-    # if comparar_dni(dni) == False:
+def modificar_(x):    
     conect_sql()
+    colorNegro()
     micursor = mibase.cursor()
     sql = "UPDATE entidad SET Apellido= %s, Nombre=%s, Direccion=%s, Localidad=%s, Telefono=%s, Email=%s WHERE DNI = %s"
     dato = (
@@ -105,10 +106,8 @@ def modificar_(x):
         email.get(),
         dni.get(),
     )
-
     micursor.execute(sql, dato)
     mibase.commit()
-
     listar(x)
     limpiar_entries()
     x.set(
@@ -116,14 +115,12 @@ def modificar_(x):
     )
 
 
-# else:
-#   x.set("Ya existe un Registro con ese dni")
-
 
 # Funcion para borrar un contacto
 
 
 def borrar(x):
+    colorNegro()
     fila = tabla.selection()
 
     if len(fila) != 0:
@@ -150,6 +147,7 @@ def borrar(x):
 
 def listar(x):
     limpiar_tabla()
+    colorNegro()
     conect_sql()
     micursor = mibase.cursor()
     sql = "SELECT * FROM entidad"
@@ -258,7 +256,7 @@ encabezado = Label(
 )
 encabezado.grid(row=0, column=0, columnspan=2, pady=10)
 
-# Imagen no opcional
+# Imagen opcional
 
 imagen = PhotoImage(file="agenda2.gif")
 Label(master, image=imagen).grid(row=2, column=1, sticky=E)
@@ -434,7 +432,7 @@ entrada_email.grid(row=8, column=1, pady=3, sticky=W, padx=6)
 
 entrada3 = Label(master, bd=4, textvariable=ingreso)
 entrada3.config(
-    fg="black", bg="LightSteelBlue", font=("Verdana", 10)
+    fg="black", bg="LightSteelBlue", font=("Verdana", 10), width=6
 )  # Foreground  # Background
 entrada3.grid(row=12, column=0, pady=4, columnspan=2, ipadx=300)
 
