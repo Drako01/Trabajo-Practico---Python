@@ -19,9 +19,12 @@ def conect_sql():
     micursor = mibase.cursor()
 
 
-# Funcion para cargar un contacto
+# Definimos una Funcion para cambiar las Caracteristicas del Label
+
 def colorNegro():
     entrada3.config(fg="black", bg="LightSteelBlue", font=("Verdana", 10), width=6)
+    
+# Funcion para cargar un contacto
 
 def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
 
@@ -64,9 +67,7 @@ def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
     else:        
         x.set("Ya existe ese Registro")
         
-
 # Funcion para buscar un contacto
-
 
 def busqueda(x, dni):
     conect_sql()
@@ -88,9 +89,7 @@ def busqueda(x, dni):
     else:
         x.set("No se encontro el contacto.")
 
-
 # Funcion para modificar un contacto
-
 
 def modificar_(x):    
     conect_sql()
@@ -118,7 +117,6 @@ def modificar_(x):
 
 # Funcion para borrar un contacto
 
-
 def borrar(x):
     colorNegro()
     fila = tabla.selection()
@@ -141,9 +139,7 @@ def borrar(x):
     else:
         x.set("No se pudo Borrar el Contacto")
 
-
 # Funcion para cargar todos los contacto
-
 
 def listar(x):
     limpiar_tabla()
@@ -164,9 +160,7 @@ def listar(x):
     else:
         x.set("No se encontro el contacto.")
 
-
 # Funcion para cargar en los entry el contacto seleccionado del treview "tabla"
-
 
 def item_elegido(seleccion):
     for selec in tabla.selection():
@@ -180,9 +174,7 @@ def item_elegido(seleccion):
         telefono.set(record[4])
         email.set(record[5])
 
-
 # Funcion para limpiar los entry
-
 
 def limpiar_entries():
     dni.set("")
@@ -193,18 +185,14 @@ def limpiar_entries():
     telefono.set("")
     email.set("")
 
-
 # Funcion para limpiar la pantalla
-
 
 def limpiar_tabla():
     ingreso.set("")
     tabla.delete(*tabla.get_children())
     limpiar_entries()
 
-
 # Funcion compara DNI
-
 
 def comparar_dni(dni):
     conect_sql()
@@ -217,7 +205,6 @@ def comparar_dni(dni):
         return True
     else:
         return False
-
 
 # creacion de la base de datos
 
@@ -261,7 +248,6 @@ encabezado.grid(row=0, column=0, columnspan=2, pady=10)
 imagen = PhotoImage(file="agenda2.gif")
 Label(master, image=imagen).grid(row=2, column=1, sticky=E)
 
-
 # Etiqueta con referencia a la busqueda
 
 encabezado = Label(
@@ -272,7 +258,6 @@ encabezado = Label(
     width=80,
 )
 encabezado.grid(row=3, column=0, columnspan=2, pady=10)
-
 
 # Frame donde se ubican los entry y label
 
@@ -292,7 +277,6 @@ telefono = StringVar()
 email = StringVar()
 ingreso = StringVar()
 entidad = StringVar()
-
 
 # Definimos el Boton de Agendado
 
@@ -377,7 +361,6 @@ reset = Button(
     activeforeground="snow2",
 )
 reset.grid(row=11, column=1, pady=12, columnspan=1, sticky=N)
-
 
 # En esta seccion estan los Label donde figura el Nombre de cada Campo
 
