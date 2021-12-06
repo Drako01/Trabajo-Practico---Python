@@ -151,6 +151,7 @@ def borrar(x):
         tabla.delete(fila)
         limpiar_entries()
     else:
+        entrada3.config(fg="red", bg="LightSteelBlue", font=("Verdana", 10), width=6)
         x.set("No se pudo Borrar el Contacto")
 
 
@@ -159,7 +160,6 @@ def borrar(x):
 
 def listar(x):
     limpiar_tabla()
-    colorNegro()
     conect_sql()
     micursor = mibase.cursor()
     sql = "SELECT * FROM entidad"
@@ -172,8 +172,10 @@ def listar(x):
         for dato in registro:
             i = i + 1
             tabla.insert("", i, text=registro[i][1:2], values=registro[i][2:8])
+        colorNegro()
         x.set("Se encontraron los siguientes contactos.")
     else:
+        entrada3.config(fg="red", bg="LightSteelBlue", font=("Verdana", 10), width=6)
         x.set("No se encontro el contacto.")
 
 
