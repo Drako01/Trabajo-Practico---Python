@@ -8,7 +8,7 @@ import re
 
 
 # Definimos las Funciones
-color_fuente = "Black"
+
 # Funcion para conectar a la base de datos
 
 
@@ -57,12 +57,10 @@ def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
             )
             limpiar_entries()
         else:
-            entrada3.config(fg="red", bg="LightSteelBlue", font=("Verdana", 12))
             x.set("La Direccion de Mail NO es Valida")
 
     else:
         x.set("Ya existe ese Registro")
-    entrada3.config(fg="black", bg="LightSteelBlue", font=("Verdana", 10))
 
 
 # Funcion para buscar un contacto
@@ -432,10 +430,7 @@ entrada_email.grid(row=8, column=1, pady=3, sticky=W, padx=6)
 
 # entry registro de acciones del usuario
 
-entrada3 = Label(master, bd=4, textvariable=ingreso)
-entrada3.config(
-    fg="black", bg="LightSteelBlue", font=("Verdana", 10)
-)  # Foreground  # Background
+entrada3 = Entry(master, bd=4, textvariable=ingreso, state="disabled")
 entrada3.grid(row=12, column=0, pady=4, columnspan=2, ipadx=300)
 
 # defino la tabla donde se veran los datos
