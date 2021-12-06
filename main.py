@@ -109,9 +109,7 @@ def modificar_(x):
     mibase.commit()
     listar(x)
     limpiar_entries()
-    x.set(
-        f"Se ha modificado el Contacto DNI: {dato[6]}, de Nombre: {dato[1]} {dato[0]}"
-    )
+    x.set(f"Se ha modificado el Contacto DNI: {dato[6]}, de Nombre: {dato[1]} {dato[0]}")
 
 
 
