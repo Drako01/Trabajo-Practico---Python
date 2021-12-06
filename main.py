@@ -91,26 +91,30 @@ def busqueda(x, dni):
 
 # Funcion para modificar un contacto
 
-def modificar_(x):    
-    conect_sql()
-    colorNegro()
-    micursor = mibase.cursor()
-    sql = "UPDATE entidad SET Apellido= %s, Nombre=%s, Direccion=%s, Localidad=%s, Telefono=%s, Email=%s WHERE DNI = %s"
-    dato = (
-        apellido.get(),
-        nombre.get(),
-        direccion.get(),
-        localidad.get(),
-        telefono.get(),
-        email.get(),
-        dni.get(),
-    )
-    micursor.execute(sql, dato)
-    mibase.commit()
-    listar(x)
-    limpiar_entries()
-    x.set(f"Se ha modificado el Contacto DNI: {dato[6]}, de Nombre: {dato[1]} {dato[0]}")
-
+def modificar_(x):  
+    patron = r"([\w\.-]+)@([\w\.-]+)(\.[\w\.]+)"
+    if re.match(patron, email.get()):
+        conect_sql()
+        colorNegro()
+        micursor = mibase.cursor()
+        sql = "UPDATE entidad SET Apellido= %s, Nombre=%s, Direccion=%s, Localidad=%s, Telefono=%s, Email=%s WHERE DNI = %s"
+        dato = (
+            apellido.get(),
+            nombre.get(),
+            direccion.get(),
+            localidad.get(),
+            telefono.get(),
+            email.get(),
+            dni.get(),
+        )
+        micursor.execute(sql, dato)
+        mibase.commit()
+        listar(x)
+        limpiar_entries()
+        x.set(f"Se ha modificado el Contacto DNI: {dato[6]}, de Nombre: {dato[1]} {dato[0]}")
+    else:
+        entrada3.config(fg="red", bg="LightSteelBlue", font=("Verdana", 10), width=6)
+        x.set("La Direccion de Mail NO es Valida")
 
 
 # Funcion para borrar un contacto
