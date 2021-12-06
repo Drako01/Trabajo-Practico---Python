@@ -26,6 +26,12 @@ def colorNegro():
     entrada3.config(fg="black", bg="LightSteelBlue", font=("Verdana", 10), width=6)
 
 
+def colorRojo():
+    entrada3.config(
+        fg="red", bg="LightSteelBlue", font=("Verdana", 10, "bold"), width=6
+    )
+
+
 # Funcion para cargar un contacto
 
 
@@ -65,11 +71,10 @@ def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
             )
             limpiar_entries()
         else:
-            entrada3.config(
-                fg="red", bg="LightSteelBlue", font=("Verdana", 10), width=6
-            )
+            colorRojo()
             x.set("La Direccion de Mail NO es Valida")
     else:
+        colorRojo()
         x.set("Ya existe ese Registro")
 
 
@@ -78,7 +83,6 @@ def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
 
 def busqueda(x, dni):
     conect_sql()
-    colorNegro()
     micursor = mibase.cursor()
     sql = "SELECT * FROM entidad WHERE DNI = {}".format(dni.get())
     micursor.execute(sql)
@@ -91,9 +95,11 @@ def busqueda(x, dni):
         for dato in registro:
             i = i + 1
             tabla.insert("", i, text=registro[i][1:2], values=registro[i][2:8])
+        colorNegro()
         x.set("Se encontraron los siguientes contactos.")
 
     else:
+        colorRojo()
         x.set("No se encontro el contacto.")
 
 
@@ -124,7 +130,7 @@ def modificar_(x):
             f"Se ha modificado el Contacto DNI: {dato[6]}, de Nombre: {dato[1]} {dato[0]}"
         )
     else:
-        entrada3.config(fg="red", bg="LightSteelBlue", font=("Verdana", 10), width=6)
+        colorRojo()
         x.set("La Direccion de Mail NO es Valida")
 
 
@@ -151,7 +157,7 @@ def borrar(x):
         tabla.delete(fila)
         limpiar_entries()
     else:
-        entrada3.config(fg="red", bg="LightSteelBlue", font=("Verdana", 10), width=6)
+        colorRojo()
         x.set("No se pudo Borrar el Contacto")
 
 
@@ -175,7 +181,7 @@ def listar(x):
         colorNegro()
         x.set("Se encontraron los siguientes contactos.")
     else:
-        entrada3.config(fg="red", bg="LightSteelBlue", font=("Verdana", 10), width=6)
+        colorRojo()
         x.set("No se encontro el contacto.")
 
 
