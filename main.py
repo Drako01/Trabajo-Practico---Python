@@ -28,7 +28,7 @@ def colorNegro():
 
 def colorRojo():
     entrada3.config(
-        fg="red", bg="LightSteelBlue", font=("Verdana", 10, "bold"), width=6
+        fg="red", bg="Yellow", font=("Verdana", 10, "bold"), width=6
     )
 
 
