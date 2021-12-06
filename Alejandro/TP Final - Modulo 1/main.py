@@ -8,7 +8,7 @@ import re
 
 
 # Definimos las Funciones
-
+color_fuente = "Black"
 # Funcion para conectar a la base de datos
 
 
@@ -19,8 +19,12 @@ def conect_sql():
     micursor = mibase.cursor()
 
 
-# Funcion para cargar un contacto
+# Definimos una Funcion para cambiar las Caracteristicas del Label
 
+def colorNegro():
+    entrada3.config(fg="black", bg="LightSteelBlue", font=("Verdana", 10), width=6)
+    
+# Funcion para cargar un contacto
 
 def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
 
@@ -41,6 +45,7 @@ def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
             )
             micursor.execute(sql, datos)
             mibase.commit()
+            colorNegro()
             x.set("Ud. Agrego al siguiente Contacto:")
             tabla.insert(
                 "",
@@ -57,17 +62,16 @@ def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
             )
             limpiar_entries()
         else:
+            entrada3.config(fg="red", bg="LightSteelBlue", font=("Verdana", 10), width=6)
             x.set("La Direccion de Mail NO es Valida")
-
-    else:
+    else:        
         x.set("Ya existe ese Registro")
-
-
+        
 # Funcion para buscar un contacto
-
 
 def busqueda(x, dni):
     conect_sql()
+    colorNegro()
     micursor = mibase.cursor()
     sql = "SELECT * FROM entidad WHERE DNI = {}".format(dni.get())
     micursor.execute(sql)
@@ -85,43 +89,38 @@ def busqueda(x, dni):
     else:
         x.set("No se encontro el contacto.")
 
-
 # Funcion para modificar un contacto
 
-
-def modificar_(x):
-    # if comparar_dni(dni) == False:
-    conect_sql()
-    micursor = mibase.cursor()
-    sql = "UPDATE entidad SET Apellido= %s, Nombre=%s, Direccion=%s, Localidad=%s, Telefono=%s, Email=%s WHERE DNI = %s"
-    dato = (
-        apellido.get(),
-        nombre.get(),
-        direccion.get(),
-        localidad.get(),
-        telefono.get(),
-        email.get(),
-        dni.get(),
-    )
-
-    micursor.execute(sql, dato)
-    mibase.commit()
-
-    listar(x)
-    limpiar_entries()
-    x.set(
-        f"Se ha modificado el Contacto DNI: {dato[6]}, de Nombre: {dato[1]} {dato[0]}"
-    )
-
-
-# else:
-#   x.set("Ya existe un Registro con ese dni")
+def modificar_(x):  
+    patron = r"([\w\.-]+)@([\w\.-]+)(\.[\w\.]+)"
+    if re.match(patron, email.get()):
+        conect_sql()
+        colorNegro()
+        micursor = mibase.cursor()
+        sql = "UPDATE entidad SET Apellido= %s, Nombre=%s, Direccion=%s, Localidad=%s, Telefono=%s, Email=%s WHERE DNI = %s"
+        dato = (
+            apellido.get(),
+            nombre.get(),
+            direccion.get(),
+            localidad.get(),
+            telefono.get(),
+            email.get(),
+            dni.get(),
+        )
+        micursor.execute(sql, dato)
+        mibase.commit()
+        listar(x)
+        limpiar_entries()
+        x.set(f"Se ha modificado el Contacto DNI: {dato[6]}, de Nombre: {dato[1]} {dato[0]}")
+    else:
+        entrada3.config(fg="red", bg="LightSteelBlue", font=("Verdana", 10), width=6)
+        x.set("La Direccion de Mail NO es Valida")
 
 
 # Funcion para borrar un contacto
 
-
 def borrar(x):
+    colorNegro()
     fila = tabla.selection()
 
     if len(fila) != 0:
@@ -142,12 +141,11 @@ def borrar(x):
     else:
         x.set("No se pudo Borrar el Contacto")
 
-
 # Funcion para cargar todos los contacto
-
 
 def listar(x):
     limpiar_tabla()
+    colorNegro()
     conect_sql()
     micursor = mibase.cursor()
     sql = "SELECT * FROM entidad"
@@ -164,9 +162,7 @@ def listar(x):
     else:
         x.set("No se encontro el contacto.")
 
-
 # Funcion para cargar en los entry el contacto seleccionado del treview "tabla"
-
 
 def item_elegido(seleccion):
     for selec in tabla.selection():
@@ -180,9 +176,7 @@ def item_elegido(seleccion):
         telefono.set(record[4])
         email.set(record[5])
 
-
 # Funcion para limpiar los entry
-
 
 def limpiar_entries():
     dni.set("")
@@ -193,18 +187,14 @@ def limpiar_entries():
     telefono.set("")
     email.set("")
 
-
 # Funcion para limpiar la pantalla
-
 
 def limpiar_tabla():
     ingreso.set("")
     tabla.delete(*tabla.get_children())
     limpiar_entries()
 
-
 # Funcion compara DNI
-
 
 def comparar_dni(dni):
     conect_sql()
@@ -217,7 +207,6 @@ def comparar_dni(dni):
         return True
     else:
         return False
-
 
 # creacion de la base de datos
 
@@ -256,11 +245,10 @@ encabezado = Label(
 )
 encabezado.grid(row=0, column=0, columnspan=2, pady=10)
 
-# Imagen no opcional
+# Imagen opcional
 
 imagen = PhotoImage(file="agenda2.gif")
 Label(master, image=imagen).grid(row=2, column=1, sticky=E)
-
 
 # Etiqueta con referencia a la busqueda
 
@@ -272,7 +260,6 @@ encabezado = Label(
     width=80,
 )
 encabezado.grid(row=3, column=0, columnspan=2, pady=10)
-
 
 # Frame donde se ubican los entry y label
 
@@ -292,7 +279,6 @@ telefono = StringVar()
 email = StringVar()
 ingreso = StringVar()
 entidad = StringVar()
-
 
 # Definimos el Boton de Agendado
 
@@ -378,7 +364,6 @@ reset = Button(
 )
 reset.grid(row=11, column=1, pady=12, columnspan=1, sticky=N)
 
-
 # En esta seccion estan los Label donde figura el Nombre de cada Campo
 
 dni_ = Label(frame, text="D.N.I.", bg="LightSteelBlue").grid(
@@ -430,7 +415,10 @@ entrada_email.grid(row=8, column=1, pady=3, sticky=W, padx=6)
 
 # entry registro de acciones del usuario
 
-entrada3 = Entry(master, bd=4, textvariable=ingreso, state="disabled")
+entrada3 = Label(master, bd=4, textvariable=ingreso)
+entrada3.config(
+    fg="black", bg="LightSteelBlue", font=("Verdana", 10), width=6
+)  # Foreground  # Background
 entrada3.grid(row=12, column=0, pady=4, columnspan=2, ipadx=300)
 
 # defino la tabla donde se veran los datos
