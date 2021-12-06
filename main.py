@@ -21,10 +21,13 @@ def conect_sql():
 
 # Definimos una Funcion para cambiar las Caracteristicas del Label
 
+
 def colorNegro():
     entrada3.config(fg="black", bg="LightSteelBlue", font=("Verdana", 10), width=6)
-    
+
+
 # Funcion para cargar un contacto
+
 
 def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
 
@@ -62,12 +65,16 @@ def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
             )
             limpiar_entries()
         else:
-            entrada3.config(fg="red", bg="LightSteelBlue", font=("Verdana", 10), width=6)
+            entrada3.config(
+                fg="red", bg="LightSteelBlue", font=("Verdana", 10), width=6
+            )
             x.set("La Direccion de Mail NO es Valida")
-    else:        
+    else:
         x.set("Ya existe ese Registro")
-        
+
+
 # Funcion para buscar un contacto
+
 
 def busqueda(x, dni):
     conect_sql()
@@ -89,9 +96,11 @@ def busqueda(x, dni):
     else:
         x.set("No se encontro el contacto.")
 
+
 # Funcion para modificar un contacto
 
-def modificar_(x):  
+
+def modificar_(x):
     patron = r"([\w\.-]+)@([\w\.-]+)(\.[\w\.]+)"
     if re.match(patron, email.get()):
         conect_sql()
@@ -111,13 +120,16 @@ def modificar_(x):
         mibase.commit()
         listar(x)
         limpiar_entries()
-        x.set(f"Se ha modificado el Contacto DNI: {dato[6]}, de Nombre: {dato[1]} {dato[0]}")
+        x.set(
+            f"Se ha modificado el Contacto DNI: {dato[6]}, de Nombre: {dato[1]} {dato[0]}"
+        )
     else:
         entrada3.config(fg="red", bg="LightSteelBlue", font=("Verdana", 10), width=6)
         x.set("La Direccion de Mail NO es Valida")
 
 
 # Funcion para borrar un contacto
+
 
 def borrar(x):
     colorNegro()
@@ -141,7 +153,9 @@ def borrar(x):
     else:
         x.set("No se pudo Borrar el Contacto")
 
+
 # Funcion para cargar todos los contacto
+
 
 def listar(x):
     limpiar_tabla()
@@ -162,7 +176,9 @@ def listar(x):
     else:
         x.set("No se encontro el contacto.")
 
+
 # Funcion para cargar en los entry el contacto seleccionado del treview "tabla"
+
 
 def item_elegido(seleccion):
     for selec in tabla.selection():
@@ -176,7 +192,9 @@ def item_elegido(seleccion):
         telefono.set(record[4])
         email.set(record[5])
 
+
 # Funcion para limpiar los entry
+
 
 def limpiar_entries():
     dni.set("")
@@ -187,14 +205,18 @@ def limpiar_entries():
     telefono.set("")
     email.set("")
 
+
 # Funcion para limpiar la pantalla
+
 
 def limpiar_tabla():
     ingreso.set("")
     tabla.delete(*tabla.get_children())
     limpiar_entries()
 
+
 # Funcion compara DNI
+
 
 def comparar_dni(dni):
     conect_sql()
@@ -207,6 +229,7 @@ def comparar_dni(dni):
         return True
     else:
         return False
+
 
 # creacion de la base de datos
 
@@ -443,6 +466,18 @@ tabla.heading("seis", text="Correo Electronico", anchor="w")
 
 tabla.grid(row=14, column=0, pady=3, columnspan=2)
 tabla.bind("<<TreeviewSelect>>", item_elegido)
+
+estilo = ttk.Style(master)
+estilo.theme_use("alt")
+estilo.configure(".", font=("Helvetica", 12, "bold"), foreground="black")
+estilo.configure(
+    "Treeview", font=("Helvetica", 10), foreground="black", background="white"
+)
+estilo.map(
+    "Treeview",
+    background=[("selected", "LightSteelBlue")],
+    foreground=[("selected", "black")],
+)
 
 # etiqueta al pie con los integrantes
 
