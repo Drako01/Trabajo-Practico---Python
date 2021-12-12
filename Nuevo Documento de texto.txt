@@ -11,3 +11,6 @@ git config --get-all user.name "maromans"
 pip install git
 
 cmd
+
+
+\\vmware-host\Shared Folders\Documentos\PYTHON en estudio
