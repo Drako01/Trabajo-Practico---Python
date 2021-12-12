@@ -13,4 +13,4 @@ pip install git
 cmd
 
 
-\\vmware-host\Shared Folders\Documentos\PYTHON en estudio
+cd \\vmware-host\Shared Folders\Documentos\PYTHON en estudio
