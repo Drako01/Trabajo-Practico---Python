@@ -1,6 +1,11 @@
 git init
 
+git - -version
+
 cls
 
 git config --get-all user.email "maromansgaleno@gmail.com"
 git config --get-all user.name "maromans"
+
+
+pip install git
