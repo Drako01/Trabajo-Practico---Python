@@ -1,6 +1,6 @@
 git init
 
-git - -version
+git --version
 
 cls
 
@@ -9,3 +9,5 @@ git config --get-all user.name "maromans"
 
 
 pip install git
+
+cmd
