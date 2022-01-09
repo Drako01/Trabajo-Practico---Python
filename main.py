@@ -278,7 +278,7 @@ encabezado.grid(row=0, column=0, columnspan=2, pady=10)
 
 # Imagen opcional
 
-imagen = PhotoImage(file="agenda2.gif")
+imagen = PhotoImage(file="AGENDA2.gif")
 Label(master, image=imagen).grid(row=2, column=1, sticky=E)
 
 # Etiqueta con referencia a la busqueda
