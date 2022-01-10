@@ -1,19 +1,7 @@
 # Importamos las Bibliotecas de tkinter
 from __view__ import *
-
-# Funcion para conectar a la base de datos
-
-
-def conect_sql():
-    mibase = mysql.connector.connect(
-        host="localhost", user="root", passwd="", database="Agenda_Contacto"
-    )
-    micursor = mibase.cursor()
-
-
-
-# Funcion para cargar un contacto
-
+from __model__ import *
+import re
 
 def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
 
@@ -21,7 +9,7 @@ def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
         # Definimos la Validacion del EMail.!
         patron = r"([\w\.-]+)@([\w\.-]+)(\.[\w\.]+)"
         if re.match(patron, email.get()):
-            conect_sql()
+            __model__.connect()
             sql = "INSERT INTO entidad (DNI, Apellido, Nombre, Direccion, Localidad, Telefono, EMail) VALUES (%s, %s, %s, %s, %s, %s, %s)"
             datos = (
                 dni.get(),
@@ -59,7 +47,6 @@ def callback(x, dni, apellido, nombre, direccion, localidad, telefono, email):
 
 
 # Funcion para buscar un contacto
-
 
 def busqueda(x, dni):
     conect_sql()
@@ -116,7 +103,6 @@ def modificar_(x):
 
 # Funcion para borrar un contacto
 
-
 def borrar(x):
     colorNegro()
     fila = tabla.selection()
@@ -167,7 +153,6 @@ def listar(x):
 
 # Funcion para cargar en los entry el contacto seleccionado del treview "tabla"
 
-
 def item_elegido(seleccion):
     for selec in tabla.selection():
         item = tabla.item(selec)
@@ -183,7 +168,6 @@ def item_elegido(seleccion):
 
 # Funcion para limpiar los entry
 
-
 def limpiar_entries():
     dni.set("")
     apellido.set("")
@@ -196,7 +180,6 @@ def limpiar_entries():
 
 # Funcion para limpiar la pantalla
 
-
 def limpiar_tabla():
     ingreso.set("")
     tabla.delete(*tabla.get_children())
@@ -204,7 +187,6 @@ def limpiar_tabla():
 
 
 # Funcion compara DNI
-
 
 def comparar_dni(dni):
     conect_sql()
@@ -217,29 +199,6 @@ def comparar_dni(dni):
         return True
     else:
         return False
-
-
-# creacion de la base de datos
-
-mibase = mysql.connector.connect(host="localhost", user="root", passwd="")
-try:
-    micursor = mibase.cursor()
-    micursor.execute("CREATE DATABASE Agenda_Contacto")
-except:
-    print("Ya esta Creada la Base de Datos Agenda_Contactos")
-
-# Creacion de la Tabla en la Base de Datos
-
-mibase = mysql.connector.connect(
-    host="localhost", user="root", passwd="", database="Agenda_Contacto"
-)
-micursor = mibase.cursor()
-micursor.execute(
-    "CREATE TABLE IF NOT EXISTS entidad( ID int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, DNI INT(8) COLLATE utf8_spanish2_ci NOT NULL, Apellido VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL, Nombre VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL, Direccion VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL , Localidad VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL, Telefono VARCHAR(15) COLLATE utf8_spanish2_ci NOT NULL, Email VARCHAR(128) COLLATE utf8_spanish2_ci NOT NULL)"
-)
-
-
-
 
 # Definimos el Boton de Agendado
 
