@@ -276,7 +276,7 @@ encabezado = Label(
 )
 encabezado.grid(row=0, column=0, columnspan=2, pady=10)
 
-# Imagen opcional
+# Imagen opcional *
 
 imagen = PhotoImage(file="AGENDA2.gif")
 Label(master, image=imagen).grid(row=2, column=1, sticky=E)
