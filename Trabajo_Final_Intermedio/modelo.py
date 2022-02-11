@@ -77,6 +77,7 @@ class control:
                     # Definimos la Validacion del EMail.!
                     patron = r"([\w\.-]+)@([\w\.-]+)(\.[\w\.]+)"
                     if re.match(patron, self.email.get()):
+                        # Definimos la Validacion del Telefono iniciando con +1111111111.!
                         patron2 = r"^(\(?\+[\d]{1,3}\)?)\s?([\d]{1,5})\s?([\d][\s\.-]?){6,7}$"
                         if re.match(patron2, self.telefono.get()):
                             con = sqlite3.connect("Agenda_Contacto")
