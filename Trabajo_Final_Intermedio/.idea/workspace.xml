@@ -1,7 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e3265963-3572-4fbf-954b-c6761c23da65" name="Changes" comment="" />
+    <list default="true" id="e3265963-3572-4fbf-954b-c6761c23da65" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/build/setup/Analysis-00.toc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/setup/PKG-00.toc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/setup/PYZ-00.pyz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/setup/PYZ-00.toc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/setup/Tree-00.toc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/setup/Tree-01.toc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/setup/Tree-02.toc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/setup/base_library.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/setup/setup.exe.manifest" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/setup/setup.pkg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/setup/warn-setup.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/setup/xref-setup.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/setup.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/icono.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/setup.spec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../build/trabajo_final_intermedio/base_library.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../build/trabajo_final_intermedio/trabajo_final_intermedio.exe.manifest" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Trabajo Final - Intermedio/controler.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agenda_Contacto" beforeDir="false" afterPath="$PROJECT_DIR$/Agenda_Contacto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windowed.spec" beforeDir="false" afterPath="$PROJECT_DIR$/../trabajo_final_intermedio.spec" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -11,16 +34,52 @@
     <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="24wFfKwM24yPKAoIYhUGMEQAvU4" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="false" id="Update" />
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="TODO_SCOPE" value="All Places" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunManager">
+    <configuration name="controler" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Trabajo Final - Intermedio" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/controler.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.controler" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -43,5 +102,8 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>
