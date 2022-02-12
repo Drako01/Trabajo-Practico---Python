@@ -4,7 +4,7 @@
 block_cipher = None
 
 
-a = Analysis(['windowed', 'controler.py'],
+a = Analysis(['trabajo_final_intermedio'],
              pathex=[],
              binaries=[],
              datas=[],
@@ -24,12 +24,12 @@ exe = EXE(pyz,
           a.scripts, 
           [],
           exclude_binaries=True,
-          name='windowed',
+          name='trabajo_final_intermedio',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,
           upx=True,
-          console=True,
+          console=False,
           disable_windowed_traceback=False,
           target_arch=None,
           codesign_identity=None,
@@ -41,4 +41,4 @@ coll = COLLECT(exe,
                strip=False,
                upx=True,
                upx_exclude=[],
-               name='windowed')
+               name='trabajo_final_intermedio')

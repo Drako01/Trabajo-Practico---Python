@@ -2,8 +2,9 @@
 
 from tkinter import *
 from tkinter import ttk
-from tkinter.messagebox import *
 import modelo
+
+
 
 
 class Aplicacion:
@@ -14,10 +15,6 @@ class Aplicacion:
         self.conectado.crear_bbdd()
         self.con = self.conectado.conectar()
         self.conectado.crear_tabla()
-        """ self.conectado = modelo.conectar()
-        self.conectado.crearBaseDatos()
-        self.conectado.crearTabla()
-        self.con = self.conectado.conect_sql() """
 
         # Definimos Variables
         self.colorfuente = "Black"
@@ -131,7 +128,6 @@ class Aplicacion:
         Entry(self.frame, textvariable=self.telefono, width=30, bd=3).grid(
             row=7, column=1, pady=3, sticky=W, padx=6
         )
-
         Entry(self.frame, textvariable=self.email, width=30, bd=3).grid(
             row=8, column=1, pady=3, sticky=W, padx=6
         )
