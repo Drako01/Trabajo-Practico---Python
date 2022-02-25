@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modulo Modulo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/pages/style.css" />
+</head>
+
+<body bgcolor="#f0f0f8">
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#" style="color: rgb(9, 9, 102); font-style: italic; font-size: 30px">Agenda de
+          Contactos</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+          aria-Controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav letras" style="font-size: 20px; margin-left: 50px">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Modulos
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"
+                style="font-size: 20px; margin-left: 50px">
+                <li>
+                  <a class="dropdown-item" href="/pages/modelo.html">Modelo</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/pages/vista.html">Vista</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/pages/Controler.html">Controlador</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="cuerpo">
+    <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+      <tr bgcolor="#7799ee">
+        <td valign=bottom>&nbsp;<br>
+          <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>modelo</strong></big></big>
+          </font>
+        </td>
+        <td align=right valign=bottom>
+          <font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a
+              href="file:f%3A%5Cgit%5Ctrabajo_final_intermedio%5Cmodelo.py">f:\git\trabajo_final_intermedio\modelo.py</a>
+          </font>
+        </td>
+      </tr>
+    </table>
+    <p><tt>Se&nbsp;define&nbsp;el&nbsp;modulo&nbsp;modelo&nbsp;&nbsp;&nbsp;.</tt></p>
+    <p>
+    <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+      <tr bgcolor="#aa55cc">
+        <td colspan=3 valign=bottom>&nbsp;<br>
+          <font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font>
+        </td>
+      </tr>
+
+      <tr>
+        <td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td>
+        <td>&nbsp;</td>
+        <td width="100%">
+          <table width="100%" summary="list">
+            <tr>
+              <td width="25%" valign=top><a href="re.html">re</a><br>
+              </td>
+              <td width="25%" valign=top><a href="sqlite3.html">sqlite3</a><br>
+              </td>
+              <td width="25%" valign=top></td>
+              <td width="25%" valign=top></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <p>
+    <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+      <tr bgcolor="#ee77aa">
+        <td colspan=3 valign=bottom>&nbsp;<br>
+          <font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font>
+        </td>
+      </tr>
+
+      <tr>
+        <td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td>
+        <td>&nbsp;</td>
+        <td width="100%">
+          <dl>
+            <dt>
+              <font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+              </font>
+            </dt>
+            <dd>
+              <dl>
+                <dt>
+                  <font face="helvetica, arial"><a href="modelo.html#Conectando">Conectando</a>
+                  </font>
+                </dt>
+                <dt>
+                  <font face="helvetica, arial"><a href="modelo.html#Control">Control</a>
+                  </font>
+                </dt>
+              </dl>
+            </dd>
+          </dl>
+          <p>
+          <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+            <tr bgcolor="#ffc8d8">
+              <td colspan=3 valign=bottom>&nbsp;<br>
+                <font color="#000000" face="helvetica, arial"><a name="Conectando">class
+                    <strong>Conectando</strong></a>(<a href="builtins.html#object">builtins.object</a>)
+                </font>
+              </td>
+            </tr>
+
+            <tr bgcolor="#ffc8d8">
+              <td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+              <td colspan=2><tt>En&nbsp;la&nbsp;clase&nbsp;<a
+                    href="#Conectando">Conectando</a>&nbsp;se&nbsp;definen&nbsp;4&nbsp;metodos:<br>
+                  metodo&nbsp;conectar:&nbsp;para&nbsp;la&nbsp;base&nbsp;de&nbsp;datos&nbsp;Agenda_Contacto&nbsp;con&nbsp;motor&nbsp;sqlite3<br>
+                  metodo&nbsp;crear_bbdd:&nbsp;realiza&nbsp;la&nbsp;conecion&nbsp;a&nbsp;la&nbsp;base,&nbsp;con&nbsp;Regex<br>
+                  metodo&nbsp;cursor_obj:&nbsp;se&nbsp;define&nbsp;cursor<br>
+                  metodo&nbsp;crear_tabla:&nbsp;metodo&nbsp;que&nbsp;llama&nbsp;al&nbsp;cursor&nbsp;para&nbsp;crear&nbsp;la&nbsp;tabla&nbsp;Entidad,<br>
+                  en&nbsp;caso&nbsp;de&nbsp;no&nbsp;existir&nbsp;no&nbsp;la&nbsp;crea.<br>&nbsp;</tt></td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td width="100%">Methods defined here:<br>
+                <dl>
+                  <dt><a name="Conectando-conectar"><strong>conectar</strong></a>(self)</dt>
+                  <dd><tt>Metodo&nbsp;que&nbsp;define&nbsp;la&nbsp;conexion&nbsp;en&nbsp;sqlite3.</tt>
+                  </dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="Conectando-crear_bbdd"><strong>crear_bbdd</strong></a>(self)</dt>
+                  <dd><tt>Metodo&nbsp;que&nbsp;crea&nbsp;la&nbsp;Base&nbsp;de&nbsp;Dato&nbsp;Agenda_Contacto.</tt>
+                  </dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="Conectando-crear_tabla"><strong>crear_tabla</strong></a>(self)</dt>
+                  <dd><tt>Metodo&nbsp;que&nbsp;crea&nbsp;la&nbsp;base&nbsp;tabla&nbsp;entidad.</tt></dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="Conectando-cursor_obj"><strong>cursor_obj</strong></a>(self)</dt>
+                  <dd>
+                    <tt>Metodo&nbsp;que&nbsp;define&nbsp;el&nbsp;cursor&nbsp;a&nbsp;partir&nbsp;del&nbsp;metodo&nbsp;conectar.</tt>
+                  </dd>
+                </dl>
+
+                <hr>
+                Data descriptors defined here:<br>
+                <dl>
+                  <dt><strong>__dict__</strong></dt>
+                  <dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt>
+                  </dd>
+                </dl>
+                <dl>
+                  <dt><strong>__weakref__</strong></dt>
+                  <dd>
+                    <tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt>
+                  </dd>
+                </dl>
+              </td>
+            </tr>
+          </table>
+          <p>
+          <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+            <tr bgcolor="#ffc8d8">
+              <td colspan=3 valign=bottom>&nbsp;<br>
+                <font color="#000000" face="helvetica, arial"><a name="Control">class
+                    <strong>Control</strong></a>(<a href="builtins.html#object">builtins.object</a>)
+                </font>
+              </td>
+            </tr>
+
+            <tr bgcolor="#ffc8d8">
+              <td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+              <td colspan=2><tt><a
+                    href="#Control">Control</a>(entrada3,&nbsp;ingreso,&nbsp;con,&nbsp;dni,&nbsp;apellido,&nbsp;nombre,&nbsp;direccion,&nbsp;localidad,&nbsp;telefono,&nbsp;email,&nbsp;tabla)<br>
+                  &nbsp;<br>
+                  Clase&nbsp;que&nbsp;le&nbsp;da&nbsp;funcionalidad&nbsp;a&nbsp;los&nbsp;Widget&nbsp;Button.<br>
+                  En&nbsp;la&nbsp;clase&nbsp;<a
+                    href="#Control">Control</a>&nbsp;se&nbsp;definen&nbsp;12&nbsp;metodos.<br>&nbsp;</tt>
+              </td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td width="100%">Methods defined here:<br>
+                <dl>
+                  <dt><a name="Control-__init__"><strong>__init__</strong></a>(self, entrada3, ingreso,
+                    con, dni, apellido, nombre, direccion, localidad, telefono, email, tabla)</dt>
+                  <dd>
+                    <tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt>
+                  </dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="Control-borrar"><strong>borrar</strong></a>(self)</dt>
+                  <dd><tt>Definimos&nbsp;el&nbsp;metodo&nbsp;modificar.</tt></dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="Control-busqueda"><strong>busqueda</strong></a>(self)</dt>
+                  <dd><tt>Definimos&nbsp;el&nbsp;metodo&nbsp;busqueda,<br>
+                      verificando&nbsp;la&nbsp;existencia&nbsp;del&nbsp;contacto&nbsp;e<br>
+                      informando&nbsp;mediante&nbsp;un&nbsp;mensaje&nbsp;si&nbsp;se&nbsp;haya&nbsp;o&nbsp;no.</tt>
+                  </dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="Control-callback"><strong>callback</strong></a>(self)</dt>
+                  <dd><tt>Definimos&nbsp;el&nbsp;metodo&nbsp;callback&nbsp;para&nbsp;cargar&nbsp;un&nbsp;contacto,<br>
+                      verificando&nbsp;las&nbsp;siguientes&nbsp;condiciones:<br>
+                      Que&nbsp;el&nbsp;campo&nbsp;DNI&nbsp;sea&nbsp;un&nbsp;valor&nbsp;entero.<br>
+                      Que&nbsp;el&nbsp;registro&nbsp;no&nbsp;exista&nbsp;en&nbsp;la&nbsp;base.<br>
+                      Definimos&nbsp;la&nbsp;Validacion&nbsp;del&nbsp;EMail.<br>
+                      Definimos&nbsp;la&nbsp;Validacion&nbsp;del&nbsp;Telefono&nbsp;iniciando&nbsp;con&nbsp;+5411111111<br>
+                      Excepciones:&nbsp;dni.get&nbsp;!=&nbsp;IntVar.</tt></dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="Control-colo_rojo"><strong>colo_rojo</strong></a>(self)</dt>
+                  <dd>
+                    <tt>Metodo&nbsp;para&nbsp;cambiar&nbsp;las&nbsp;Caracteristicas&nbsp;del&nbsp;mensaje&nbsp;de&nbsp;texto&nbsp;a&nbsp;rojo.</tt>
+                  </dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="Control-color_negro"><strong>color_negro</strong></a>(self)</dt>
+                  <dd>
+                    <tt>Metodo&nbsp;para&nbsp;cambiar&nbsp;las&nbsp;Caracteristicas&nbsp;del&nbsp;mensaje&nbsp;de&nbsp;texto&nbsp;a&nbsp;negro.</tt>
+                  </dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="Control-comparar_dni"><strong>comparar_dni</strong></a>(self)</dt>
+                  <dd><tt>Metodo&nbsp;para&nbsp;comparar&nbsp;los&nbsp;DNI.</tt></dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="Control-item_elegido"><strong>item_elegido</strong></a>(self, tabla, dni,
+                    apellido, nombre, direccion, localidad, telefono, email)</dt>
+                  <dd><tt>Definimos&nbsp;el&nbsp;metodo&nbsp;item_elegido.</tt></dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="Control-limpiar_entries"><strong>limpiar_entries</strong></a>(self)</dt>
+                  <dd><tt>Metodo&nbsp;para&nbsp;limpiar&nbsp;los&nbsp;entry.</tt></dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="Control-limpiar_tabla"><strong>limpiar_tabla</strong></a>(self)</dt>
+                  <dd><tt>Metodo&nbsp;para&nbsp;limpiar&nbsp;la&nbsp;tabla.</tt></dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="Control-listar"><strong>listar</strong></a>(self)</dt>
+                  <dd><tt>Definimos&nbsp;el&nbsp;metodo&nbsp;listar.</tt></dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="Control-modificar"><strong>modificar</strong></a>(self)</dt>
+                  <dd><tt>Definimos&nbsp;el&nbsp;metodo&nbsp;modificar,<br>
+                      verificando&nbsp;la&nbsp;existencia&nbsp;del&nbsp;contacto&nbsp;e<br>
+                      informando&nbsp;mediante&nbsp;un&nbsp;mensaje&nbsp;si&nbsp;se&nbsp;haya&nbsp;o&nbsp;no.</tt>
+                  </dd>
+                </dl>
+
+                <hr>
+                Data descriptors defined here:<br>
+                <dl>
+                  <dt><strong>__dict__</strong></dt>
+                  <dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt>
+                  </dd>
+                </dl>
+                <dl>
+                  <dt><strong>__weakref__</strong></dt>
+                  <dd>
+                    <tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt>
+                  </dd>
+                </dl>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+</html>

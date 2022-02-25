@@ -1,0 +1,379 @@
+"""Se define la vista   """
+
+from tkinter import *
+from tkinter import ttk
+import modelo
+
+class Loguin:
+    def __init__(self, ventana) -> None:
+        self.master = ventana
+        # Generamos la base de datos
+        self.conectado = modelo.Conectando()
+        self.conectado.crear_bbdd()
+        self.con = self.conectado.conectar()
+        self.conectado.crear_tabla()
+        
+        # Definimos Variables        
+        ventana.title ("Login Agenda")
+        ventana.geometry ("350x150+500+250")
+        Label(ventana, text = "Usuario:").pack()
+        caja1 = Entry(ventana, show = "*")
+        caja1.pack()
+        self.usuario= StringVar()
+        Label(ventana, text = "Contraseña:").pack()
+        self.contraseña = StringVar()
+        caja2 = Entry(ventana, show = "*")
+        caja2.pack()
+        
+        Button (text = "Loguin", command = Loguin).pack()
+        
+class Aplicacion:
+    """Clase que estructura la aplicacion."""
+
+    def __init__(self, root) -> None:
+        self.master = root
+        # Generamos la base de datos
+        self.conectado = modelo.Conectando()
+        self.conectado.crear_bbdd()
+        self.con = self.conectado.conectar()
+        self.conectado.crear_tabla()
+
+        # Definimos Variables
+        self.colorfuente = "Black"
+        self.dni = IntVar()
+        self.dni.set("")
+        self.nombre = StringVar()
+        self.apellido = StringVar()
+        self.direccion = StringVar()
+        self.localidad = StringVar()
+        self.telefono = StringVar()
+        self.email = StringVar()
+        self.ingreso = StringVar()
+        self.entidad = StringVar()
+        self.imagen = PhotoImage(file="agenda2.gif")
+
+        # llamamos a los metodos
+        self.ventana()
+        self.etiqueta()
+        self.entry()
+        self.arbol()
+        self.funcionamiento()
+        self.botones()
+
+    def ventana(self):
+        """Metodo que configura la ventana y el frame."""
+        self.master.title(
+            "Trabajo Final - Nivel Intermedio - Diplomatura en Python - UTN.BA"
+        )
+        self.master.resizable(False, False)
+        self.master.config(bd=20)
+
+        # Frame donde se ubican los entry y label
+        self.frame = Frame(self.master)
+        self.frame.grid(row=2, column=0)
+        self.frame.config(bg="LightSteelBlue")
+
+    def etiqueta(self):
+        """Clase que estructura los label"""
+
+        # Encabezado de la Agenda
+        Label(
+            self.master,
+            text="Ingrese los datos del Nuevo Contacto",
+            background="LightSteelBlue",
+            foreground="black",
+            width=80,
+        ).grid(row=0, column=0, columnspan=2, pady=10)
+
+        Label(
+            self.master,
+            text="¡ Debe completar todos los Campos !",
+            foreground="Black",
+            width=80,
+        ).grid(row=3, column=0, columnspan=2, pady=10)
+
+        # Imagen
+        Label(self.master, image=self.imagen).grid(row=2, column=1, sticky=E)
+
+        # Etiqueta con referencia a la busqueda
+        Label(
+            self.master,
+            text="Ingrese el DNI para Buscar o Eliminar al Contacto",
+            background="LightSteelBlue",
+            foreground="black",
+            width=80,
+        ).grid(row=4, column=0, columnspan=2, pady=10)
+
+        # En esta seccion encontramos los campos vacios correspondientes a cada valor.
+
+        Label(self.frame, text="D.N.I.", bg="LightSteelBlue").grid(
+            row=2, column=0, sticky=W, pady=3, padx=6
+        )
+        Label(self.frame, text="Apellido", bg="LightSteelBlue").grid(
+            row=3, column=0, sticky=W, pady=3, padx=6
+        )
+        Label(self.frame, text="Nombre(s)", bg="LightSteelBlue").grid(
+            row=4, column=0, sticky=W, pady=3, padx=6
+        )
+        Label(self.frame, text="Dirección", bg="LightSteelBlue").grid(
+            row=5, column=0, sticky=W, pady=3, padx=6
+        )
+        Label(self.frame, text="Localidad", bg="LightSteelBlue").grid(
+            row=6, column=0, sticky=W, pady=3, padx=6
+        )
+        Label(self.frame, text="Telefono", bg="LightSteelBlue").grid(
+            row=7, column=0, sticky=W, pady=3, padx=6
+        )
+        Label(self.frame, text="Correo Electronico", bg="LightSteelBlue").grid(
+            row=8, column=0, sticky=W, pady=3, padx=6
+        )
+
+        # etiqueta al pie con los integrantes
+        Label(
+            self.master,
+            text="INTEGRANTES: Alejandro Di Stefano - Oscar Quintana - Nora Nardi - Marcelo Mansilla - Juan Alberto Labajian",
+            background="LightSteelBlue",
+            foreground="black",
+            width=100,
+        ).grid(row=15, column=0, columnspan=2, pady=10)
+
+    def entry(self):
+        """En esta seccion encontramos los campos vacios correspondientes a cada Item a llenar."""
+
+        # entry registro de acciones del usuario
+        self.entrada3 = Label(self.master, bd=4, textvariable=self.ingreso)
+        self.entrada3.config(
+            fg="black", bg="LightSteelBlue", font=("Verdana", 10), width=6
+        )  # Foreground  # Background
+        self.entrada3.grid(row=12, column=0, pady=4, columnspan=2, ipadx=300)
+
+        # placeholders para los Campos
+        self.number_id = Entry(
+            self.frame, textvariable=self.dni, width=30, bd=3)
+        self.number_id.grid(row=2, column=1, pady=3, sticky=E, padx=6)
+        self.number_id.insert(0, "Ingrese Aqui...")
+        self.number_id.configure(state=DISABLED)
+        self.number_id.bind("<Button-1>", lambda event: self.onclick0())
+
+        self.last_name = Entry(
+            self.frame, textvariable=self.apellido, width=30, bd=3)
+        self.last_name.grid(row=3, column=1, pady=3, sticky=E, padx=6)
+        self.last_name.insert(0, "Ingrese Aqui...")
+        self.last_name.configure(state=DISABLED)
+        self.last_name.bind("<Button-1>", lambda event: self.onclick1())
+
+        self.name = Entry(self.frame, textvariable=self.nombre, width=30, bd=3)
+        self.name.grid(row=4, column=1, pady=3, sticky=E, padx=6)
+        self.name.insert(0, "Ingrese Aqui...")
+        self.name.configure(state=DISABLED)
+        self.name.bind("<Button-1>", lambda event: self.onclick2())
+
+        self.adress = Entry(
+            self.frame, textvariable=self.direccion, width=30, bd=3)
+        self.adress.grid(row=5, column=1, pady=3, sticky=E, padx=6)
+        self.adress.insert(0, "Ingrese Aqui...")
+        self.adress.configure(state=DISABLED)
+        self.adress.bind("<Button-1>", lambda event: self.onclick3())
+
+        self.city = Entry(
+            self.frame, textvariable=self.localidad, width=30, bd=3)
+        self.city.grid(row=6, column=1, pady=3, sticky=W, padx=6)
+        self.city.insert(0, "Ingrese Aqui...")
+        self.city.configure(state=DISABLED)
+        self.city.bind("<Button-1>", lambda event: self.onclick4())
+
+        self.phone = Entry(
+            self.frame, textvariable=self.telefono, width=30, bd=3)
+        self.phone.grid(row=7, column=1, pady=3, sticky=W, padx=6)
+        self.phone.insert(0, "Ejemplo: +541112345678")
+        self.phone.configure(state=DISABLED)
+        self.phone.bind("<Button-1>", lambda event: self.onclick5())
+
+        self.mail_id = Entry(
+            self.frame, textvariable=self.email, width=30, bd=3)
+        self.mail_id.grid(row=8, column=1, pady=3, sticky=W, padx=6)
+        self.mail_id.insert(0, "Ejemplo: xxxxx@xxx.xxx")
+        self.mail_id.configure(state=DISABLED)
+        self.mail_id.bind("<Button-1>", lambda event: self.onclick6())
+
+    # Defino Metodos para Desactivar el Placeholder de los Campos
+
+    def onclick0(self):
+        """Metodos para Desactivar el Placeholder de number_id (dni)."""
+
+        self.number_id.configure(state=NORMAL)
+        self.number_id.delete(0, END)
+
+    def onclick1(self):
+        """Metodos para Desactivar el Placeholder de last_name(apellido)."""
+        self.last_name.configure(state=NORMAL)
+        self.last_name.delete(0, END)
+
+    def onclick2(self):
+        """Metodos para Desactivar el Placeholder de name.(nombre)"""
+
+        self.name.configure(state=NORMAL)
+        self.name.delete(0, END)
+
+    def onclick3(self):
+        """Metodos para Desactivar el Placeholder de adress.(direccion)"""
+        self.adress.configure(state=NORMAL)
+        self.adress.delete(0, END)
+
+    def onclick4(self):
+        """Metodos para Desactivar el Placeholder de city.(localidad)"""
+
+        self.city.configure(state=NORMAL)
+        self.city.delete(0, END)
+
+    def onclick5(self):
+        """Metodos para Desactivar el Placeholder de phone.(telefono)"""
+
+        self.phone.configure(state=NORMAL)
+        self.phone.delete(0, END)
+
+    def onclick6(self):
+        """Metodos para Desactivar el Placeholder de mail.(emali)"""
+
+        self.mail_id.configure(state=NORMAL)
+        self.mail_id.delete(0, END)
+
+    def arbol(self):
+        """Metodo que define la tabla donde se veran los datos."""
+
+        self.tabla = ttk.Treeview(
+            self.master, columns=("uno", "dos", "tres",
+                                  "cuatro", "cinco", "seis")
+        )
+        self.tabla.column("#0", width=100, minwidth=70)
+        self.tabla.column("uno", width=100, minwidth=70)
+        self.tabla.column("dos", width=100, minwidth=70)
+        self.tabla.column("tres", width=100, minwidth=70)
+        self.tabla.column("cuatro", width=100, minwidth=70)
+        self.tabla.column("cinco", width=100, minwidth=70)
+        self.tabla.column("seis", width=120, minwidth=70)
+        self.tabla.heading("#0", text="D.N.I", anchor="w")
+        self.tabla.heading("uno", text="Apellido", anchor="w")
+        self.tabla.heading("dos", text="Nombre", anchor="w")
+        self.tabla.heading("tres", text="Dirección", anchor="w")
+        self.tabla.heading("cuatro", text="Localidad", anchor="w")
+        self.tabla.heading("cinco", text="Telefono", anchor="w")
+        self.tabla.heading("seis", text="Correo Electronico", anchor="w")
+        self.tabla.grid(row=14, column=0, pady=3, columnspan=2)
+        self.tabla.bind(
+            "<<TreeviewSelect>>",
+            lambda event, a=self.tabla, b=self.dni, c=self.apellido, d=self.nombre, e=self.direccion, f=self.localidad, g=self.telefono, h=self.email: self.funcion.item_elegido(
+                a, b, c, d, e, f, g, h
+            ),
+        )
+        self.estilo = ttk.Style(self.master)
+        self.estilo.theme_use("alt")
+        self.estilo.configure(".", font=(
+            "Helvetica", 12, "bold"), foreground="black")
+        self.estilo.configure(
+            "Treeview", font=("Helvetica", 10), foreground="black", background="white"
+        )
+        self.estilo.map(
+            "Treeview",
+            background=[("selected", "LightSteelBlue")],
+            foreground=[("selected", "black")],
+        )
+
+    def funcionamiento(self):
+        """Metodo para instanciar la clase modelo.Control."""
+
+        self.funcion = modelo.Control(
+            self.entrada3,
+            self.ingreso,
+            self.con,
+            self.dni,
+            self.apellido,
+            self.nombre,
+            self.direccion,
+            self.localidad,
+            self.telefono,
+            self.email,
+            self.tabla,
+        )
+
+    def botones(self):
+        """Clase que define los Buttons:
+        alta, buscar, listar_, borrar, modificar, reset.
+        """
+        self.alta = Button(
+            self.master,
+            text="Agendar",
+            command=lambda: self.funcion.callback(),
+            padx=10,
+            cursor="hand2",
+            bd=4,
+            activebackground="Royal blue",
+            activeforeground="snow2",
+        )
+        self.alta.grid(row=9, column=0, pady=12, columnspan=1, sticky=N)
+
+        # Definimos el Boton de Consulta
+
+        self.buscar = Button(
+            self.master,
+            text="Consultar",
+            command=lambda: self.funcion.busqueda(),
+            padx=10,
+            cursor="hand2",
+            bd=4,
+            activebackground="Royal blue",
+            activeforeground="snow2",
+        )
+        self.buscar.grid(row=9, column=1, pady=12, columnspan=1, sticky=N)
+
+        # Definimos el Boton Listar Contactos
+        self.listar_ = Button(
+            self.master,
+            text="   Listar   ",
+            command=lambda: self.funcion.listar(),
+            padx=10,
+            cursor="hand2",
+            bd=4,
+            activebackground="Royal blue",
+            activeforeground="snow2",
+        )
+        self.listar_.grid(row=10, column=0, pady=12, columnspan=1, sticky=N)
+
+        # Definimos el Boton de Borrar Contacto
+        self.borrar_ = Button(
+            self.master,
+            text="   Borrar   ",
+            command=lambda: self.funcion.borrar(),
+            padx=10,
+            cursor="hand2",
+            bd=4,
+            activebackground="Royal blue",
+            activeforeground="snow2",
+        )
+        self.borrar_.grid(row=10, column=1, pady=12, columnspan=1, sticky=N)
+
+        # Boton de Modificar Datos del Contacto
+        self.modificar = Button(
+            self.master,
+            text="Modificar",
+            command=lambda: self.funcion.modificar(),
+            padx=10,
+            cursor="hand2",
+            bd=4,
+            activebackground="Royal blue",
+            activeforeground="snow2",
+        )
+        self.modificar.grid(row=11, column=0, pady=12, columnspan=1, sticky=N)
+
+        # Boton de Reset Datos del Contacto
+        self.reset = Button(
+            self.master,
+            text="    Reset    ",
+            command=lambda: self.funcion.limpiar_tabla(),
+            padx=10,
+            cursor="hand2",
+            bd=4,
+            activebackground="Royal blue",
+            activeforeground="snow2",
+        )
+        self.reset.grid(row=11, column=1, pady=12, columnspan=1, sticky=N)
