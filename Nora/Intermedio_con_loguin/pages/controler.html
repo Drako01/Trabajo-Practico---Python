@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modulo Controlador</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/pages/style.css" />
+</head>
+
+<body bgcolor="#f0f0f8">
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#" style="color: rgb(9, 9, 102); font-style: italic; font-size: 30px">Agenda de
+          Contactos</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+          aria-Controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav letras" style="font-size: 20px; margin-left: 50px">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Modulos
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"
+                style="font-size: 20px; margin-left: 50px">
+                <li>
+                  <a class="dropdown-item" href="/pages/modelo.html">Modelo</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/pages/vista.html">Vista</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/pages/Controler.html">Controlador</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="cuerpo">
+    <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+      <tr bgcolor="#7799ee">
+        <td valign=bottom>&nbsp;<br>
+          <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>controler</strong></big></big>
+          </font>
+        </td>
+        <td align=right valign=bottom>
+          <font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a
+              href="file:f%3A%5Cgit%5Ctrabajo_final_intermedio%5Ccontroler.py">f:\git\trabajo_final_intermedio\controler.py</a>
+          </font>
+        </td>
+      </tr>
+    </table>
+    <p><tt>Se&nbsp;define&nbsp;el&nbsp;modulo&nbsp;Controlador&nbsp;con&nbsp;el&nbsp;patron&nbsp;MVC,<br>
+        el&nbsp;cual&nbsp;va&nbsp;a&nbsp;conectar&nbsp;los&nbsp;modulos&nbsp;Controlador&nbsp;y&nbsp;vista.</tt></p>
+    <p>
+    <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+      <tr bgcolor="#ee77aa">
+        <td colspan=3 valign=bottom>&nbsp;<br>
+          <font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font>
+        </td>
+      </tr>
+
+      <tr>
+        <td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td>
+        <td>&nbsp;</td>
+        <td width="100%">
+          <dl>
+            <dt>
+              <font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+              </font>
+            </dt>
+            <dd>
+              <dl>
+                <dt>
+                  <font face="helvetica, arial"><a href="controler.html#AppPrincipal">AppPrincipal</a>
+                  </font>
+                </dt>
+              </dl>
+            </dd>
+          </dl>
+          <p>
+          <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+            <tr bgcolor="#ffc8d8">
+              <td colspan=3 valign=bottom>&nbsp;<br>
+                <font color="#000000" face="helvetica, arial"><a name="AppPrincipal">class
+                    <strong>AppPrincipal</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font>
+              </td>
+            </tr>
+
+            <tr bgcolor="#ffc8d8">
+              <td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+              <td colspan=2><tt><a href="#AppPrincipal">AppPrincipal</a>(ventana)<br>
+                  &nbsp;<br>
+                  Clase&nbsp;que&nbsp;da&nbsp;inicio&nbsp;a&nbsp;la&nbsp;aplicación&nbsp;de&nbsp;Agenda&nbsp;de&nbsp;Contactos.<br>&nbsp;</tt>
+              </td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td width="100%">Methods defined here:<br>
+                <dl>
+                  <dt><a name="AppPrincipal-__init__"><strong>__init__</strong></a>(self, ventana)</dt>
+                  <dd>
+                    <tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt>
+                  </dd>
+                </dl>
+
+                <hr>
+                Data descriptors defined here:<br>
+                <dl>
+                  <dt><strong>__dict__</strong></dt>
+                  <dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt>
+                  </dd>
+                </dl>
+                <dl>
+                  <dt><strong>__weakref__</strong></dt>
+                  <dd>
+                    <tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt>
+                  </dd>
+                </dl>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+</html>
