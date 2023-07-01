@@ -1,4 +1,4 @@
-# Importamos las Bibliotecas de tkinter
+# Importamos las Bibliotecas de tkinter de la Libreria Python
 
 from tkinter import *
 from tkinter import ttk
