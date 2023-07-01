@@ -1,5 +1,3 @@
-
-
 <div align="center"><img src="https://crehana-blog.imgix.net/media/filer_public/e8/fb/e8fbdb68-fc40-4ae6-b939-19f9f9259d2c/que-es-python.jpg"></div>
 
 <h1>Trabajo intermedio  y final (Obligatorios)</h1>
@@ -14,7 +12,7 @@ Objetivos: Probar los conocimientos adquiridos y que el alumno comience a pasar 
 Participantes: El trabajo puede ser realizado de forma individual pero para afianzar el trabajo en equipo y la participación, se permite que los alumnos puedan conformar grupos de hasta 5 personas.! </p><br><br>
 
 
-
+<br>
 
 <H1>Alcance de la aplicación. </H1>
 
