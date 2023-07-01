@@ -40,3 +40,6 @@ Participantes: El trabajo puede ser realizado de forma individual pero para afia
 <div align="center">
 <img src="https://lidsol.org/courses/python/img/python.png">
 </div>
+
+
+# Gracias por pasar
